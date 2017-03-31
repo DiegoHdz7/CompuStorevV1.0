@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Íconos de la sección de CATEGORÍA DE PRODUCTOS -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:state_pressed="true"
+        android:drawable="@mipmap/product_categories_pressed"
+                /> <!-- pressed -->
+    <item
+        android:state_focused="true"
+        android:drawable="@mipmap/ic_launcher"
+            /> <!-- focused, not recommended for touch phones -->
+    <item
+        android:drawable="@mipmap/product_categories_default"
+            />  <!-- default icon -->
+
+</selector>

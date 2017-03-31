@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--*******PANTALLA PRINCIPAL-->
+    <!--PORTRAIT-->
+    <dimen name="p_principal_top_padding">90dp</dimen>
+    <dimen name="p_principal_side_padding">72dp</dimen>
+    <dimen name="p_principal_titleTop_padding">10dp</dimen>
+    <dimen name="portrait_titleSide_padding">90dp</dimen>
+
+    <!--LANDSCAPE-->
+    <dimen name="l_principal_top_padding">60dp</dimen>
+    <dimen name="l_principal_side_padding">90dp</dimen>
+    <dimen name="l_principal_titleTop_padding">10dp</dimen>
+    <dimen name="l_principal_titleSide_padding">200dp</dimen>
+    <!--***************************************************************-->
+
+    <!--*******PANTALLA CLIENTES-->
+    <!--PORTRAIT-->
+    <dimen name="p_clients_iconSide_padding">30dp</dimen>
+    <dimen name="p_clients_iconTop_padding">20dp</dimen>
+    <!--LANDSCAPE-->
+    <!--***************************************************************-->
+
+
+</resources>

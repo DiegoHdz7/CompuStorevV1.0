@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<!--
+Detalles de los íconos:
+Default.
+Foreground: 	0A095A
+Background: 	75B1FF
+
+Pressed
+Foreground: 	4A9C20
+Background: 	343340
+-->
+    <!-- Íconos de la sección de Clientes -->
+
+    <item
+        android:state_pressed="true"
+        android:drawable="@mipmap/clients_pressed"
+        />
+    <item
+        android:drawable="@mipmap/clients_default"
+        />
+
+</selector>
