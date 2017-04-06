@@ -6,12 +6,22 @@
     android:layout_height="match_parent"
     tools:context="com.fiuady.android.compustorevv10.MainActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tlb_main"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
+
     <TextView
         android:id="@+id/txv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/tlb_main"
         android:layout_marginStart="@dimen/l_principal_titleSide_padding"
         android:layout_marginTop="@dimen/l_principal_titleTop_padding"
         android:fontFamily="monospace"
@@ -25,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/tlb_main"
         android:layout_marginStart="@dimen/l_principal_side_padding"
         android:layout_marginTop="@dimen/l_principal_top_padding"
         android:src="@drawable/selection_product_categories" />
@@ -35,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ibt_productCategories"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/tlb_main"
         android:layout_marginTop="@dimen/l_principal_top_padding"
         android:layout_marginLeft="@dimen/l_principal_side_padding"
         android:src="@drawable/selection_products"
@@ -44,7 +54,7 @@
         android:id="@+id/ibt_assemblies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:layout_below="@id/tlb_main"
         android:layout_toRightOf="@id/ibt_products"
         android:layout_marginTop="@dimen/l_principal_top_padding"
         android:layout_marginLeft="@dimen/l_principal_side_padding"

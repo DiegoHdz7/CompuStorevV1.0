@@ -2,9 +2,12 @@
 <resources>
     <!--*******PANTALLA PRINCIPAL-->
     <!--PORTRAIT-->
-    <dimen name="p_principal_top_padding">90dp</dimen>
+    <dimen name="p_principal_top_padding">80dp</dimen>
     <dimen name="p_principal_side_padding">72dp</dimen>
-    <dimen name="p_principal_titleTop_padding">10dp</dimen>
+
+    <dimen name="p_principal_topWithTitle_padding">40dp</dimen>
+
+    <dimen name="p_principal_titleTop_padding">20dp</dimen>
     <dimen name="portrait_titleSide_padding">90dp</dimen>
 
     <!--LANDSCAPE-->
@@ -16,10 +19,33 @@
 
     <!--*******PANTALLA CLIENTES-->
     <!--PORTRAIT-->
-    <dimen name="p_clients_iconSide_padding">30dp</dimen>
-    <dimen name="p_clients_iconTop_padding">20dp</dimen>
+    <dimen name="p_clients_iconSide_padding">25dp</dimen>
+    <dimen name="p_clients_iconTop_padding">60dp</dimen>
+
+    <dimen name="p_clients_titleSide_padding">10dp</dimen>
+    <dimen name="p_clients_titleTop_padding">65dp</dimen>
+
+    <dimen name="p_clients_spnTop_padding">50dp</dimen>
+
+    <dimen name="p_clients_editTextSide_padding">12dp</dimen>
     <!--LANDSCAPE-->
     <!--***************************************************************-->
+
+    <!--*******PANTALLA NUEVO CLIENTE-->
+    <!--PORTRAIT-->
+    <dimen name="p_nClientSide_padding">10dp</dimen>
+    <dimen name="p_nClientTop_padding">15dp</dimen>
+
+    <dimen name="p_nClientSideF_padding">10dp</dimen>
+    <dimen name="p_nClientTopF_padding">8dp</dimen>
+    <dimen name="p_nClientTopF_Size">45dp</dimen>
+
+    <dimen name="p_nClientSideB_padding">80dp</dimen>
+    <dimen name="p_nClientTopB_padding">40dp</dimen>
+
+    <!--LANDSCAPE-->
+    <!--***************************************************************-->
+
 
 
 </resources>

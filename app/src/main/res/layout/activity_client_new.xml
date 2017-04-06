@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/txv_nClient_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ScrNewClient_title"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imv_clientsIcon"
+        android:fontFamily="serif"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="@dimen/p_clients_titleSide_padding"
+        android:layout_marginTop="@dimen/p_clients_titleTop_padding"
+        />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tlb_clients"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <TextView
+        android:id="@+id/txv_clientLName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txv_nClient_title"
+        android:layout_marginLeft="@dimen/p_nClientSide_padding"
+        android:layout_marginTop="@dimen/p_nClientTop_padding"
+        android:text="@string/ScrNewClient_lastName"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="serif"
+        />
+
+
+    <EditText
+        android:id="@+id/etx_fieldLN"
+        android:layout_width="254dp"
+        android:layout_height="@dimen/p_nClientTopF_Size"
+        android:layout_toRightOf="@id/txv_clientLName"
+        android:layout_below="@id/txv_nClient_title"
+        android:layout_marginTop="@dimen/p_nClientTopF_padding"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+        />
+
+    <TextView
+        android:id="@+id/txv_clientFN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etx_fieldLN"
+        android:layout_marginLeft="@dimen/p_nClientSide_padding"
+        android:layout_marginTop="@dimen/p_nClientTop_padding"
+        android:text="@string/ScrNewClient_firstName"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="serif"
+        />
+
+
+    <EditText
+        android:id="@+id/etx_clientFN"
+        android:layout_width="254dp"
+        android:layout_height="@dimen/p_nClientTopF_Size"
+        android:layout_toRightOf="@id/txv_clientFN"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/etx_fieldLN"
+        android:layout_marginTop="@dimen/p_nClientTopF_padding"
+        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+        />
+
+
+    <TextView
+        android:id="@+id/txv_clientAd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etx_clientFN"
+        android:layout_marginLeft="@dimen/p_nClientSide_padding"
+        android:layout_marginTop="@dimen/p_nClientTop_padding"
+        android:text="@string/ScrNewClient_adress"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="serif"
+        />
+
+
+    <EditText
+        android:id="@+id/etx_clientAd"
+        android:layout_width="254dp"
+        android:layout_height="@dimen/p_nClientTopF_Size"
+        android:layout_toRightOf="@id/txv_clientAd"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/etx_clientFN"
+        android:layout_marginTop="@dimen/p_nClientTopF_padding"
+        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+        />
+
+    <TextView
+        android:id="@+id/txv_clientT1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etx_clientAd"
+        android:layout_marginLeft="@dimen/p_nClientSide_padding"
+        android:layout_marginTop="@dimen/p_nClientTop_padding"
+        android:text="@string/ScrNewClient_phone1"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="serif"
+        />
+
+
+    <EditText
+        android:id="@+id/etx_clientT1"
+        android:layout_width="254dp"
+        android:layout_height="@dimen/p_nClientTopF_Size"
+        android:layout_toRightOf="@id/txv_clientT1"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/etx_clientAd"
+        android:layout_marginTop="@dimen/p_nClientTopF_padding"
+        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+        />
+
+    <TextView
+        android:id="@+id/txv_clientT2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etx_clientT1"
+        android:layout_marginLeft="@dimen/p_nClientSide_padding"
+        android:layout_marginTop="@dimen/p_nClientTop_padding"
+        android:text="@string/ScrNewClient_phone2"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="serif"
+        />
+
+
+    <EditText
+        android:id="@+id/etx_clientT2"
+        android:layout_width="254dp"
+        android:layout_height="@dimen/p_nClientTopF_Size"
+        android:layout_toRightOf="@id/txv_clientT2"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/etx_clientT1"
+        android:layout_marginTop="@dimen/p_nClientTopF_padding"
+        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+        />
+
+    <TextView
+        android:id="@+id/txv_clientT3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etx_clientT2"
+        android:layout_marginLeft="@dimen/p_nClientSide_padding"
+        android:layout_marginTop="@dimen/p_nClientTop_padding"
+        android:text="@string/ScrNewClient_phone3"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="serif"
+        />
+
+
+    <EditText
+        android:id="@+id/etx_clientT3"
+        android:layout_width="254dp"
+        android:layout_height="@dimen/p_nClientTopF_Size"
+        android:layout_toRightOf="@id/txv_clientT3"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/etx_clientT2"
+        android:layout_marginTop="@dimen/p_nClientTopF_padding"
+        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+        />
+
+    <TextView
+        android:id="@+id/txv_clientEm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etx_clientT3"
+        android:layout_marginLeft="@dimen/p_nClientSide_padding"
+        android:layout_marginTop="@dimen/p_nClientTop_padding"
+        android:text="@string/ScrNewClient_email"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="serif"
+        />
+
+
+    <EditText
+        android:id="@+id/etx_clientEm"
+        android:layout_width="254dp"
+        android:layout_height="@dimen/p_nClientTopF_Size"
+        android:layout_toRightOf="@id/txv_clientEm"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/etx_clientT3"
+        android:layout_marginTop="@dimen/p_nClientTopF_padding"
+        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+        />
+
+    <Button
+        android:id="@+id/btn_clientSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etx_clientEm"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="@dimen/p_nClientTopB_padding"
+        android:layout_marginLeft="@dimen/p_nClientSideB_padding"
+        android:text="@string/ScrNewClient_btnSave"
+        />
+
+    <Button
+        android:id="@+id/btn_clientCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etx_clientEm"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/p_nClientTopB_padding"
+        android:layout_marginRight="@dimen/p_nClientSideB_padding"
+        android:text="@string/ScrNewClient_btnCancel"
+        />
+
+
+</RelativeLayout>

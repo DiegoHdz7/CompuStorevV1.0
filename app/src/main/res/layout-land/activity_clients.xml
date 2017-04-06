@@ -54,14 +54,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/txv_clients_title"
-        android:layout_marginTop="@dimen/p_clients_spnTop_padding"
+        android:layout_marginTop="@dimen/p_clients_iconTop_padding"
         android:layout_toRightOf="@id/txv_filter"
         ></Spinner>
 
-
     <EditText
         android:id="@+id/etx_search"
-        android:layout_width="254dp"
+        android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_below="@id/txv_filter"
         android:layout_marginTop="@dimen/p_clients_editTextSide_padding"
@@ -74,18 +73,6 @@
         android:layout_toRightOf="@id/etx_search"
         android:src="@drawable/selection_clients_search"
         />
-
-    <android.support.v7.widget.RecyclerView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/customers_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height = "match_parent"
-        android:layout_below="@id/imb_search"
-        android:layout_marginTop="50dp"
-        tools:context="com.fiuady.android.compustorevv10.ClientsActivity"
-        >
-    </android.support.v7.widget.RecyclerView>
 
 
 </RelativeLayout>
