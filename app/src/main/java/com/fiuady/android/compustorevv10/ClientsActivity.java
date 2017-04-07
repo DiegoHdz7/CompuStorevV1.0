@@ -205,8 +205,8 @@ public class ClientsActivity extends AppCompatActivity implements AdapterView.On
                 //String.valueOf(edtSearch.getText());
 
                 customerAdapter = new CustomerAdapter(inventory.searchCustomersByFilter(getIntOfClientFilter(spnFilter.getSelectedItem().toString()),String.valueOf(edtSearch.getText().toString())));
-                Customers cust = (Customers) customerAdapter.getItemOfList(0);
-                edtSearch.setText(cust.getFirstName());
+                //Customers cust = (Customers) customerAdapter.getItemOfList(0);
+                //edtSearch.setText(cust.getFirstName());
                 recyclerView.setAdapter(customerAdapter);
             }
         });

@@ -29,6 +29,12 @@
 
     <dimen name="p_clients_editTextSide_padding">12dp</dimen>
     <!--LANDSCAPE-->
+    <dimen name="l_clients_editTextTop_padding">10dp</dimen>
+    <dimen name="l_clients_txvSide_padding">10dp</dimen>
+    <dimen name="l_clients_spnTop_padding">10dp</dimen>
+    <dimen name="l_clients_imbtTop_padding">5dp</dimen>
+    <dimen name="l_clients_imbSide_padding">85dp</dimen>
+
     <!--***************************************************************-->
 
     <!--*******PANTALLA NUEVO CLIENTE-->
@@ -42,6 +48,8 @@
 
     <dimen name="p_nClientSideB_padding">80dp</dimen>
     <dimen name="p_nClientTopB_padding">40dp</dimen>
+    <dimen name="p_nClientTopGab_padding">3dp</dimen>
+    p_nClientTopGab_padding
 
     <!--LANDSCAPE-->
     <!--***************************************************************-->

@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
         android:id="@+id/imv_clientsIcon"
@@ -56,7 +57,9 @@
         android:layout_below="@id/txv_clients_title"
         android:layout_marginTop="@dimen/p_clients_spnTop_padding"
         android:layout_toRightOf="@id/txv_filter"
-        ></Spinner>
+        tools:text="Filtros"
+        >
+    </Spinner>
 
 
     <EditText
@@ -80,9 +83,10 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/customers_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height = "match_parent"
+        android:layout_height = "wrap_content"
         android:layout_below="@id/imb_search"
         android:layout_marginTop="50dp"
+        android:layout_marginBottom="10dp"
         tools:context="com.fiuady.android.compustorevv10.ClientsActivity"
         >
     </android.support.v7.widget.RecyclerView>

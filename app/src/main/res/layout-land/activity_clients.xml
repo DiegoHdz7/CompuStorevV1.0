@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
         android:id="@+id/imv_clientsIcon"
@@ -14,6 +15,7 @@
         android:layout_marginLeft="@dimen/p_clients_iconSide_padding"
         android:layout_marginTop="@dimen/p_clients_iconTop_padding"
         />
+
     <TextView
         android:id="@+id/txv_clients_title"
         android:layout_width="wrap_content"
@@ -42,8 +44,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/txv_clients_title"
-        android:layout_marginLeft="@dimen/p_clients_iconSide_padding"
-        android:layout_marginTop="@dimen/p_clients_iconTop_padding"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="@dimen/l_clients_txvSide_padding"
+        android:layout_marginTop="@dimen/l_clients_editTextTop_padding"
         android:text="@string/spinner_label"
         android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark"
@@ -53,26 +56,49 @@
         android:id="@+id/spn_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txv_clients_title"
-        android:layout_marginTop="@dimen/p_clients_iconTop_padding"
-        android:layout_toRightOf="@id/txv_filter"
-        ></Spinner>
+        android:layout_below="@id/txv_filter"
+        android:layout_marginTop="@dimen/l_clients_spnTop_padding"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="@dimen/l_clients_txvSide_padding"
+        tools:text="Filtros"
+        >
+    </Spinner>
+
 
     <EditText
         android:id="@+id/etx_search"
-        android:layout_width="200dp"
+        android:layout_width="220dp"
         android:layout_height="50dp"
-        android:layout_below="@id/txv_filter"
-        android:layout_marginTop="@dimen/p_clients_editTextSide_padding"
+        android:layout_below="@id/spn_filter"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="@dimen/l_clients_txvSide_padding"
+        android:layout_marginTop="@dimen/l_clients_editTextTop_padding"
         />
+
     <ImageButton
         android:id="@+id/imb_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txv_filter"
-        android:layout_toRightOf="@id/etx_search"
+        android:layout_below="@id/etx_search"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/l_clients_imbSide_padding"
+        android:layout_marginTop="@dimen/l_clients_imbtTop_padding"
         android:src="@drawable/selection_clients_search"
         />
+
+    <android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/customers_recycler_view"
+        android:layout_width="wrap_content"
+        android:layout_height = "match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="10dp"
+        tools:context="com.fiuady.android.compustorevv10.ClientsActivity"
+        tools:layout_width="300dp"
+        >
+    </android.support.v7.widget.RecyclerView>
 
 
 </RelativeLayout>
