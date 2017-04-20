@@ -20,6 +20,10 @@
     <string name="action_add">Agregar Cliente</string>
     <string name="spinner_label">Filtrar por: </string>
 
+    <string name="l_nClient_Ph1">Tel.1 </string>
+    <string name="l_nClient_Ph2">Tel.2 </string>
+    <string name="l_nClient_Ph3">Tel.3 </string>
+
     <string-array name="filtersClients">
         <item>Apellido</item>
         <item>Nombre</item>
@@ -27,6 +31,8 @@
         <item>Teléfono</item>
         <item>Correo Electrónico</item>
     </string-array>
+
+
 
 </resources>
 

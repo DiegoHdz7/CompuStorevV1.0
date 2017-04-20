@@ -49,9 +49,16 @@
     <dimen name="p_nClientSideB_padding">80dp</dimen>
     <dimen name="p_nClientTopB_padding">40dp</dimen>
     <dimen name="p_nClientTopGab_padding">3dp</dimen>
-    p_nClientTopGab_padding
 
     <!--LANDSCAPE-->
+    <dimen name="l_nclients_titleTop_padding">50dp</dimen>
+    <dimen name="l_nClient_FieldLongSize">200dp</dimen>
+    <dimen name="l_nClient_FieldMediumSize">120dp</dimen>
+    <dimen name="l_nClient_FieldShortSize">50dp</dimen>
+
+    <dimen name="l_nClent_FieldHeigh">45dp</dimen>
+
+
     <!--***************************************************************-->
 
 

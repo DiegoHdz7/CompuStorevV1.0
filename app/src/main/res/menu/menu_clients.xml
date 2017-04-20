@@ -2,8 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_add"
+        android:id="@+id/action_clients_add"
         android:icon="@drawable/tlb_add"
         android:title="@string/action_add"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/action_clients_close"
+        app:showAsAction="always"
+        android:title="Cerrar"
+        android:icon="@drawable/tlb_close"
+
+        />
 </menu>

@@ -9,9 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -32,6 +34,7 @@ import com.fiuady.android.compustorevv10.db.Inventory;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, MultiselectionSpinner.OnMultipleItemsSelectedListener{
@@ -47,11 +50,16 @@ public class ClientsActivity extends AppCompatActivity implements AdapterView.On
     private Inventory inventory;
     private EditText edtSearch;
 
+    private final String KEY_EDIT_TEXT_SEARCH="key_edtSearch";
+    private final String KEY_SPINNER_FILTERS="key_spnFilters";
+
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         TextView txvSelectedFilter = (TextView) view;
-        Toast.makeText(this,"Filtrado por: " + txvSelectedFilter.getText(),Toast.LENGTH_SHORT).show();
+        if (view != null) {
+            Toast.makeText(this, "Filtrado por: " + txvSelectedFilter.getText(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -127,6 +135,10 @@ public class ClientsActivity extends AppCompatActivity implements AdapterView.On
 
     private RecyclerView recyclerView;
     private CustomerAdapter customerAdapter;
+    private boolean searched=false;
+    private final String KEY_SEARCHED="key_boolSearched";
+
+
 
     public int getIntOfClientFilter(String str)
     {
@@ -183,35 +195,106 @@ public class ClientsActivity extends AppCompatActivity implements AdapterView.On
         // Apply the adapter to the spinner
 
         spnFilter.setAdapter(adapterFilters);
-
         spnFilter.setOnItemSelectedListener(this);
+
+        //////////////////////////////////
+        //RecyclerView
+        recyclerView = (RecyclerView) findViewById(R.id.customers_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(ClientsActivity.this));
+
+        ArrayList<Customers> l = new ArrayList<Customers>();
+        customerAdapter = new CustomerAdapter(l);
+
+        //ArrayList<Customers> l = new ArrayList<Customers>();
+
+        recyclerView.setAdapter(customerAdapter);
+        //////////////////////////////////
+
+        /*
+        //Let's declare and initialize the recycler view inside the listener for clicking
+        //RecyclerView
+        recyclerView = (RecyclerView) findViewById(R.id.customers_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        */
+
+        if (savedInstanceState!= null)
+        {
+            spnFilter.setSelection(savedInstanceState.getInt(KEY_SPINNER_FILTERS));
+            edtSearch.setText(savedInstanceState.getString(KEY_EDIT_TEXT_SEARCH));
+            searched=savedInstanceState.getBoolean(KEY_SEARCHED,false);
+
+            //This isn't going to be necessary, taking into account that the reccler view does not lose
+            //his values when there is a change from portrait to landscape and vice versa.
+            if(searched)
+            {
+                customerAdapter = new CustomerAdapter(inventory.searchCustomersByFilter(savedInstanceState.getInt(KEY_SPINNER_FILTERS),
+                        savedInstanceState.getString(KEY_EDIT_TEXT_SEARCH)));
+                recyclerView.setAdapter(customerAdapter);
+            }
+
+        }
 
 
         //Identificar qué filtros se tienen seleccionados
         //spnFilter.getSelectedItemId();
         //public List<Customers> searchCustomersByFilter(int intFilter, String criteria)
 
-        recyclerView = (RecyclerView) findViewById(R.id.customers_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         imbSearch.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
-                //edtSearch.setText(spnFilter.getSelectedItem().toString());
-                //ClientsFilters cfi; //= (ClientsFilters) spnFilter.getSelectedItem();
-                //edtSearch.setText(((String) cfi.ordinal()));
-                //edtSearch.setText( String.valueOf(edtSearch.getText().toString()) +  String.valueOf(edtSearch.getText().toString()));
-                //String.valueOf(edtSearch.getText());
+                //RecyclerView
+                recyclerView = (RecyclerView) findViewById(R.id.customers_recycler_view);
+                recyclerView.setLayoutManager(new LinearLayoutManager(ClientsActivity.this));
 
-                customerAdapter = new CustomerAdapter(inventory.searchCustomersByFilter(getIntOfClientFilter(spnFilter.getSelectedItem().toString()),String.valueOf(edtSearch.getText().toString())));
-                //Customers cust = (Customers) customerAdapter.getItemOfList(0);
-                //edtSearch.setText(cust.getFirstName());
+                customerAdapter = new CustomerAdapter(inventory.searchCustomersByFilter(
+                        getIntOfClientFilter(spnFilter.getSelectedItem().toString()),
+                        String.valueOf(edtSearch.getText().toString()))
+                );
+
+                //ArrayList<Customers> l = new ArrayList<Customers>();
+
                 recyclerView.setAdapter(customerAdapter);
+                if (customerAdapter.getItemCount()>0) {
+                    searched = true;
+                    //setResult(RESULT_OK);
+                }
+                else{
+                    searched = false;
+                    //setResult(RESULT_OK);
+                }
             }
         });
 
+        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                return false;
+            }
 
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_EDIT_TEXT_SEARCH,spnFilter.getSelectedItemPosition());
+        Log.i("SpinnerValue=",String.valueOf(spnFilter.getSelectedItemPosition()));
+        outState.putString(KEY_EDIT_TEXT_SEARCH,edtSearch.getText().toString());
+        outState.putBoolean(KEY_SEARCHED,searched);
+        Log.i("Searched.boolean.value=",String.valueOf(searched));
     }
 
     @Override
@@ -224,9 +307,12 @@ public class ClientsActivity extends AppCompatActivity implements AdapterView.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.action_add:
+            case R.id.action_clients_add:
                 Intent j = new Intent(ClientsActivity.this, NewClientActivity.class);
                 startActivityForResult(j, NewClientActivity.CODE_NEWCLIENT);
+                return true;
+            case R.id.action_clients_close:
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
