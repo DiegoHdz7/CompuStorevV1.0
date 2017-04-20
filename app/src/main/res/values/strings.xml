@@ -18,6 +18,8 @@
     <string name="ScrNewClient_btnCancel">Cancelar </string>
 
     <string name="action_add">Agregar Cliente</string>
+    <string name="action_close">Cerrar</string>
+
     <string name="spinner_label">Filtrar por: </string>
 
     <string name="l_nClient_Ph1">Tel.1 </string>

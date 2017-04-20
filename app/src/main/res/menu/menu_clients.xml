@@ -10,7 +10,7 @@
     <item
         android:id="@+id/action_clients_close"
         app:showAsAction="always"
-        android:title="Cerrar"
+        android:title="@string/action_close"
         android:icon="@drawable/tlb_close"
 
         />
