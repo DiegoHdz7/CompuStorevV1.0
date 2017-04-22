@@ -23,7 +23,7 @@ public class NewClientActivity extends AppCompatActivity{
     private Inventory inventory;
 
 
-
+////
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
