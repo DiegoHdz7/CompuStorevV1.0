@@ -34,6 +34,14 @@
         <item>Correo Electrónico</item>
     </string-array>
 
+    <string name="ScReports_filtSpn">Procesar por</string>
+    <string-array name="filterOrdersProcess">
+        <item>Cliente</item>
+        <item>Fecha</item>
+        <item>Cliente</item>
+        <item>Monto de Venta</item>
+    </string-array>
+
 
 </resources>
 

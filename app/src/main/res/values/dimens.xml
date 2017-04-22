@@ -63,4 +63,11 @@
 
 
 
+    <!--*******PANTALLA REPORTES-->
+    <!--PORTRAIT-->
+    <dimen name="p_rep_ordSimSpn_topPadd">40dp</dimen>
+    <dimen name="p_rep_ordSimSpn_sidePadd">40dp</dimen>
+
+    <!--LANDSCAPE-->
+
 </resources>

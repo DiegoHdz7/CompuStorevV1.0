@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/txv_filter_process"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ScReports_filtSpn"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/p_rep_ordSimSpn_topPadd"
+        android:layout_marginLeft="@dimen/p_rep_ordSimSpn_sidePadd"
+        />
+
+    <Spinner
+        android:id="@+id/spn_filter_process"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:Text="FiltroParaSimular"
+        android:layout_toRightOf="@id/txv_filter_process"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/p_rep_ordSimSpn_sidePadd"
+        android:layout_marginTop="@dimen/p_rep_ordSimSpn_topPadd"
+        ></Spinner>
+
+</RelativeLayout>
