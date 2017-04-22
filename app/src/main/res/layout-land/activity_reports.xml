@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fiuady.android.compustorevv10.ReportsActivity">
+
+    <ImageButton
+        android:id="@+id/btnMissing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/productos_faltantes"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="126dp"
+        android:layout_alignTop="@+id/btnSimulator"
+        android:layout_alignStart="@+id/textView" />
+
+    <ImageButton
+        android:id="@+id/btnSimulator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/simulador"
+        tools:layout_editor_absoluteX="241dp"
+        tools:layout_editor_absoluteY="126dp"
+        android:layout_alignTop="@+id/btnSalesPerMounth"
+        android:layout_toEndOf="@+id/textView"
+        android:layout_marginStart="77dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Productos Faltantes"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="230dp"
+        android:layout_marginStart="9dp"
+        android:layout_below="@+id/btnMissing"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Simulador"
+        tools:layout_editor_absoluteX="265dp"
+        tools:layout_editor_absoluteY="232dp"
+        android:layout_below="@+id/btnSimulator"
+        android:layout_alignStart="@+id/btnSimulator"
+        android:layout_marginStart="22dp" />
+
+    <ImageButton
+        android:id="@+id/btnSalesPerMounth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ventas_mes"
+        tools:layout_editor_absoluteX="439dp"
+        tools:layout_editor_absoluteY="126dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="146dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ventas por mes"
+        tools:layout_editor_absoluteX="439dp"
+        tools:layout_editor_absoluteY="232dp"
+        android:layout_below="@+id/btnSalesPerMounth"
+        android:layout_alignEnd="@+id/btnSalesPerMounth"
+        android:layout_marginTop="13dp" />
+</RelativeLayout>

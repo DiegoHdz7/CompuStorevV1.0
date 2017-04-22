@@ -18,8 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ClientsActivity"></activity>
-        <activity android:name=".NewClientActivity"></activity>
+        <activity android:name=".ClientsActivity" />
+        <activity android:name=".NewClientActivity" />
+        <activity android:name=".ReportsActivity" />
+        <activity android:name=".MissingProductsActivity"></activity>
     </application>
 
 </manifest>

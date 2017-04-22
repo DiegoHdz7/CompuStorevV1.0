@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private InventoryHelper inventoryHelper;
+    private  ImageButton ReportsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         //Configuración del ToolBar
         Toolbar mainToolbar = (Toolbar) findViewById(R.id.tlb_main);
         setSupportActionBar(mainToolbar);
+
+        ReportsBtn = (ImageButton) findViewById(R.id.ibt_reports);
 
         /* Petición para escribir en el almacenamiento externo -->*/
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -54,6 +57,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //Log.d("MainActivity", "OnCreate()....");
+
+
+
+        ReportsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(getApplicationContext(),ReportsActivity.class);
+                startActivity(i);
+
+            }
+        });
     }
 
 
