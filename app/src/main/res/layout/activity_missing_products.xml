@@ -6,29 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.fiuady.android.compustorevv10.MissingProductsActivity">
 
-    <Spinner
-        android:id="@+id/spinner_orders"
-        android:layout_width="226dp"
-        android:layout_height="18dp"
-        tools:layout_editor_absoluteX="117dp"
-        tools:layout_editor_absoluteY="50dp"
-        android:layout_marginTop="8dp"
-        android:layout_below="@+id/toolbar2"
-        android:layout_toEndOf="@+id/textView4"
-        android:layout_marginStart="15dp" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/spinner_orders"
-        android:layout_alignParentStart="true"
-        android:layout_marginRight="289dp"
-        android:layout_marginStart="31dp"
-        android:text="# de Orden: "
-        tools:layout_editor_absoluteX="38dp"
-        tools:layout_editor_absoluteY="50dp" />
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
@@ -39,4 +16,36 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:title="Productos Faltantes" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_MissingProducts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout"
+        android:layout_below="@+id/toolbar2"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="7dp">
+
+        <TextView
+            android:id="@+id/ProductIDCol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.41"
+            android:text="  ProductosID" />
+
+        <TextView
+            android:id="@+id/MissingProductCol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.41"
+            android:text="  Cantidad Faltante" />
+    </LinearLayout>
 </RelativeLayout>

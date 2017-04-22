@@ -1,6 +1,7 @@
 package com.fiuady.android.compustorevv10.db;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -300,7 +301,7 @@ public final class Inventory {
 
     }
 
-    public List<Integer> AssembliesIDbyOrder(int orderID)
+    public List<Integer> AssembliesIDbyOrder(int orderID) // Ensambles que requiere la orden
     {
         String args[] = {String.valueOf(orderID)};
         ArrayList<Integer> AssembliesId = new ArrayList<Integer>();
@@ -318,40 +319,77 @@ public final class Inventory {
 
     }
 
-    public List<ProductoFaltante> GetMissingProducts (int OrderId, List<Integer>AssembliesIDs)
-    {
-     ArrayList<ProductoFaltante> MissingProducts = new ArrayList<ProductoFaltante>();
-        //select *, qtyP-qtyAP*2 as residuo from CheckIfCanAssembly where idAP =0
-        int NumeroDeEnsambles = AssembliesIDs.size()-1;
-        int i=0;
-        int NumEnsamblesPorOrden;
-
-        for (i=0;i<=NumeroDeEnsambles;i++ )
-        {
-            NumEnsamblesPorOrden = CantidadDeEnsamblesPorOrden(AssembliesIDs.get(i),OrderId);
-            String args[]={String.valueOf(NumEnsamblesPorOrden),String.valueOf(AssembliesIDs.get(i))};
-            Cursor cursor = db.rawQuery("select *, qtyP-qtyAP*? as residuo from CheckIfCanAssembly where idAP =? ",args);
-            while (cursor.moveToNext()) {
-                MissingProducts.add(new ProductoFaltante(AssembliesIDs.get(i),cursor.getInt(1),cursor.getInt(5)));
+    /*public List<ProductoFaltante> GetMissingProducts (int OrderId, List<Integer>AssembliesIDs, List<Integer> OrdenesList) {
+        ArrayList<ProductoFaltante> MissingProducts = new ArrayList<ProductoFaltante>();
+        //int NumeroDeEnsambles = AssembliesIDs.size() - 1;
+        int i = 0;
+        int multiplicador;
 
 
-            }
+       // for (int x=0; x<=OrdenesList.size()-1; x++) {
+         //   int orden = OrdenesList.get(x);
 
 
-            cursor.close();
+            int NumeroDeEnsambles = AssembliesIDbyOrder(OrderId).size() - 1;
+
+            for (i = 0; i <= NumeroDeEnsambles; i++) {
 
 
-        }
+                ArrayList<Integer> productsID = new ArrayList<Integer>();
+                multiplicador = CantidadDeEnsamblesPorOrden(AssembliesIDs.get(i), OrderId);
+                String args[] = {String.valueOf(multiplicador), String.valueOf(AssembliesIDs.get(i))};
+
+                Cursor cursor = db.rawQuery("select *, ATable.qtyP-Atable.qtyAP*? as residuo from  (select ap.id as idAP,product_id,\n" +
+                        " category_id,\n" +
+                        " ap.qty as qtyAP,\n" +
+                        " p.qty as qtyP \n" +
+                        " from assembly_products ap inner join products p  on p.id = ap.product_id) as ATable where  ATable.idAP =?", args);
+                while (cursor.moveToNext()) {
+
+                    if(cursor.getInt(5)<0)
+                    {
+                        MissingProducts.add(new ProductoFaltante(AssembliesIDs.get(i), cursor.getInt(1), cursor.getInt(5)*-1));
+
+                    }
+
+                    else { MissingProducts.add(new ProductoFaltante(AssembliesIDs.get(i), cursor.getInt(1), 0));}
 
 
-        return MissingProducts;
-    }
+                    productsID.add(cursor.getInt(1));
+
+
+                }
+
+                cursor.close();
+
+              /*  for (int id: productsID) {
+
+                    String qty = String.valueOf(cursor.getInt(5));
+                    String args2[] = {String.valueOf(cursor.getInt(1))};
+                    ContentValues valores = new ContentValues();
+                    valores.put("qty",qty);
+                    db.update("products", valores, "id = ?",args2 );
+
+                }*/
+
+
+
+
+            //}
+
+
+       // }
+
+
+
+     /*   return MissingProducts;
+    }*/
 
 
 
     public void CreateTemporaryTable()
     {
-        db.rawQuery("drop table CheckIfCanAssembly",null);
+        //db.rawQuery("drop table CheckIfCanAssembly",null);
         db.rawQuery("CREATE TEMPORARY TABLE CheckIfCanAssembly AS\n" +
                 "WITH CheckIf AS (\n" +
                 "select ap.id as idAP,product_id,\n" +
@@ -364,11 +402,58 @@ public final class Inventory {
                 "SELECT * FROM CheckIf;",null);
     }
 
-    public void GetMissingProducts(List<Integer> ordenes)
+    public List<Integer> GetMissingProductsByAssemblyID (int multiplicador, int AssemblyProductId)
     {
+        ArrayList<Integer> faltantes = new ArrayList<Integer>();
+        String args [] = {String.valueOf(multiplicador),String.valueOf(AssemblyProductId)};
 
+        Cursor cursor= db.rawQuery("select *, ATable.qtyP-Atable.qtyAP*? as residuo from  (select ap.id as idAP,product_id,\n" +
+                " category_id,\n" +
+                " ap.qty as qtyAP,\n" +
+                " p.qty as qtyP \n" +
+                " from assembly_products ap inner join products p  on p.id = ap.product_id) as ATable where  ATable.idAP =?",args);
+        while (cursor.moveToNext()) {
+            faltantes.add(cursor.getInt(5));
+
+
+        }
+
+
+        cursor.close();
+        return faltantes;
+    }
+
+    public List<ProductoFaltante> GetMissingProducts ()
+    {
+        ArrayList<ProductoFaltante> faltantes = new ArrayList<ProductoFaltante>();
+       Cursor cursor = db.rawQuery("select OrderId,product_id, assembly_id,qtytotal,qty as Productqty, qty-qtytotal as faltante\n" +
+                "from  (select oa.id as OrderId,product_id, assembly_id, sum ( ap.qty*oa.qty) as qtytotal from assembly_products ap inner join order_assemblies oa on ap.id=oa.assembly_id \n" +
+                "--where ap.product_id=8\n" +
+                "group by product_id having sum ( ap.qty*oa.qty))\n" +
+                "as ATable  inner join products p on ATable.product_id = p.id",null);
+
+        while (cursor.moveToNext()) {
+
+            if(cursor.getInt(5)<0)
+            {
+                faltantes.add(new ProductoFaltante(cursor.getInt(2),cursor.getInt(1),cursor.getInt(5)*-1));
+
+            }
+
+            else { faltantes.add(new ProductoFaltante(cursor.getInt(2),cursor.getInt(1),0));}
+
+
+
+        }
+
+
+        cursor.close();
+
+        return faltantes;
 
     }
+
+
 
 }
 
