@@ -39,13 +39,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.41"
-            android:text="  ProductosID" />
+            android:text="  ProductosID"
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/MissingProductCol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.41"
-            android:text="  Cantidad Faltante" />
+            android:text="  Cantidad Faltante"
+            android:textAlignment="center" />
     </LinearLayout>
 </RelativeLayout>
