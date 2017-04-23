@@ -39,6 +39,7 @@
         <item>Teléfono</item>
         <item>Correo Electrónico</item>
     </string-array>
+    <string name="title_activity_detail_sales_resume">DetailSalesResume</string>
 
     <string name="ScReports_filtSpn">Procesar por</string>
 

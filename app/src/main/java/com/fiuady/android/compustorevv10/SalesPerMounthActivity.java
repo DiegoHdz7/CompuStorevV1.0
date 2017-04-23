@@ -3,6 +3,8 @@ package com.fiuady.android.compustorevv10;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.fiuady.android.compustorevv10.db.Inventory;
@@ -16,6 +18,7 @@ public class SalesPerMounthActivity extends AppCompatActivity {
 
     DateFormat df = new SimpleDateFormat("dd-MM-yy");
     Calendar cal = Calendar.getInstance();
+    RecyclerView RvSales ;
 
     CardView cardView ;
     TextView txt;
@@ -26,6 +29,7 @@ public class SalesPerMounthActivity extends AppCompatActivity {
 
         cardView= (CardView) findViewById(R.id.cardView);
         txt= (TextView) findViewById(R.id.rvPrecioMes);
+        RvSales = (RecyclerView) findViewById(R.id.rv_SalesPerMounth);
 
         final Inventory manager = new Inventory(getApplicationContext());
 
@@ -48,6 +52,11 @@ public class SalesPerMounthActivity extends AppCompatActivity {
         ArrayList<String> años = new ArrayList<String>();
         años.add("2016");
         años.add("2017");
+
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+       RvSales.setLayoutManager(llm);
+        final SalesPerMounthAdapter adapter = new SalesPerMounthAdapter(dates);
+       RvSales.setAdapter(adapter);
 
 
 

@@ -23,6 +23,7 @@ public class SalesPerMounthAdapter extends RecyclerView.Adapter<SalesPerMounthAd
 
 
 
+
     public SalesPerMounthAdapter(List<String> meses) {
         this.meses = meses;
 
@@ -33,7 +34,7 @@ public class SalesPerMounthAdapter extends RecyclerView.Adapter<SalesPerMounthAd
 
     @Override
     public SalesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_missing_products,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_sales_per_moutn,parent,false);
         SalesPerMounthAdapter.SalesViewHolder holder = new SalesPerMounthAdapter.SalesViewHolder(v);
 
 

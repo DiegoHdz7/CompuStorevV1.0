@@ -22,7 +22,11 @@
         <activity android:name=".NewClientActivity" />
         <activity android:name=".ReportsActivity" />
         <activity android:name=".MissingProductsActivity" />
-        <activity android:name=".SalesPerMounthActivity"></activity>
+        <activity android:name=".SalesPerMounthActivity" />
+        <activity
+            android:name=".DetailSalesResume"
+            android:label="@string/title_activity_detail_sales_resume"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
