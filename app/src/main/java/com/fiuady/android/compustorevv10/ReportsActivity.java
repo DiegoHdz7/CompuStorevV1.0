@@ -20,7 +20,7 @@ public class ReportsActivity extends AppCompatActivity {
         btnFaltantes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(),MissingProductsActivity.class);
+                Intent i = new Intent(ReportsActivity.this,MissingProductsActivity.class);
                 startActivity(i);
             }
         });
