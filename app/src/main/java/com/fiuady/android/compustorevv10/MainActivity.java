@@ -17,7 +17,7 @@ import com.fiuady.android.compustorevv10.db.Inventory;
 import com.fiuady.android.compustorevv10.db.InventoryHelper;
 
 public class MainActivity extends AppCompatActivity {
-/////
+///////
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private InventoryHelper inventoryHelper;
     private  ImageButton ReportsBtn;
