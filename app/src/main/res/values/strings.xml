@@ -26,6 +26,12 @@
     <string name="l_nClient_Ph2">Tel.2 </string>
     <string name="l_nClient_Ph3">Tel.3 </string>
 
+    <string name="customerFullName">Cliente:</string>
+    <string name="orderId">OrdenID:</string>
+    <string name="orderStatus">Estado Actual:</string>
+    <string name="orderPrice">Monto:</string>
+    <string name="orderDate">Fecha:</string>
+
     <string-array name="filtersClients">
         <item>Apellido</item>
         <item>Nombre</item>
@@ -35,10 +41,11 @@
     </string-array>
 
     <string name="ScReports_filtSpn">Procesar por</string>
+
+
     <string-array name="filterOrdersProcess">
         <item>Cliente</item>
         <item>Fecha</item>
-        <item>Cliente</item>
         <item>Monto de Venta</item>
     </string-array>
 

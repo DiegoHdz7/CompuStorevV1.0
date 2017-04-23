@@ -11,7 +11,7 @@ public enum ClientsFilters {
     private String stringValue;
     private int intValue;
 
-    private ClientsFilters(String toString, int value)
+    ClientsFilters(String toString, int value)
     {
         stringValue = toString;
         intValue=value;

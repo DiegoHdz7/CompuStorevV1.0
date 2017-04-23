@@ -12,7 +12,7 @@ public enum ClientsFiltersDbName {
     private String stringValue;
     private int intValue;
 
-    private ClientsFiltersDbName(String toString, int value)
+    ClientsFiltersDbName(String toString, int value)
     {
         stringValue = toString;
         intValue=value;

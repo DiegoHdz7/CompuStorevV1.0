@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 public class ReportsActivity extends AppCompatActivity {
 
     private ImageButton btnFaltantes;
+    private ImageButton btnOrdersSimulator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +17,15 @@ public class ReportsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reports);
 
         btnFaltantes=(ImageButton) findViewById(R.id.btnMissing);
+        btnOrdersSimulator = (ImageButton) findViewById(R.id.btnSimulator);
+
+        btnOrdersSimulator.setOnClickListener( new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),ReportSimulatorActivity.class);
+                startActivity(i);
+            }
+        });
 
         btnFaltantes.setOnClickListener(new View.OnClickListener() {
             @Override

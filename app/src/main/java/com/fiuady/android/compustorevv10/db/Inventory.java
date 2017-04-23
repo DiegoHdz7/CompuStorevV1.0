@@ -11,6 +11,7 @@ import android.util.Log;
 import com.fiuady.android.compustorevv10.MissingProductsActivity;
 import com.fiuady.android.compustorevv10.ProductoFaltante;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,122 @@ public final class Inventory {
     public Inventory(Context contex){
         inventoryHelper = new InventoryHelper(contex);
         db = inventoryHelper.getWritableDatabase();
+    }
+
+    public List<SimulatedOrder> SearchOrdersByCriteria(String criteria)
+    {
+        String query = null;
+        ArrayList<SimulatedOrder> list = new ArrayList<SimulatedOrder>();
+        Cursor cursor;
+
+        if (!criteria.isEmpty())
+        {
+            switch (criteria)
+            {
+                case "Cliente":
+                    query = "SELECT o.id AS order_id, os.description AS order_status, c.last_name AS customerLN, c.first_name AS customerFN, o.date AS order_date,\n" +
+                            "tNew.order_price AS order_price\n" +
+                            "FROM\n" +
+                            "        (\n" +
+                            "        SELECT tabPrices.id_order AS orderID, SUM(tabPrices.tot_prodPrice) AS order_price\n" +
+                            "        FROM\n" +
+                            "        (SELECT o.id AS id_order, oa.id AS id_assembly, oa.qty AS oa_qty,  ap.qty AS ap_qty, p.id AS id_product , p.price AS p_price, (p.price*ap.qty*oa.qty) AS tot_prodPrice\n" +
+                            "        FROM orders o \n" +
+                            "        INNER JOIN order_assemblies oa ON (o.id = oa.id)\n" +
+                            "        INNER JOIN assembly_products ap ON (oa.assembly_id = ap.id)\n" +
+                            "        INNER JOIN products p ON(ap.product_id = p.id)\n" +
+                            "        ORDER BY o.id, p.id) AS tabPrices \n" +
+                            "        GROUP BY tabPrices.id_order\n" +
+                            "        HAVING SUM(tabPrices.tot_prodPrice)\n" +
+                            "        ) AS tNew\n" +
+                            "INNER JOIN orders o ON (o.id = tNew.orderID)\n" +
+                            "INNER JOIN customers c ON (o.customer_id = c.id)\n" +
+                            "INNER JOIN order_status os ON (o.status_id = os.id)\n" +
+                            "ORDER BY c.last_name, c.first_name,os.id DESC";
+
+                    cursor=db.rawQuery(query,null);
+
+                    while (cursor.moveToNext())
+                    {
+                     list.add(new SimulatedOrder(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),
+                             Date.valueOf(cursor.getString(4)), (cursor.getDouble(5)/100)));
+                    }
+                    cursor.close();
+                    return list;
+
+                case "Fecha":
+
+                    query = "SELECT o.id AS order_id, os.description AS order_status, c.last_name AS customerLN, c.first_name AS customerFN, o.date AS order_date,\n" +
+                            "tNew.order_price AS order_price\n" +
+                            "FROM\n" +
+                            "        (\n" +
+                            "        SELECT tabPrices.id_order AS orderID, SUM(tabPrices.tot_prodPrice) AS order_price\n" +
+                            "        FROM\n" +
+                            "        (SELECT o.id AS id_order, oa.id AS id_assembly, oa.qty AS oa_qty,  ap.qty AS ap_qty, p.id AS id_product , p.price AS p_price, (p.price*ap.qty*oa.qty) AS tot_prodPrice\n" +
+                            "        FROM orders o \n" +
+                            "        INNER JOIN order_assemblies oa ON (o.id = oa.id)\n" +
+                            "        INNER JOIN assembly_products ap ON (oa.assembly_id = ap.id)\n" +
+                            "        INNER JOIN products p ON(ap.product_id = p.id)\n" +
+                            "        ORDER BY o.id, p.id) AS tabPrices \n" +
+                            "        GROUP BY tabPrices.id_order\n" +
+                            "        HAVING SUM(tabPrices.tot_prodPrice)\n" +
+                            "        ) AS tNew\n" +
+                            "INNER JOIN orders o ON (o.id = tNew.orderID)\n" +
+                            "INNER JOIN customers c ON (o.customer_id = c.id)\n" +
+                            "INNER JOIN order_status os ON (o.status_id = os.id)\n" +
+                            "ORDER BY o.date, c.last_name, c.first_name DESC";
+
+                    cursor=db.rawQuery(query,null);
+
+                    while (cursor.moveToNext())
+                    {
+                        list.add(new SimulatedOrder(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),
+                                Date.valueOf(cursor.getString(4)), (cursor.getDouble(5)/100)));
+                    }
+                    cursor.close();
+                    return list;
+
+                case "Monto de Venta":
+                    query = "SELECT o.id AS order_id, os.description AS order_status, c.last_name AS customerLN, c.first_name AS customerFN, o.date AS order_date,\n" +
+                            "tNew.order_price AS order_price\n" +
+                            "FROM\n" +
+                            "        (\n" +
+                            "        SELECT tabPrices.id_order AS orderID, SUM(tabPrices.tot_prodPrice) AS order_price\n" +
+                            "        FROM\n" +
+                            "        (SELECT o.id AS id_order, oa.id AS id_assembly, oa.qty AS oa_qty,  ap.qty AS ap_qty, p.id AS id_product , p.price AS p_price, (p.price*ap.qty*oa.qty) AS tot_prodPrice\n" +
+                            "        FROM orders o \n" +
+                            "        INNER JOIN order_assemblies oa ON (o.id = oa.id)\n" +
+                            "        INNER JOIN assembly_products ap ON (oa.assembly_id = ap.id)\n" +
+                            "        INNER JOIN products p ON(ap.product_id = p.id)\n" +
+                            "        ORDER BY o.id, p.id) AS tabPrices \n" +
+                            "        GROUP BY tabPrices.id_order\n" +
+                            "        HAVING SUM(tabPrices.tot_prodPrice)\n" +
+                            "        ) AS tNew\n" +
+                            "INNER JOIN orders o ON (o.id = tNew.orderID)\n" +
+                            "INNER JOIN customers c ON (o.customer_id = c.id)\n" +
+                            "INNER JOIN order_status os ON (o.status_id = os.id)\n" +
+                            "ORDER BY tNew.order_price DESC";
+
+                    cursor=db.rawQuery(query,null);
+
+                    while (cursor.moveToNext())
+                    {
+                        list.add(new SimulatedOrder(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),
+                                Date.valueOf(cursor.getString(4)), (cursor.getDouble(5)/100)));
+                    }
+                    cursor.close();
+                    return list;
+
+                default:
+                    list.clear();
+                    return list;
+            }
+        }
+        else
+        {
+            list.clear();
+            return list;
+        }
     }
 
     public List<Customers> searchCustomersByFilter(int intFilter, String criteria)  //Búsqueda unitaria
@@ -248,6 +365,8 @@ public final class Inventory {
         //Log.i("searchFinished" + String.valueOf(list.size()),query);
         //return list;
     }
+
+
 
     public void setNewClient(String lastN, String firstN, String adress, String phone1, String phone2, String phone3, String eMail)
     {

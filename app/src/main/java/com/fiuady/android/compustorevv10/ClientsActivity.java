@@ -2,9 +2,6 @@ package com.fiuady.android.compustorevv10;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IntegerRes;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringDef;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
+
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,11 +25,11 @@ import android.widget.Toast;
 
 
 import com.fiuady.android.compustorevv10.db.ClientsFilters;
-import com.fiuady.android.compustorevv10.db.ClientsFiltersDbName;
+
 import com.fiuady.android.compustorevv10.db.Customers;
 import com.fiuady.android.compustorevv10.db.Inventory;
 
-import org.w3c.dom.Text;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -197,6 +194,7 @@ public class ClientsActivity extends AppCompatActivity implements AdapterView.On
         spnFilter.setAdapter(adapterFilters);
         spnFilter.setOnItemSelectedListener(this);
 
+
         //////////////////////////////////
         //RecyclerView
         recyclerView = (RecyclerView) findViewById(R.id.customers_recycler_view);
@@ -257,14 +255,9 @@ public class ClientsActivity extends AppCompatActivity implements AdapterView.On
                 //ArrayList<Customers> l = new ArrayList<Customers>();
 
                 recyclerView.setAdapter(customerAdapter);
-                if (customerAdapter.getItemCount()>0) {
-                    searched = true;
-                    //setResult(RESULT_OK);
-                }
-                else{
-                    searched = false;
-                    //setResult(RESULT_OK);
-                }
+                //setResult(RESULT_OK);
+//setResult(RESULT_OK);
+                searched = customerAdapter.getItemCount() > 0;
             }
         });
 
