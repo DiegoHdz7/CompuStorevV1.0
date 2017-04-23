@@ -21,9 +21,8 @@
         <activity android:name=".ClientsActivity" />
         <activity android:name=".NewClientActivity" />
         <activity android:name=".ReportsActivity" />
-        <activity android:name=".ReportSimulatorActivity" />
-        <activity android:name=".MissingProductsActivity"></activity>
-
+        <activity android:name=".MissingProductsActivity" />
+        <activity android:name=".SalesPerMounthActivity"></activity>
     </application>
 
 </manifest>

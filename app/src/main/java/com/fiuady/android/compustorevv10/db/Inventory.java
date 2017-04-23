@@ -6,10 +6,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import com.fiuady.android.compustorevv10.MissingProductsActivity;
 import com.fiuady.android.compustorevv10.ProductoFaltante;
+import com.fiuady.android.compustorevv10.SalesPerMounthActivity;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -569,6 +571,93 @@ public final class Inventory {
         cursor.close();
 
         return faltantes;
+
+    }
+
+    //Si meses entre enero y noviembre
+    public double GetTotalSalesPerMounth (int positionList)
+    {
+        double precioTotal;
+
+        ArrayList<String> meses = new ArrayList<String>();
+
+        for (int i = 1 ; i<=12; i++ )
+        {
+            if(i<10){meses.add("0"+String.valueOf(i));}
+            else meses.add(String.valueOf(i));
+        }
+
+
+        String fstMounth,scdMounth;
+
+
+        Cursor cursor = db.rawQuery("select sum(order_price) from(\n" +
+                "SELECT tabPrices.id_order AS orderID, SUM(tabPrices.tot_prodPrice) AS order_price\n" +
+                " FROM\n" +
+                " (SELECT o.id AS id_order, oa.id AS id_assembly, oa.qty AS oa_qty,  ap.qty AS ap_qty, p.id AS id_product , p.price AS p_price, (p.price*ap.qty*oa.qty) AS tot_prodPrice\n" +
+                " FROM orders o \n" +
+                " INNER JOIN order_assemblies oa ON (o.id = oa.id)\n" +
+                " INNER JOIN assembly_products ap ON (oa.assembly_id = ap.id)\n" +
+                " INNER JOIN products p ON(ap.product_id = p.id) where o.date LIKE '___"+meses.get(positionList)+"%'\n" +
+                " ORDER BY o.id, p.id) AS tabPrices \n" +
+                " GROUP BY tabPrices.id_order\n" +
+                " HAVING SUM(tabPrices.tot_prodPrice)) as TotalTabPrices;", null);
+        cursor.moveToFirst();
+
+        if (cursor.isNull(0)) {
+            cursor.close();
+            return 0;
+
+        } else {
+            precioTotal = cursor.getDouble(0)/100;
+            cursor.close();
+            return precioTotal;
+        }
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+    public boolean comprobacion(int positionList)
+    {
+        String fstMounth,scdMounth;
+        fstMounth= String.valueOf(positionList +1);
+        scdMounth =String.valueOf(positionList +2);
+
+        String args[] = {fstMounth};
+
+        Cursor cursor = db.rawQuery("select sum(order_price) from (\n" +
+                "SELECT tabPrices.id_order AS orderID, SUM(tabPrices.tot_prodPrice) AS order_price\n" +
+                " FROM\n" +
+                " (SELECT o.id AS id_order, oa.id AS id_assembly, oa.qty AS oa_qty,  ap.qty AS ap_qty, p.id AS id_product , p.price AS p_price, (p.price*ap.qty*oa.qty) AS tot_prodPrice\n" +
+                " FROM orders o \n" +
+                " INNER JOIN order_assemblies oa ON (o.id = oa.id)\n" +
+                " INNER JOIN assembly_products ap ON (oa.assembly_id = ap.id)\n" +
+                " INNER JOIN products p ON(ap.product_id = p.id) where o.date >= '01-"+fstMounth+"-2016' \n" +" and o.date < '01-"+scdMounth+"-2016'"+
+                " ORDER BY o.id, p.id) AS tabPrices \n" +
+                " GROUP BY tabPrices.id_order\n" +
+                " HAVING SUM(tabPrices.tot_prodPrice)) as TotalTabPrices;",null);
+        cursor.moveToFirst();
+
+        if (cursor.isNull(0))
+        {
+            cursor.close();
+            return false;
+        }
+
+        else
+        {
+            cursor.close();
+            return true;}
 
     }
 
