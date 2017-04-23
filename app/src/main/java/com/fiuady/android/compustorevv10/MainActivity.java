@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
             }
         }
-        /* <-- Petición para escribir en el almacenamiento externo */
+        /* <-- Petición para escribir en el almacenamiento externoo */
 
          InventoryHelper.backupDatabaseFile(getApplicationContext());
 
