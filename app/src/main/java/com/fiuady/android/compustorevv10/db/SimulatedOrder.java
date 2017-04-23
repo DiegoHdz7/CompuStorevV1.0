@@ -20,7 +20,7 @@ public class SimulatedOrder {
         this.lastName = lastName;
         this.firstName = firstName;
         this.date = date;
-        this.price = price; //
+        this.price = price;
     }
 
     public int getId() {
