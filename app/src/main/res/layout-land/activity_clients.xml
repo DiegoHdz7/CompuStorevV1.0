@@ -11,16 +11,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/clients_default"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginLeft="@dimen/p_clients_iconSide_padding"
         android:layout_marginTop="@dimen/p_clients_iconTop_padding"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+
         />
 
     <TextView
         android:id="@+id/txv_clients_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/p_clients_titleSide_padding"
+        android:layout_marginTop="@dimen/p_clients_titleTop_padding"
         android:text="@string/ScrClients_title"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/imv_clientsIcon"
@@ -28,8 +31,7 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="26sp"
         android:textStyle="bold"
-        android:layout_marginLeft="@dimen/p_clients_titleSide_padding"
-        android:layout_marginTop="@dimen/p_clients_titleTop_padding"
+
         />
 
     <android.support.v7.widget.Toolbar
@@ -44,10 +46,11 @@
         android:id="@+id/txv_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txv_clients_title"
-        android:layout_alignParentStart="true"
         android:layout_marginLeft="@dimen/l_clients_txvSide_padding"
         android:layout_marginTop="@dimen/l_clients_editTextTop_padding"
+        android:layout_below="@id/txv_clients_title"
+        android:layout_alignParentStart="true"
+
         android:text="@string/spinner_label"
         android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark"
@@ -58,9 +61,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/txv_filter"
-        android:layout_marginTop="@dimen/l_clients_spnTop_padding"
-        android:layout_alignParentStart="true"
         android:layout_marginLeft="@dimen/l_clients_txvSide_padding"
+
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="@dimen/l_clients_spnTop_padding"
         tools:text="Filtros"
         >
     </Spinner>
@@ -70,20 +74,22 @@
         android:id="@+id/etx_search"
         android:layout_width="220dp"
         android:layout_height="50dp"
-        android:layout_below="@id/spn_filter"
-        android:layout_alignParentStart="true"
         android:layout_marginLeft="@dimen/l_clients_txvSide_padding"
         android:layout_marginTop="@dimen/l_clients_editTextTop_padding"
+        android:layout_below="@id/spn_filter"
+        android:layout_alignParentStart="true"
+
         />
 
     <ImageButton
         android:id="@+id/imb_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etx_search"
-        android:layout_alignParentStart="true"
         android:layout_marginStart="@dimen/l_clients_imbSide_padding"
         android:layout_marginTop="@dimen/l_clients_imbtTop_padding"
+        android:layout_below="@id/etx_search"
+        android:layout_alignParentStart="true"
+
         android:src="@drawable/selection_clients_search"
         />
 

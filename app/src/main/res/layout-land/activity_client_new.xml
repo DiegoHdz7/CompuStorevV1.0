@@ -9,6 +9,8 @@
         android:id="@+id/txv_nClient_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/p_clients_titleSide_padding"
+        android:layout_marginTop="@dimen/l_nclients_titleTop_padding"
         android:text="@string/ScrNewClient_title"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/imv_clientsIcon"
@@ -16,8 +18,7 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginLeft="@dimen/p_clients_titleSide_padding"
-        android:layout_marginTop="@dimen/l_nclients_titleTop_padding"
+
         />
 
     <android.support.v7.widget.Toolbar
@@ -33,9 +34,10 @@
         android:id="@+id/txv_clientLName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txv_nClient_title"
         android:layout_marginLeft="@dimen/p_nClientSide_padding"
         android:layout_marginTop="@dimen/p_nClientTop_padding"
+        android:layout_below="@id/txv_nClient_title"
+
         android:text="@string/ScrNewClient_lastName"
         android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark"
@@ -45,22 +47,24 @@
 
     <EditText
         android:id="@+id/etx_fieldLN"
-        android:layout_width="@dimen/l_nClient_FieldLongSize"
-        android:layout_height="@dimen/l_nClent_FieldHeigh"
-        android:layout_toRightOf="@id/txv_clientLName"
-        android:layout_below="@id/txv_nClient_title"
         android:layout_marginTop="@dimen/p_nClientTopF_padding"
         android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+
+        android:layout_toRightOf="@id/txv_clientLName"
+        android:layout_below="@id/txv_nClient_title"
+        android:layout_width="@dimen/l_nClient_FieldLongSize"
+        android:layout_height="@dimen/l_nClent_FieldHeigh"
         />
 
     <TextView
         android:id="@+id/txv_clientFN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/etx_fieldLN"
-        android:layout_below="@id/txv_nClient_title"
         android:layout_marginLeft="@dimen/p_nClientSide_padding"
         android:layout_marginTop="@dimen/p_nClientTop_padding"
+        android:layout_toRightOf="@id/etx_fieldLN"
+        android:layout_below="@id/txv_nClient_title"
+
         android:text="@string/ScrNewClient_firstName"
         android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark"
@@ -70,22 +74,25 @@
 
     <EditText
         android:id="@+id/etx_clientFN"
-        android:layout_width="@dimen/l_nClient_FieldLongSize"
-        android:layout_height="@dimen/l_nClent_FieldHeigh"
-        android:layout_toRightOf="@id/txv_clientFN"
-        android:layout_below="@id/txv_nClient_title"
         android:layout_marginTop="@dimen/p_nClientTopF_padding"
         android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+
+        android:layout_toRightOf="@id/txv_clientFN"
+        android:layout_below="@id/txv_nClient_title"
+
+        android:layout_width="@dimen/l_nClient_FieldLongSize"
+        android:layout_height="@dimen/l_nClent_FieldHeigh"
         />
 
 
     <TextView
         android:id="@+id/txv_clientAd"
+        android:layout_marginLeft="@dimen/p_nClientSide_padding"
+        android:layout_marginTop="@dimen/p_nClientTop_padding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/etx_clientFN"
-        android:layout_marginLeft="@dimen/p_nClientSide_padding"
-        android:layout_marginTop="@dimen/p_nClientTop_padding"
+
         android:text="@string/ScrNewClient_adress"
         android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark"
@@ -95,12 +102,13 @@
 
     <EditText
         android:id="@+id/etx_clientAd"
-        android:layout_width="@dimen/l_nClient_FieldLongSize"
-        android:layout_height="@dimen/l_nClent_FieldHeigh"
-        android:layout_toRightOf="@id/txv_clientAd"
-        android:layout_below="@id/etx_clientFN"
+
         android:layout_marginTop="@dimen/p_nClientTopF_padding"
         android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+        android:layout_toRightOf="@id/txv_clientAd"
+        android:layout_below="@id/etx_clientFN"
+        android:layout_width="@dimen/l_nClient_FieldLongSize"
+        android:layout_height="@dimen/l_nClent_FieldHeigh"
         />
 
     <TextView
@@ -109,23 +117,25 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/etx_fieldLN"
         android:layout_toRightOf="@id/etx_clientAd"
-        android:layout_marginLeft="@dimen/p_nClientSide_padding"
-        android:layout_marginTop="@dimen/p_nClientTop_padding"
+
         android:text="@string/l_nClient_Ph1"
         android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark"
         android:fontFamily="serif"
+        android:layout_marginLeft="@dimen/p_nClientSide_padding"
+        android:layout_marginTop="@dimen/p_nClientTop_padding"
         />
 
 
     <EditText
         android:id="@+id/etx_clientT1_a"
-        android:layout_width="@dimen/l_nClient_FieldShortSize"
-        android:layout_height="@dimen/l_nClent_FieldHeigh"
-        android:layout_toRightOf="@id/txv_clientT1"
-        android:layout_below="@id/etx_fieldLN"
         android:layout_marginTop="@dimen/p_nClientTopF_padding"
         android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+        android:layout_toRightOf="@id/txv_clientT1"
+        android:layout_below="@id/etx_fieldLN"
+
+        android:layout_width="@dimen/l_nClient_FieldShortSize"
+        android:layout_height="@dimen/l_nClent_FieldHeigh"
         />
     <TextView
         android:id="@+id/etx_gap1"
@@ -134,29 +144,32 @@
         android:text="-"
         android:layout_toRightOf="@id/etx_clientT1_a"
         android:layout_below="@id/etx_fieldLN"
-        android:layout_marginTop="@dimen/p_nClientTopGab_padding"
-        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+
         android:textColor="@color/colorPrimaryDark"
         android:textSize="45sp"
+        android:layout_marginTop="@dimen/p_nClientTopGab_padding"
+        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
         />
 
     <EditText
         android:id="@+id/etx_clientT1_b"
-        android:layout_width="@dimen/l_nClient_FieldMediumSize"
-        android:layout_height="@dimen/l_nClent_FieldHeigh"
-        android:layout_toRightOf="@id/etx_gap1"
-        android:layout_below="@id/etx_fieldLN"
+
         android:layout_marginTop="@dimen/p_nClientTopF_padding"
         android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+        android:layout_toRightOf="@id/etx_gap1"
+        android:layout_below="@id/etx_fieldLN"
+        android:layout_width="@dimen/l_nClient_FieldMediumSize"
+        android:layout_height="@dimen/l_nClent_FieldHeigh"
         />
 
     <TextView
         android:id="@+id/txv_clientT2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etx_clientT1_a"
         android:layout_marginLeft="@dimen/p_nClientSide_padding"
         android:layout_marginTop="@dimen/p_nClientTop_padding"
+        android:layout_below="@id/etx_clientT1_a"
+
         android:text="@string/l_nClient_Ph2"
         android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark"
@@ -166,44 +179,48 @@
         android:id="@+id/etx_gap2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/p_nClientTopGab_padding"
+        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
         android:text="-"
         android:layout_toRightOf="@id/etx_clientT2_a"
         android:layout_below="@id/etx_clientT1_a"
-        android:layout_marginTop="@dimen/p_nClientTopGab_padding"
-        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+
         android:textColor="@color/colorPrimaryDark"
         android:textSize="45sp"
         />
 
     <EditText
         android:id="@+id/etx_clientT2_b"
-        android:layout_width="@dimen/l_nClient_FieldMediumSize"
-        android:layout_height="@dimen/p_nClientTopF_Size"
-        android:layout_toRightOf="@id/etx_gap2"
-        android:layout_below="@id/etx_clientT1_a"
+
         android:layout_marginTop="@dimen/p_nClientTopF_padding"
         android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+        android:layout_toRightOf="@id/etx_gap2"
+        android:layout_below="@id/etx_clientT1_a"
+        android:layout_width="@dimen/l_nClient_FieldMediumSize"
+        android:layout_height="@dimen/p_nClientTopF_Size"
         />
 
 
     <EditText
         android:id="@+id/etx_clientT2_a"
-        android:layout_width="@dimen/l_nClient_FieldShortSize"
-        android:layout_height="@dimen/p_nClientTopF_Size"
-        android:layout_toRightOf="@id/txv_clientT2"
-        android:layout_below="@id/etx_clientT1_a"
         android:layout_marginTop="@dimen/p_nClientTopF_padding"
         android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+
+        android:layout_toRightOf="@id/txv_clientT2"
+        android:layout_below="@id/etx_clientT1_a"
+        android:layout_width="@dimen/l_nClient_FieldShortSize"
+        android:layout_height="@dimen/p_nClientTopF_Size"
         />
 
     <TextView
         android:id="@+id/txv_clientT3"
+        android:layout_marginLeft="@dimen/p_nClientSide_padding"
+        android:layout_marginTop="@dimen/p_nClientTop_padding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/etx_clientT1_a"
         android:layout_toRightOf="@id/etx_clientAd"
-        android:layout_marginLeft="@dimen/p_nClientSide_padding"
-        android:layout_marginTop="@dimen/p_nClientTop_padding"
+
         android:text="@string/l_nClient_Ph3"
         android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark"
@@ -213,34 +230,38 @@
 
     <EditText
         android:id="@+id/etx_clientT3_a"
-        android:layout_width="@dimen/l_nClient_FieldShortSize"
-        android:layout_height="@dimen/p_nClientTopF_Size"
-        android:layout_toRightOf="@id/txv_clientT3"
-        android:layout_below="@id/etx_clientT1_a"
         android:layout_marginTop="@dimen/p_nClientTopF_padding"
         android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+
+        android:layout_toRightOf="@id/txv_clientT3"
+        android:layout_below="@id/etx_clientT1_a"
+        android:layout_width="@dimen/l_nClient_FieldShortSize"
+        android:layout_height="@dimen/p_nClientTopF_Size"
         />
 
     <TextView
         android:id="@+id/etx_gap3"
+        android:layout_marginTop="@dimen/p_nClientTopGab_padding"
+        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="-"
         android:layout_toRightOf="@id/etx_clientT3_a"
         android:layout_below="@id/etx_clientT1_a"
-        android:layout_marginTop="@dimen/p_nClientTopGab_padding"
-        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+
         android:textColor="@color/colorPrimaryDark"
         android:textSize="45sp"
         />
     <EditText
         android:id="@+id/etx_clientT3_b"
-        android:layout_width="@dimen/l_nClient_FieldMediumSize"
-        android:layout_height="@dimen/p_nClientTopF_Size"
-        android:layout_toRightOf="@id/etx_gap3"
-        android:layout_below="@id/etx_clientT1_a"
         android:layout_marginTop="@dimen/p_nClientTopF_padding"
         android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+
+        android:layout_toRightOf="@id/etx_gap3"
+        android:layout_below="@id/etx_clientT1_a"
+        android:layout_width="@dimen/l_nClient_FieldMediumSize"
+        android:layout_height="@dimen/p_nClientTopF_Size"
+
         />
 
 
@@ -249,43 +270,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/etx_clientT3_a"
-        android:layout_marginLeft="@dimen/p_nClientSide_padding"
-        android:layout_marginTop="@dimen/p_nClientTop_padding"
+
         android:text="@string/ScrNewClient_email"
         android:textSize="16sp"
         android:textColor="@color/colorPrimaryDark"
         android:fontFamily="serif"
+        android:layout_marginLeft="@dimen/p_nClientSide_padding"
+        android:layout_marginTop="@dimen/p_nClientTop_padding"
         />
 
 
     <EditText
         android:id="@+id/etx_clientEm"
-        android:layout_width="@dimen/l_nClient_FieldLongSize"
-        android:layout_height="@dimen/p_nClientTopF_Size"
-        android:layout_toRightOf="@id/txv_clientEm"
 
-        android:layout_below="@id/etx_clientT3_a"
+        android:layout_toRightOf="@id/txv_clientEm"
         android:layout_marginTop="@dimen/p_nClientTopF_padding"
         android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+        android:layout_width="@dimen/l_nClient_FieldLongSize"
+        android:layout_height="@dimen/p_nClientTopF_Size"
+
+        android:layout_below="@id/etx_clientT3_a"
+
         />
 
     <Button
+        android:layout_marginLeft="@dimen/p_nClientSideB_padding"
         android:id="@+id/btn_clientSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/etx_clientEm"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="@dimen/p_nClientSideB_padding"
+
         android:text="@string/ScrNewClient_btnSave"
         />
 
     <Button
         android:id="@+id/btn_clientCancel"
+        android:layout_marginRight="@dimen/p_nClientSideB_padding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/etx_clientEm"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="@dimen/p_nClientSideB_padding"
+
         android:text="@string/ScrNewClient_btnCancel"
         />
 

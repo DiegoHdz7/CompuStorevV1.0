@@ -9,25 +9,27 @@
         android:id="@+id/imv_clientsIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/p_clients_iconSide_padding"
+        android:layout_marginTop="@dimen/p_clients_iconTop_padding"
         android:src="@mipmap/clients_default"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="@dimen/p_clients_iconSide_padding"
-        android:layout_marginTop="@dimen/p_clients_iconTop_padding"
+
         />
     <TextView
         android:id="@+id/txv_clients_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ScrClients_title"
+        android:layout_marginLeft="@dimen/p_clients_titleSide_padding"
+        android:layout_marginTop="@dimen/p_clients_titleTop_padding"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/imv_clientsIcon"
         android:fontFamily="serif"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="26sp"
         android:textStyle="bold"
-        android:layout_marginLeft="@dimen/p_clients_titleSide_padding"
-        android:layout_marginTop="@dimen/p_clients_titleTop_padding"
+
         />
 
     <android.support.v7.widget.Toolbar
@@ -42,9 +44,10 @@
         android:id="@+id/txv_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txv_clients_title"
         android:layout_marginLeft="@dimen/p_clients_iconSide_padding"
         android:layout_marginTop="@dimen/p_clients_iconTop_padding"
+        android:layout_below="@id/txv_clients_title"
+
         android:text="@string/spinner_label"
         android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark"
@@ -54,8 +57,9 @@
         android:id="@+id/spn_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txv_clients_title"
         android:layout_marginTop="@dimen/p_clients_spnTop_padding"
+        android:layout_below="@id/txv_clients_title"
+
         android:layout_toRightOf="@id/txv_filter"
         tools:text="Filtros"
         >
@@ -66,8 +70,9 @@
         android:id="@+id/etx_search"
         android:layout_width="254dp"
         android:layout_height="50dp"
-        android:layout_below="@id/txv_filter"
         android:layout_marginTop="@dimen/p_clients_editTextSide_padding"
+        android:layout_below="@id/txv_filter"
+
         />
     <ImageButton
         android:id="@+id/imb_search"

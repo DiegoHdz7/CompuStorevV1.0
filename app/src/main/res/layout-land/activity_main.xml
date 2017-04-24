@@ -23,12 +23,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@id/tlb_main"
-        android:layout_marginStart="@dimen/l_principal_titleSide_padding"
-        android:layout_marginTop="@dimen/l_principal_titleTop_padding"
+
         android:fontFamily="monospace"
         android:text="@string/app_title"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
+        android:layout_marginStart="@dimen/l_principal_titleSide_padding"
+        android:layout_marginTop="@dimen/l_principal_titleTop_padding"
         android:textSize="24sp" />
 
     <ImageButton
@@ -37,9 +38,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@id/tlb_main"
+
+        android:src="@drawable/selection_product_categories"
         android:layout_marginStart="@dimen/l_principal_side_padding"
         android:layout_marginTop="@dimen/l_principal_top_padding"
-        android:src="@drawable/selection_product_categories" />
+        />
 
     <ImageButton
         android:id="@+id/ibt_products"
@@ -47,9 +50,10 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ibt_productCategories"
         android:layout_below="@id/tlb_main"
+
+        android:src="@drawable/selection_products"
         android:layout_marginTop="@dimen/l_principal_top_padding"
         android:layout_marginLeft="@dimen/l_principal_side_padding"
-        android:src="@drawable/selection_products"
         />
     <ImageButton
         android:id="@+id/ibt_assemblies"
@@ -57,9 +61,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tlb_main"
         android:layout_toRightOf="@id/ibt_products"
+
+        android:src="@drawable/selection_assemblies"
         android:layout_marginTop="@dimen/l_principal_top_padding"
         android:layout_marginLeft="@dimen/l_principal_side_padding"
-        android:src="@drawable/selection_assemblies"
         />
     <ImageButton
         android:id="@+id/ibt_clients"
@@ -67,9 +72,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ibt_productCategories"
         android:layout_alignParentStart="true"
+
+        android:src="@drawable/selection_clients"
         android:layout_marginTop="@dimen/l_principal_top_padding"
         android:layout_marginStart="@dimen/l_principal_side_padding"
-        android:src="@drawable/selection_clients"
         />
 
     <ImageButton
@@ -78,9 +84,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ibt_assemblies"
         android:layout_toRightOf="@id/ibt_clients"
+
+        android:src="@drawable/selection_orders"
         android:layout_marginStart="@dimen/l_principal_side_padding"
         android:layout_marginTop="@dimen/l_principal_top_padding"
-        android:src="@drawable/selection_orders"
         />
     <ImageButton
         android:id="@+id/ibt_reports"
@@ -88,9 +95,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ibt_assemblies"
         android:layout_toRightOf="@id/ibt_orders"
+
+        android:src="@drawable/selection_reports"
         android:layout_marginTop="@dimen/l_principal_top_padding"
         android:layout_marginLeft="@dimen/l_principal_side_padding"
-        android:src="@drawable/selection_reports"
         />
 
 </RelativeLayout>
