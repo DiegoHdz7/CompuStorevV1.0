@@ -57,20 +57,13 @@
     <dimen name="l_nClient_FieldShortSize">50dp</dimen>
 
     <dimen name="l_nClent_FieldHeigh">45dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+
 
 
     <!--***************************************************************-->
     <!--***************************************************************-->
 
-
-
-    <!--*******PANTALLA REPORTES-->
-    <!--PORTRAIT-->
-    <dimen name="p_rep_ordSimSpn_topPadd">10dp</dimen>
-    <dimen name="p_rep_ordSimSpn_sidePadd">15dp</dimen>
-
-    <dimen name="confSim_size">17dp</dimen>
-
-    <!--LANDSCAPE-->
 
 </resources>

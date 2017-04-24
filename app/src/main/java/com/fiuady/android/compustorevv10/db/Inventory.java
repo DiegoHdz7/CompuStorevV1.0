@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 
+import com.fiuady.android.compustorevv10.DetailInfo;
 import com.fiuady.android.compustorevv10.MissingProductsActivity;
 import com.fiuady.android.compustorevv10.ProductoFaltante;
 import com.fiuady.android.compustorevv10.SalesPerMounthActivity;
@@ -575,7 +576,7 @@ public final class Inventory {
     }
 
     //Si meses entre enero y noviembre
-    public double GetTotalSalesPerMounth (int positionList)
+    public double GetTotalSalesPerMounth (int positionList, String año)
     {
         double precioTotal;
 
@@ -598,7 +599,7 @@ public final class Inventory {
                 " FROM orders o \n" +
                 " INNER JOIN order_assemblies oa ON (o.id = oa.id)\n" +
                 " INNER JOIN assembly_products ap ON (oa.assembly_id = ap.id)\n" +
-                " INNER JOIN products p ON(ap.product_id = p.id) where o.date LIKE '___"+meses.get(positionList)+"%'\n" +
+                " INNER JOIN products p ON(ap.product_id = p.id) where o.date LIKE '___"+meses.get(positionList)+"%-"+año+"'\n" +
                 " ORDER BY o.id, p.id) AS tabPrices \n" +
                 " GROUP BY tabPrices.id_order\n" +
                 " HAVING SUM(tabPrices.tot_prodPrice)) as TotalTabPrices;", null);
@@ -659,6 +660,33 @@ public final class Inventory {
             cursor.close();
             return true;}
 
+    }
+
+
+    public List<DetailInfo> GetDetailInfo (int mes, String año)
+    {
+        ArrayList<DetailInfo> dInfo = new ArrayList<DetailInfo>();
+
+
+        ArrayList<String> meses = new ArrayList<String>();
+
+        for (int i = 1 ; i<=12; i++ )
+        {
+            if(i<10){meses.add("0"+String.valueOf(i));}
+            else meses.add(String.valueOf(i));
+        }
+
+
+        Cursor cursor = db.rawQuery("select * from (select o.id as OrderId, AssemblyId,c.id as Cliente,c.first_name as FirstName,c.last_name as LastName, c.address as Address,status_id, date,description , CostoTotal*qty as RealCostoTotal from (select ap.id as AssemblyId,p.id as ProductId, sum(ap.qty * p.price) as CostoTotal\n" +
+                "from assembly_products ap inner join products p on ap.product_id = p.id\n" +
+                "group by AssemblyId) as TablaCosto inner join order_assemblies oa  on TablaCosto.AssemblyId = oa.assembly_id\n" +
+                "inner join orders o on oa.id = o.id\n" +
+                "inner join customers c on o.customer_id = c.id\n" +
+                "inner join order_status os on os.id=o.status_id where status_id = 2 or status_id=4) AS GralTable where GralTable.date like '___"+meses.get(mes)+"-"+año+"%' ",null);
+
+
+
+        return dInfo;
     }
 
 

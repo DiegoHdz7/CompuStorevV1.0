@@ -16,16 +16,19 @@ import java.util.List;
 
 
 
-public class SalesPerMounthAdapter extends RecyclerView.Adapter<SalesPerMounthAdapter.SalesViewHolder>{
+public class SalesPerMounthAdapter extends RecyclerView.Adapter<SalesPerMounthAdapter.SalesViewHolder> implements View.OnClickListener{
 
     List<String> meses;
+    private View.OnClickListener listener;
+   final  String año;
 
 
 
 
 
-    public SalesPerMounthAdapter(List<String> meses) {
+    public SalesPerMounthAdapter(List<String> meses, String Año) {
         this.meses = meses;
+        this.año=Año;
 
     }
 
@@ -36,7 +39,7 @@ public class SalesPerMounthAdapter extends RecyclerView.Adapter<SalesPerMounthAd
     public SalesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_sales_per_moutn,parent,false);
         SalesPerMounthAdapter.SalesViewHolder holder = new SalesPerMounthAdapter.SalesViewHolder(v);
-
+        v.setOnClickListener(this);
 
         return holder;
     }
@@ -46,7 +49,7 @@ public class SalesPerMounthAdapter extends RecyclerView.Adapter<SalesPerMounthAd
 
 
         Inventory manager = new Inventory( holder.itemView.getContext());
-        holder.txtPrecio.setText(String.valueOf(manager.GetTotalSalesPerMounth(position)));
+        holder.txtPrecio.setText(String.valueOf(manager.GetTotalSalesPerMounth(position,año)));
         holder.txtMeses.setText(String.valueOf(meses.get(position)));
 
 
@@ -55,6 +58,16 @@ public class SalesPerMounthAdapter extends RecyclerView.Adapter<SalesPerMounthAd
     @Override
     public int getItemCount() {
         return meses.size();
+    }
+
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(listener != null)
+            listener.onClick(view);
     }
 
     public static class SalesViewHolder extends RecyclerView.ViewHolder  {
