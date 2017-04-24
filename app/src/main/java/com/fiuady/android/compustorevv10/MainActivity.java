@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         ReportsBtn = (ImageButton) findViewById(R.id.ibt_reports);
 
+
         /* Petición para escribir en el almacenamiento externo -->*/
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
