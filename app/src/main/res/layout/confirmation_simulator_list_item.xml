@@ -41,6 +41,7 @@
         android:textSize="@dimen/confSim_size"
         android:textStyle="bold"
         />
+
     <TextView
         android:id="@+id/txv_ord_id"
         android:layout_width="wrap_content"

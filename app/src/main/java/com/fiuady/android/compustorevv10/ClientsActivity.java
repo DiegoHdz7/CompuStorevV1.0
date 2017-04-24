@@ -130,6 +130,7 @@ public class ClientsActivity extends AppCompatActivity implements AdapterView.On
 
     /*<-- Clases para implementar el recycler view*/
 
+
     private RecyclerView recyclerView;
     private CustomerAdapter customerAdapter;
     private boolean searched=false;

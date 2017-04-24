@@ -118,7 +118,7 @@ public class ReportSimulatorActivity extends AppCompatActivity implements Adapte
         spnProcess = (Spinner) findViewById(R.id.spn_filter_process);
         spnProcess.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,spnValues));
 
-        //////////////////////////////////
+        ////////////////////////////////////
         //RecyclerView
         recyclerView = (RecyclerView) findViewById(R.id.simulated_orders_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(ReportSimulatorActivity.this));

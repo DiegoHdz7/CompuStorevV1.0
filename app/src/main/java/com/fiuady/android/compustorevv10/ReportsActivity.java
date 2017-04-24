@@ -24,7 +24,7 @@ public class ReportsActivity extends AppCompatActivity {
                 Intent i = new Intent(ReportsActivity.this,MissingProductsActivity.class);
                 startActivity(i);
             }
-        });
+        }); //
 
 
         btnVentas.setOnClickListener(new View.OnClickListener() {
