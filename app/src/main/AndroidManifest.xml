@@ -22,6 +22,7 @@
         <activity android:name=".NewClientActivity" />
         <activity android:name=".ReportsActivity" />
         <activity android:name=".MissingProductsActivity" />
+        <activity android:name=".ReportSimulatorActivity" />
         <activity android:name=".SalesPerMounthActivity"></activity>
     </application>
 

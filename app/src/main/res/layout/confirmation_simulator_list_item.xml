@@ -11,11 +11,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+
+        android:text="@string/customerFullName"
+
+        android:textStyle="bold"
+        android:textSize="@dimen/confSim_size"
         android:layout_marginLeft="@dimen/p_rep_ordSimSpn_sidePadd"
         android:layout_marginTop="@dimen/p_rep_ordSimSpn_topPadd"
-        android:text="@string/customerFullName"
-        android:textSize="@dimen/confSim_size"
-        android:textStyle="bold"
         />
     <TextView
         android:id="@+id/txv_cust_fullName"
@@ -23,10 +25,10 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/cust_fullName"
         android:layout_alignParentTop="true"
+        android:textSize="@dimen/confSim_size"
+        tools:text="Aarón Madera"
         android:layout_marginLeft="@dimen/p_rep_ordSimSpn_sidePadd"
         android:layout_marginTop="@dimen/p_rep_ordSimSpn_topPadd"
-        tools:text="Aarón Madera"
-        android:textSize="@dimen/confSim_size"
         />
 
     <TextView
@@ -35,10 +37,11 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/txv_cust_fullName"
         android:layout_alignParentTop="true"
+        android:textSize="@dimen/confSim_size"
+        android:text="@string/orderId"
+
         android:layout_marginLeft="@dimen/p_rep_ordSimSpn_sidePadd"
         android:layout_marginTop="@dimen/p_rep_ordSimSpn_topPadd"
-        android:text="@string/orderId"
-        android:textSize="@dimen/confSim_size"
         android:textStyle="bold"
         />
 
@@ -48,12 +51,13 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ord_Id"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="@dimen/p_rep_ordSimSpn_sidePadd"
-        android:layout_marginTop="@dimen/p_rep_ordSimSpn_topPadd"
+        android:textSize="@dimen/confSim_size"
         tools:text="222"
         android:textStyle="bold"
         android:textColor="@color/colorOrderID"
-        android:textSize="@dimen/confSim_size"
+
+        android:layout_marginLeft="@dimen/p_rep_ordSimSpn_sidePadd"
+        android:layout_marginTop="@dimen/p_rep_ordSimSpn_topPadd"
         />
 
     <TextView
@@ -62,11 +66,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@id/txv_cust_fullName"
+
+        android:textSize="@dimen/confSim_size"
+        android:text="@string/orderPrice"
+
+        android:textStyle="bold"
         android:layout_marginLeft="@dimen/p_rep_ordSimSpn_sidePadd"
         android:layout_marginTop="@dimen/p_rep_ordSimSpn_topPadd"
-        android:text="@string/orderPrice"
-        android:textSize="@dimen/confSim_size"
-        android:textStyle="bold"
         />
     <TextView
         android:id="@+id/txv_ord_price"
@@ -74,10 +80,11 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ord_price"
         android:layout_below="@id/txv_cust_fullName"
+        android:textSize="@dimen/confSim_size"
+        tools:text="$33,000,00.78"
+
         android:layout_marginLeft="@dimen/p_rep_ordSimSpn_sidePadd"
         android:layout_marginTop="@dimen/p_rep_ordSimSpn_topPadd"
-        tools:text="$33,000,00.78"
-        android:textSize="@dimen/confSim_size"
         />
     <TextView
         android:id="@+id/ord_date"
@@ -85,10 +92,10 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/txv_ord_price"
         android:layout_below="@id/txv_cust_fullName"
+        android:textSize="@dimen/confSim_size"
+        android:text="@string/orderDate"
         android:layout_marginLeft="@dimen/p_rep_ordSimSpn_sidePadd"
         android:layout_marginTop="@dimen/p_rep_ordSimSpn_topPadd"
-        android:text="@string/orderDate"
-        android:textSize="@dimen/confSim_size"
         android:textStyle="bold"
         />
     <TextView
@@ -97,10 +104,11 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ord_date"
         android:layout_below="@id/txv_cust_fullName"
+        android:textSize="@dimen/confSim_size"
+        tools:text="12-12-2016"
+
         android:layout_marginLeft="@dimen/p_rep_ordSimSpn_sidePadd"
         android:layout_marginTop="@dimen/p_rep_ordSimSpn_topPadd"
-        tools:text="12-12-2016"
-        android:textSize="@dimen/confSim_size"
         />
 
     <TextView
@@ -109,10 +117,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@id/ord_price"
+        android:textSize="@dimen/confSim_size"
+        android:text="@string/orderStatus"
+
         android:layout_marginLeft="@dimen/p_rep_ordSimSpn_sidePadd"
         android:layout_marginTop="@dimen/p_rep_ordSimSpn_topPadd"
-        android:text="@string/orderStatus"
-        android:textSize="@dimen/confSim_size"
         android:textStyle="bold"
         />
     <TextView
@@ -121,10 +130,11 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ord_status"
         android:layout_below="@id/ord_price"
+        android:textSize="@dimen/confSim_size"
+        tools:text="Confirmado"
+
         android:layout_marginLeft="@dimen/p_rep_ordSimSpn_sidePadd"
         android:layout_marginTop="@dimen/p_rep_ordSimSpn_topPadd"
-        tools:text="Confirmado"
-        android:textSize="@dimen/confSim_size"
         />
 
 
