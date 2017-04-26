@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+// khhj
 public final class Inventory {
     private InventoryHelper inventoryHelper;
     private SQLiteDatabase db;
@@ -676,6 +677,8 @@ public final class Inventory {
     public List<DetailInfo> GetDetailInfo (int mes, String año)
     {
         ArrayList<DetailInfo> dInfo = new ArrayList<DetailInfo>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        java.util.Date date = new java.util.Date();
 
 
         ArrayList<String> meses = new ArrayList<String>();
@@ -705,7 +708,13 @@ public final class Inventory {
 
 
 
-            while (cursor.moveToNext()) {
+
+        while (cursor.moveToNext()) {
+
+            try {date=dateFormat.parse(cursor.getString(7)); }
+            catch (ParseException e) {e.printStackTrace();}
+
+
                 dInfo.add(new DetailInfo(
                         cursor.getInt(0),
                         cursor.getInt(1),
@@ -773,7 +782,7 @@ public final class Inventory {
                     cursor.getString(5),
                           date,//Date.valueOf(cursor.getString(7)),
                     cursor.getString(6),
-                    cursor.getDouble(9) / 100));
+                    cursor.getDouble(10) / 100));
 
 
         }
