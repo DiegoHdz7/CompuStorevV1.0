@@ -1,5 +1,7 @@
 package com.fiuady.android.compustorevv10.db;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -55,13 +57,9 @@ public class SimulatedOrder {
         this.firstName = firstName;
     }
 
-    public Date getDate() {
-        return date;
-    }
+    public Date getDate() { return date; }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+    public void setDate(Date date) { this.date = date; }
 
     public double getPrice() {
         return price;

@@ -9,14 +9,11 @@ import android.util.Log;
 import android.widget.Toast;
 
 
-import com.fiuady.android.compustorevv10.DetailInfo;
 import com.fiuady.android.compustorevv10.MissingProductsActivity;
 import com.fiuady.android.compustorevv10.ProductoFaltante;
 import com.fiuady.android.compustorevv10.SalesPerMounthActivity;
 
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -578,7 +575,7 @@ public final class Inventory {
     }
 
     //Si meses entre enero y noviembre
-    public double GetTotalSalesPerMounth (int positionList, String año)
+    public double GetTotalSalesPerMounth (int positionList)
     {
         double precioTotal;
 
@@ -594,25 +591,17 @@ public final class Inventory {
         String fstMounth,scdMounth;
 
 
-       Cursor cursor = db.rawQuery("select sum(order_price) from(\n" +
+        Cursor cursor = db.rawQuery("select sum(order_price) from(\n" +
                 "SELECT tabPrices.id_order AS orderID, SUM(tabPrices.tot_prodPrice) AS order_price\n" +
                 " FROM\n" +
                 " (SELECT o.id AS id_order, oa.id AS id_assembly, oa.qty AS oa_qty,  ap.qty AS ap_qty, p.id AS id_product , p.price AS p_price, (p.price*ap.qty*oa.qty) AS tot_prodPrice\n" +
                 " FROM orders o \n" +
                 " INNER JOIN order_assemblies oa ON (o.id = oa.id)\n" +
                 " INNER JOIN assembly_products ap ON (oa.assembly_id = ap.id)\n" +
-                " INNER JOIN products p ON(ap.product_id = p.id) where o.date LIKE '___"+meses.get(positionList)+"-"+año+"'\n" +
+                " INNER JOIN products p ON(ap.product_id = p.id) where o.date LIKE '___"+meses.get(positionList)+"%'\n" +
                 " ORDER BY o.id, p.id) AS tabPrices \n" +
                 " GROUP BY tabPrices.id_order\n" +
                 " HAVING SUM(tabPrices.tot_prodPrice)) as TotalTabPrices;", null);
-
-     /*Cursor cursor = db.rawQuery("select * from (select o.id as OrderId, AssemblyId,c.id as Cliente,c.first_name as FirstName,c.last_name as LastName, c.address as Address,status_id, date,description , CostoTotal*qty as RealCostoTotal from (select ap.id as AssemblyId,p.id as ProductId, sum(ap.qty * p.price) as CostoTotal\n" +
-              "from assembly_products ap inner join products p on ap.product_id = p.id\n" +
-              "group by AssemblyId) as TablaCosto inner join order_assemblies oa  on TablaCosto.AssemblyId = oa.assembly_id\n" +
-              "inner join orders o on oa.id = o.id\n" +
-              "inner join customers c on o.customer_id = c.id\n" +
-              "inner join order_status os on os.id=o.status_id where status_id = 2 or status_id=4) AS GralTable where GralTable.date like '___"+meses.get(positionList)+"-"+año+"%' ", null);
-            */
         cursor.moveToFirst();
 
         if (cursor.isNull(0)) {
@@ -671,124 +660,6 @@ public final class Inventory {
             return true;}
 
     }
-
-
-    public List<DetailInfo> GetDetailInfo (int mes, String año)
-    {
-        ArrayList<DetailInfo> dInfo = new ArrayList<DetailInfo>();
-
-
-        ArrayList<String> meses = new ArrayList<String>();
-
-        for (int i = 1 ; i<=12; i++ )
-        {
-            if(i<10){meses.add("0"+String.valueOf(i));}
-            else meses.add(String.valueOf(i));
-        }
-
-
-     /*  Cursor cursor = db.rawQuery("select * from (select o.id as OrderId, AssemblyId,c.id as Cliente,c.first_name as FirstName,c.last_name as LastName, c.address as Address,status_id, date,description , CostoTotal*qty as RealCostoTotal from (select ap.id as AssemblyId,p.id as ProductId, sum(ap.qty * p.price) as CostoTotal\n" +
-                "from assembly_products ap inner join products p on ap.product_id = p.id\n" +
-                "group by AssemblyId) as TablaCosto inner join order_assemblies oa  on TablaCosto.AssemblyId = oa.assembly_id\n" +
-                "inner join orders o on oa.id = o.id\n" +
-                "inner join customers c on o.customer_id = c.id\n" +
-                "inner join order_status os on os.id=o.status_id where status_id = 2 or status_id=4) AS GralTable where GralTable.date like '___"+meses.get(mes)+"-"+año+"%' ",null);
-*/
-
-     Cursor cursor = db.rawQuery("select * from (select o.id as OrderId, AssemblyId,c.id as Cliente,c.first_name as FirstName,c.last_name as LastName, c.address as Address,status_id, date,description , CostoTotal*qty as RealCostoTotal from (select ap.id as AssemblyId,p.id as ProductId, sum(ap.qty * p.price) as CostoTotal\n" +
-             "from assembly_products ap inner join products p on ap.product_id = p.id\n" +
-             "group by AssemblyId) as TablaCosto inner join order_assemblies oa  on TablaCosto.AssemblyId = oa.assembly_id\n" +
-             "inner join orders o on oa.id = o.id\n" +
-             "inner join customers c on o.customer_id = c.id\n" +
-             "inner join order_status os on os.id=o.status_id where status_id = 2 or status_id=3 or status_id=4) AS GralTable where GralTable.date like '___"+meses.get(mes)+"-"+año+"%' ",null);
-
-
-
-
-            while (cursor.moveToNext()) {
-                dInfo.add(new DetailInfo(
-                        cursor.getInt(0),
-                        cursor.getInt(1),
-                        cursor.getInt(2),
-                        cursor.getString(3),
-                        cursor.getString(4),
-                        cursor.getString(5),
-                        Date.valueOf(cursor.getString(7)),
-                        cursor.getString(6),
-                        cursor.getDouble(9) / 100));
-
-
-            }
-
-            cursor.close();
-
-
-
-            return dInfo;
-
-
-
-    }
-
-    public List<DetailInfo> GetOrderInfobyMounth(int mes,String año)
-    {
-        ArrayList<DetailInfo> dInfo = new ArrayList<DetailInfo>();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        java.util.Date date = new java.util.Date();
-
-        ArrayList<String> meses = new ArrayList<String>();
-
-        for (int i = 1 ; i<=12; i++ )
-        {
-            if(i<10){meses.add("0"+String.valueOf(i));}
-            else meses.add(String.valueOf(i));
-        }
-
-        Cursor cursor = db.rawQuery("select *,sum(RealCostoTotal) from (select o.id as OrderId, AssemblyId,c.id as Cliente,c.first_name as FirstName,c.last_name as LastName, c.address as Address,status_id, date,description , CostoTotal*qty as RealCostoTotal from (select ap.id as AssemblyId,p.id as ProductId, sum(ap.qty * p.price) as CostoTotal\n" +
-                "from assembly_products ap inner join products p on ap.product_id = p.id\n" +
-                "group by AssemblyId) as TablaCosto inner join order_assemblies oa  on TablaCosto.AssemblyId = oa.assembly_id\n" +
-                "inner join orders o on oa.id = o.id\n" +
-                "inner join customers c on o.customer_id = c.id\n" +
-                "inner join order_status os on os.id=o.status_id where status_id = 2 or status_id=3 or status_id=4) AS GralTable where GralTable.date like '___"+meses.get(mes)+"-"+año+"%' \n" +
-                "group by OrderId",null);
-
-
-
-        while (cursor.moveToNext()) {
-            String aux = cursor.getString(7);
-            String aux1 = cursor.getString(7);
-
-            try {date=dateFormat.parse(cursor.getString(7)); }
-            catch (ParseException e) {e.printStackTrace();}
-
-
-            //date=dateFormat.parse(cursor.getString(7));
-
-            dInfo.add(new DetailInfo(
-                    cursor.getInt(0),
-                    cursor.getInt(1),
-                    cursor.getInt(2),
-                    cursor.getString(3),
-                    cursor.getString(4),
-                    cursor.getString(5),
-                          date,//Date.valueOf(cursor.getString(7)),
-                    cursor.getString(6),
-                    cursor.getDouble(9) / 100));
-
-
-        }
-
-        cursor.close();
-
-
-
-        return dInfo;
-
-    }
-
-
-
-
 
 
 
