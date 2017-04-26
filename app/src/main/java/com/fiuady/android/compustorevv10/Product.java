@@ -15,6 +15,7 @@ CREATE TABLE [products](
 
 public class Product {
 
+    //hkg
     private int Id;
     private int categoryId;
     private String description;
