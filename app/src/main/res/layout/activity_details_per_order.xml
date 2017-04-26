@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fiuady.android.compustorevv10.DetailsPerOrderActivity">
+
+    <TextView
+        android:id="@+id/tagOrderId_o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OrderId: "
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="26dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="18dp" />
+
+    <TextView
+        android:id="@+id/txtOrderId_o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="73dp"
+        tools:layout_editor_absoluteY="26dp"
+        android:layout_alignBaseline="@+id/tagOrderId_o"
+        android:layout_alignBottom="@+id/tagOrderId_o"
+        android:layout_toEndOf="@+id/tagOrderId_o" />
+
+    <TextView
+        android:id="@+id/txtDate_o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="357dp"
+        tools:layout_editor_absoluteY="26dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignBaseline="@+id/txtOrderId_o"
+        android:layout_alignBottom="@+id/txtOrderId_o"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/tagDate_o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtDate_o"
+        android:layout_alignBottom="@+id/txtDate_o"
+        android:layout_marginEnd="8dp"
+        android:layout_toStartOf="@+id/txtDate_o"
+        android:text="Date: " />
+
+    <TextView
+        android:id="@+id/tagCustomerId_o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtOrderId_o"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/txtOrderId_o"
+        android:text="CustomerId: " />
+
+    <TextView
+        android:id="@+id/txtCustomerId_o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tagCustomerId_o"
+        android:layout_toEndOf="@+id/tagCustomerId_o"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/TagAddress_o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tagName_o"
+        android:layout_below="@+id/tagName_o"
+        android:layout_marginTop="14dp"
+        android:text="Address: " />
+
+    <TextView
+        android:id="@+id/txtAddress_o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/TagAddress_o"
+        android:layout_marginStart="6dp"
+        android:layout_toEndOf="@+id/TagAddress_o"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tagName_o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tagOrderId_o"
+        android:layout_below="@+id/tagOrderId_o"
+        android:layout_marginTop="18dp"
+        android:text="Full Name: " />
+
+    <TextView
+        android:id="@+id/txtfstName_o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tagName_o"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/tagName_o"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/txtLstName_o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_alignBaseline="@+id/txtfstName_o"
+        android:layout_alignBottom="@+id/txtfstName_o"
+        android:layout_toStartOf="@+id/txtCustomerId_o" />
+
+    <TextView
+        android:id="@+id/tagOrderStatus_o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/TagAddress_o"
+        android:layout_below="@+id/TagAddress_o"
+        android:layout_marginTop="15dp"
+        android:text="Order Status: " />
+
+    <TextView
+        android:id="@+id/txtOrderStatus_o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tagOrderStatus_o"
+        android:layout_toEndOf="@+id/tagOrderStatus_o"
+        android:text="TextView" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvAssemblies"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/tagOrderStatus_o"
+        android:layout_marginTop="14dp" />
+</RelativeLayout>

@@ -2,11 +2,41 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tagTotalPrice"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fiuady.android.compustorevv10.DetailSalesResume">
+    tools:context="com.fiuady.android.compustorevv10.DetailSalesResumeActivity">
 
 
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/tagTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Total Price: "
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/txtRealTotalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="precio"
+            android:textAlignment="textEnd" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvDetailedResume"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayout4"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="8dp" />
 </RelativeLayout>
-    <!--@dimen/fab_margin-->

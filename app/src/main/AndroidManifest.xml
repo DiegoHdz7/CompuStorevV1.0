@@ -23,7 +23,10 @@
         <activity android:name=".ReportsActivity" />
         <activity android:name=".MissingProductsActivity" />
         <activity android:name=".ReportSimulatorActivity" />
-        <activity android:name=".SalesPerMounthActivity"></activity>
+        <activity android:name=".SalesPerMounthActivity" />
+        <activity android:name=".DetailSalesResumeActivity" />
+        <activity android:name="." />
+        <activity android:name=".DetailsPerOrderActivity"></activity>
     </application>
 
 </manifest>

@@ -31,6 +31,7 @@ public class ReportsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ReportsActivity.this,ReportSimulatorActivity.class);
+                startActivity(i);
             }
         });
 
