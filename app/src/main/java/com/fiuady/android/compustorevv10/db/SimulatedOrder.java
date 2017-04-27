@@ -15,14 +15,18 @@ public class SimulatedOrder {
     private String firstName;
     private Date date;
     private double price;
+    private int canBeTaken; // 0 = no se tienen productos para hacer la orden
+                            // 1 = faltan algunos productos para hacer la orden
+                            // 2 = se tienen todos los productos para hacer la orden
 
-    public SimulatedOrder(int id, String status, String lastName, String firstName, Date date, double price) {
+    public SimulatedOrder(int id, String status, String lastName, String firstName, Date date, double price, int canBeTaken) {
         this.id = id;
         this.status = status;
         this.lastName = lastName;
         this.firstName = firstName;
         this.date = date;
         this.price = price;
+        this.canBeTaken = canBeTaken;
     }
 
     public int getId() {
@@ -69,5 +73,11 @@ public class SimulatedOrder {
         this.price = price;
     }
 
+    public int getCanBeTaken() {
+        return canBeTaken;
+    }
 
+    public void setCanBeTaken(int canBeTaken) {
+        this.canBeTaken = canBeTaken;
+    }
 }

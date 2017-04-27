@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
@@ -101,11 +102,11 @@ public class ReportSimulatorActivity extends AppCompatActivity {
             holder.binHolder(_orders.get(position));
             if(_orders.get(position).getStatus().toString().equals("Pendiente"))
             {
-                holder.itemView.setBackgroundColor(Color.BLUE);
+                holder.itemView.setBackgroundColor(Color.LTGRAY);
             }
             else if(_orders.get(position).getStatus().toString().equals("Confirmado"))
             {
-                holder.itemView.setBackgroundColor(Color.GREEN);
+                holder.itemView.setBackgroundColor(Color.BLUE);
             }
 
             else if(_orders.get(position).getStatus().toString().equals("Cancelado"))
@@ -192,6 +193,10 @@ public class ReportSimulatorActivity extends AppCompatActivity {
                         pMenu.inflate(R.menu.menu_simulated_orders);
                         pMenu.setGravity(Gravity.END);
                         pMenu.show();
+
+                        /*pMenu.setOnMenuItemClickListener( new View.OnClickListener(){
+
+                        });*/
                     }
                 });
 

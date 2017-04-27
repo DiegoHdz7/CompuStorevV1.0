@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.MultiAutoCompleteTextView.Tokenizer;
 import android.widget.Toast;
 
 
@@ -15,10 +16,12 @@ import com.fiuady.android.compustorevv10.ProductoFaltante;
 import com.fiuady.android.compustorevv10.SalesPerMounthActivity;
 
 import java.sql.Date;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public final class Inventory {
     private InventoryHelper inventoryHelper;
@@ -33,7 +36,7 @@ public final class Inventory {
         db = inventoryHelper.getWritableDatabase();
     }
 
-    public List<SimulatedOrder> SearchOrdersByCriteria(String criteria)
+    public List<SimulatedOrder> GrtVirtualTableToSimulate(String criteria)
     {
         String query = null;
         ArrayList<SimulatedOrder> list = new ArrayList<SimulatedOrder>();
@@ -68,11 +71,11 @@ public final class Inventory {
 
                     while (cursor.moveToNext())
                     {
-                     list.add(new SimulatedOrder(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),
-                             Date.valueOf(cursor.getString(4)), (cursor.getDouble(5)/100)));
+                        list.add(new SimulatedOrder(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),
+                                Date.valueOf(cursor.getString(4)), (cursor.getDouble(5)/100),0));
                     }
                     cursor.close();
-                    return list;
+                    //return list; Lista para la nueva tabla virtual
 
                 case "Fecha":
 
@@ -101,10 +104,10 @@ public final class Inventory {
                     while (cursor.moveToNext())
                     {
                         list.add(new SimulatedOrder(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),
-                                Date.valueOf(cursor.getString(4)), (cursor.getDouble(5)/100)));
+                                Date.valueOf(cursor.getString(4)), (cursor.getDouble(5)/100),0));
                     }
                     cursor.close();
-                    return list;
+                    //return list; Lista para la nueva tabla virtual
 
                 case "Monto de Venta":
                     query = "SELECT o.id AS order_id, os.description AS order_status, c.last_name AS customerLN, c.first_name AS customerFN, o.date AS order_date,\n" +
@@ -132,7 +135,173 @@ public final class Inventory {
                     while (cursor.moveToNext())
                     {
                         list.add(new SimulatedOrder(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),
-                                Date.valueOf(cursor.getString(4)), (cursor.getDouble(5)/100)));
+                                Date.valueOf(cursor.getString(4)), (cursor.getDouble(5)/100),0));
+                    }
+                    cursor.close();
+                    //return list; Lista para la nueva tabla virtual
+
+                default:
+                    list.clear();
+                    //return list; Lista para la nueva tabla virtual
+            }
+        }
+        else
+        {
+            list.clear();
+            //return list; Lista para la nueva tabla virtual
+        }
+
+        for (SimulatedOrder sO : list)
+        {
+            //Crear una nueva tabla temporal con las órdenes actuales
+        }
+
+        return list; //Verificar si sólo así se retorna
+    }
+
+    public List<SimulatedOrder> SearchOrdersByCriteria(String criteria)
+    {
+        String query = null;
+        ArrayList<SimulatedOrder> list = new ArrayList<SimulatedOrder>();
+        Cursor cursor;
+
+
+        if (!criteria.isEmpty())
+        {
+            switch (criteria)
+            {
+                case "Cliente":
+                    query = "SELECT o.id AS order_id, os.description AS order_status, c.last_name AS customerLN, c.first_name AS customerFN, \n" +
+                            "       substr(o.date,1,2) AS date_day, substr(o.date,4,2) AS date_month, substr(o.date,7,4)AS date_year,\n" +
+                            "       tNew.order_price AS order_price\n" +
+                            "FROM\n" +
+                            "        (\n" +
+                            "        --Obtener el precio de cada orden\n" +
+                            "        SELECT tabPrices.id_order AS orderID, SUM(tabPrices.tot_prodPrice) AS order_price\n" +
+                            "        FROM\n" +
+                            "        (SELECT o.id AS id_order, oa.id AS id_assembly, oa.qty AS oa_qty,  ap.qty AS ap_qty, p.id AS id_product , p.price AS p_price, (p.price*ap.qty*oa.qty        ) AS tot_prodPrice\n" +
+                            "        FROM orders o \n" +
+                            "        INNER JOIN order_assemblies oa ON (o.id = oa.id)\n" +
+                            "        INNER JOIN assembly_products ap ON (oa.assembly_id = ap.id)\n" +
+                            "        INNER JOIN products p ON(ap.product_id = p.id)\n" +
+                            "        ORDER BY o.id, p.id) AS tabPrices \n" +
+                            "        GROUP BY tabPrices.id_order\n" +
+                            "        HAVING SUM(tabPrices.tot_prodPrice)\n" +
+                            "        ) AS tNew\n" +
+                            "INNER JOIN orders o ON (o.id = tNew.orderID)\n" +
+                            "INNER JOIN customers c ON (o.customer_id = c.id)\n" +
+                            "INNER JOIN order_status os ON (o.status_id = os.id)\n" +
+                            //"WHERE os.description = 'Pendiente'\n" +
+                            "ORDER BY c.last_name, c.first_name,o.id DESC";
+
+                    cursor=db.rawQuery(query,null);
+
+                    while (cursor.moveToNext())
+                    {
+                        /*
+                        //0     1       2     3     4    5     6     7
+                        //id,status, LName,FName, day, month, year, price
+                        //int id, String status, String lastName, String firstName, Date date, double price, int canBeTaken
+                        */
+                        list.add(new SimulatedOrder(
+                                cursor.getInt(0),       //Id
+                                cursor.getString(1),    //Status
+                                cursor.getString(2),    //LName
+                                cursor.getString(3),    //FName
+                                Date.valueOf(cursor.getString(6) + "-" + cursor.getString(5) + "-" + cursor.getString(4)), //Date
+                                (cursor.getDouble(7)/100), //Price
+                                0                           //canBeTaken
+                                ));
+                    }
+                    cursor.close();
+                    return list;
+
+                case "Fecha":
+
+                    query = "SELECT o.id AS order_id, os.description AS order_status, c.last_name AS customerLN, c.first_name AS customerFN, \n" +
+                            "       substr(o.date,1,2) AS date_day, substr(o.date,4,2) AS date_month, substr(o.date,7,4)AS date_year,\n" +
+                            "       tNew.order_price AS order_price\n" +
+                            "FROM\n" +
+                            "        (\n" +
+                            "        --Obtener el precio de cada orden\n" +
+                            "        SELECT tabPrices.id_order AS orderID, SUM(tabPrices.tot_prodPrice) AS order_price\n" +
+                            "        FROM\n" +
+                            "        (SELECT o.id AS id_order, oa.id AS id_assembly, oa.qty AS oa_qty,  ap.qty AS ap_qty, p.id AS id_product , p.price AS p_price, (p.price*ap.qty*oa.qty        ) AS tot_prodPrice\n" +
+                            "        FROM orders o \n" +
+                            "        INNER JOIN order_assemblies oa ON (o.id = oa.id)\n" +
+                            "        INNER JOIN assembly_products ap ON (oa.assembly_id = ap.id)\n" +
+                            "        INNER JOIN products p ON(ap.product_id = p.id)\n" +
+                            "        ORDER BY o.id, p.id) AS tabPrices \n" +
+                            "        GROUP BY tabPrices.id_order\n" +
+                            "        HAVING SUM(tabPrices.tot_prodPrice)\n" +
+                            "        ) AS tNew\n" +
+                            "INNER JOIN orders o ON (o.id = tNew.orderID)\n" +
+                            "INNER JOIN customers c ON (o.customer_id = c.id)\n" +
+                            "INNER JOIN order_status os ON (o.status_id = os.id)\n" +
+                            //"WHERE os.description = 'Pendiente'\n" +
+                            "ORDER BY date_year, date_month, date_day ASC";
+
+                    cursor=db.rawQuery(query,null);
+
+                    while (cursor.moveToNext())
+                    {
+                        list.add(new SimulatedOrder(
+                                cursor.getInt(0),       //Id
+                                cursor.getString(1),    //Status
+                                cursor.getString(2),    //LName
+                                cursor.getString(3),    //FName
+                                Date.valueOf(cursor.getString(6) + "-" + cursor.getString(5) + "-" + cursor.getString(4)), //Date
+                                (cursor.getDouble(7)/100), //Price
+                                0                           //canBeTaken
+                        ));
+                    }
+                    cursor.close();
+
+                    //Implementar método para ordenar las fechas por java
+                    return list;
+
+                case "Monto de Venta":
+                    query = "SELECT o.id AS order_id, os.description AS order_status, c.last_name AS customerLN, c.first_name AS customerFN, \n" +
+                            "       substr(o.date,1,2) AS date_day, substr(o.date,4,2) AS date_month, substr(o.date,7,4)AS date_year,\n" +
+                            "       tNew.order_price AS order_price\n" +
+                            "FROM\n" +
+                            "        (\n" +
+                            "        SELECT tabPrices.id_order AS orderID, SUM(tabPrices.tot_prodPrice) AS order_price\n" +
+                            "        FROM\n" +
+                            "        (SELECT o.id AS id_order, oa.id AS id_assembly, oa.qty AS oa_qty,  ap.qty AS ap_qty, p.id AS id_product , p.price AS p_price, (p.price*ap.qty*oa.qty) AS tot_prodPrice\n" +
+                            "        FROM orders o \n" +
+                            "        INNER JOIN order_assemblies oa ON (o.id = oa.id)\n" +
+                            "        INNER JOIN assembly_products ap ON (oa.assembly_id = ap.id)\n" +
+                            "        INNER JOIN products p ON(ap.product_id = p.id)\n" +
+                            "        ORDER BY o.id, p.id) AS tabPrices \n" +
+                            "        GROUP BY tabPrices.id_order\n" +
+                            "        HAVING SUM(tabPrices.tot_prodPrice)\n" +
+                            "        ) AS tNew\n" +
+                            "INNER JOIN orders o ON (o.id = tNew.orderID)\n" +
+                            "INNER JOIN customers c ON (o.customer_id = c.id)\n" +
+                            "INNER JOIN order_status os ON (o.status_id = os.id)\n" +
+                            "ORDER BY tNew.order_price DESC";
+
+                    cursor=db.rawQuery(query,null);
+
+                    while (cursor.moveToNext())
+                    {
+                        String day = cursor.getString(5);
+                        String month = cursor.getString(6);
+                        String year = cursor.getString(7);
+                        String newDate = year + "/" + month + "/" +day;
+                        //0,    1,      2,  3,      4,     5,   6,      7
+                        //id,status, LName,FName, price, day, month, year
+
+                        list.add(new SimulatedOrder(
+                                cursor.getInt(0),       //Id
+                                cursor.getString(1),    //Status
+                                cursor.getString(2),    //LName
+                                cursor.getString(3),    //FName
+                                Date.valueOf(cursor.getString(6) + "-" + cursor.getString(5) + "-" + cursor.getString(4)), //Date
+                                (cursor.getDouble(7)/100), //Price
+                                0                           //canBeTaken
+                        ));
                     }
                     cursor.close();
                     return list;
@@ -424,6 +593,8 @@ public final class Inventory {
         return valor;
 
     }
+
+    //public GetDetailInfo()
 
     public List<Integer> AssembliesIDbyOrder(int orderID) // Ensambles que requiere la orden
     {
