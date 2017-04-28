@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--tools:context="com.fiuady.android.project1.EditOrder_Activity"!-->
+    <android.support.v7.widget.Toolbar
+
+        android:id="@+id/toolbar_AddOrder"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#fafafa"
+        android:elevation="10dp"
+        app:titleTextColor="#000000"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:layout_alignParentStart="true"/>
+    <TextView
+        android:id="@+id/txt_Customers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar_AddOrder"
+        android:layout_alignLeft="@+id/spinner_AddOrder"
+        android:text="Select Customer"
+        android:textSize="16dp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"/>
+
+    <Spinner
+        android:id="@+id/spinner_AddOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_Customers"
+        android:layout_marginTop="7dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        ></Spinner>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/addOrder_RecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/spinner_AddOrder"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="15dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="100dp"
+        ></android.support.v7.widget.RecyclerView>
+    <Button
+        android:id="@+id/button_SaveOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="42dp" />
+    <Button
+        android:id="@+id/button_CancelOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:layout_alignTop="@+id/button_SaveOrder"
+        android:layout_centerHorizontal="true"
+        />
+
+
+</RelativeLayout>

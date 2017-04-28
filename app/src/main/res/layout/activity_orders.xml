@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--tools:context=".Orders_Activity"!-->
+    <android.support.v7.widget.Toolbar
+
+        android:id="@+id/toolbar_Orders"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#fafafa"
+        android:elevation="10dp"
+        app:titleTextColor="#000000"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:layout_alignParentStart="true"/>
+
+    <CheckBox
+        android:id="@+id/chk_InitialDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:text="Initial Date"
+        android:layout_marginStart="21dp"
+        android:gravity="right|center_vertical"
+        android:layout_below="@+id/toolbar_Orders"
+        android:layout_alignStart="@+id/recyclerView_Orders" />
+    <CheckBox
+        android:id="@+id/chk_FinalDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:text="Final Date"
+        android:gravity="right|center_vertical"
+        android:layout_marginEnd="34dp"
+        android:layout_above="@+id/recyclerView_Orders"
+        android:layout_alignEnd="@+id/recyclerView_Orders"
+        android:layout_alignTop="@id/chk_InitialDate"/>
+    <TextView
+        android:id="@+id/txtOrders_InitialDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chk_InitialDate"
+        android:hint="InitialDate"
+        android:layout_alignLeft="@id/chk_InitialDate"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:textAppearance="?android:textAppearanceMedium"
+        style="@style/Base.Theme.AppCompat.Light.Dialog"
+        android:textColor="@color/material_deep_teal_500"
+        android:textColorHighlight="@color/accent_material_light"/>
+    <TextView
+        android:id="@+id/txtOrders_FinalDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chk_FinalDate"
+        android:hint="FinalDate"
+        android:layout_alignLeft="@id/chk_FinalDate"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:textAppearance="?android:textAppearanceMedium"
+        style="@style/Base.Theme.AppCompat.Light.Dialog"
+        android:textColor="@color/material_deep_teal_500"
+        android:textColorHighlight="@color/accent_material_light"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_Orders"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/chk_InitialDate"
+        android:foregroundGravity="center_vertical|left"
+        android:layout_alignParentRight="false"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="6dp"
+        ></android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

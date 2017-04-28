@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/txtWinName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit Product Category"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:background="@android:color/holo_blue_light"
+        android:textSize="20dp"
+        android:textColor="@color/background_material_light" />
+    <EditText
+        android:id="@+id/txtEditCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtWinName"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/edit_category_hint"
+        />
+
+
+</RelativeLayout>

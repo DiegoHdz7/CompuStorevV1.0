@@ -30,7 +30,18 @@
         <activity android:name=".Productos.Product_Activity" />
         <activity android:name=".Productos.AddProductActivity" />
         <activity android:name=".Productos.UpdateActivity" />
-        <activity android:name=".UpdateClientActivity"></activity>
-    </application>
+        <activity android:name=".ProductCategory_Activity" />
+        <activity android:name=".Assemblies_Activity" />
+        <activity android:name=".AddAssembly_Activity" />
+        <activity android:name=".EditAssembly_Activity" />
+        <activity android:name=".AddProductsToAssembly_Activity" />
+        <activity android:name=".Orders_Activity"/>
+        <activity android:name=".AddOrder_Activity"/>
+        <activity android:name=".EditOrder_Activity"/>
+        <activity android:name=".AddAssemblyToOrder_Activity"/>
 
+
+    </application>
 </manifest>
+
+
