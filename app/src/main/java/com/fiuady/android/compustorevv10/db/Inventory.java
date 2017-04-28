@@ -35,118 +35,7 @@ import java.util.Locale;
 
 //Manuel Lara
 
-class ProductCategoriesCursor extends CursorWrapper {
-    public ProductCategoriesCursor(Cursor cursor){
-        super(cursor);
-    }
-    public Product_Categories getCategory(){
-        Cursor cursor = getWrappedCursor();
-        return new Product_Categories(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductCategoriesTable.Columns.ID)),
-                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.ProductCategoriesTable.Columns.DESCRIPTION)));
-    }
-}
-class AssemblyCursor extends CursorWrapper{
-    public AssemblyCursor(Cursor cursor){
-        super(cursor);
 
-    }
-    public Assembly getAssembly(){
-        Cursor cursor = getWrappedCursor();
-        return  new Assembly(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.AssembliesTable.Columns.ID)),
-                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.AssembliesTable.Columns.DESCRIPTION)));
-
-    }
-}
-class ProductCursor extends CursorWrapper{
-    public ProductCursor(Cursor cursor){
-        super(cursor);
-    }
-    public ProductLara getProduct(){
-        Cursor cursor = getWrappedCursor();
-        return new ProductLara(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.ID)),
-                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.CATEGORY_ID)),
-                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.DESCRIPTION)),
-                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.PRICE)),
-                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.QUANTITY)));
-    }
-}
-class AssemblyProductsCursor extends CursorWrapper{
-    public AssemblyProductsCursor(Cursor cursor){
-        super(cursor);
-    }
-    public AssemblyProducts getAssemblyProducts(){//justCreateToRead
-        Cursor cursor = getWrappedCursor(); //the first param is assembly_id
-        return new AssemblyProducts(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.AssemblyProductsLaraTable.Columns.ID)),
-                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.AssemblyProductsLaraTable.Columns.PRODUCT_ID)),
-                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.AssemblyProductsLaraTable.Columns.QUANTITY)),
-                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.AssemblyProductsLaraTable.Columns.CATEGORY_ID)),
-                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.AssemblyProductsLaraTable.Columns.DESCRIPTION)),
-                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.AssemblyProductsLaraTable.Columns.PRICE)));
-    }
-}
-class CustomersCursor extends CursorWrapper{
-    public CustomersCursor(Cursor cursor){
-        super(cursor);
-    }
-    public Customer getCostumer(){
-        Cursor cursor = getWrappedCursor();
-        return new Customer(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.ID)),
-                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.FIRST_NAME)),
-                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.LAST_NAME)),
-                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.ADDRESS)),
-                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.PHONE1)),
-                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.PHONE2)),
-                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.PHONE3)),
-                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.E_MAIL))
-        );
-    }
-
-}
-class OrdersCursor extends CursorWrapper{
-    public OrdersCursor(Cursor cursor){
-        super(cursor);
-    }
-    public Order getOrder(){
-        Cursor cursor = getWrappedCursor();
-        return new Order(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.ID)),
-                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.STATUS_ID)),
-                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.STATUS_DESCRIPTION)),
-                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.COSTUMER_ID)),
-                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.COSTUMER_FIRSTNAME)),
-                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.COSTUMER_LASTNAME)),
-                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.DATE)),
-                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.CHANGE_LOG))
-        );
-    }
-
-}
-class OrderStatusCursor extends CursorWrapper{
-    public OrderStatusCursor(Cursor cursor){
-        super(cursor);
-    }
-    public Order_Status getOrderStatus(){
-        Cursor cursor = getWrappedCursor();
-        return new Order_Status(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersStatusTable.Columns.ID)),
-                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrdersStatusTable.Columns.DESCRIPTION)),
-                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersStatusTable.Columns.EDITABLE)),
-                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersStatusTable.Columns.NEXT)),
-                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersStatusTable.Columns.PREVIOUS)));
-    }
-
-}
-class OrderAssemblyCursor extends CursorWrapper{
-    public OrderAssemblyCursor(Cursor cursor){
-        super(cursor);
-    }
-    public Order_Assembly getOrderAssembly(){
-        Cursor cursor = getWrappedCursor();
-        return new Order_Assembly(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrderAssembliesTable.Columns.ID)),
-                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrderAssembliesTable.Columns.ASSEMBLY_ID)),
-                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrderAssembliesTable.Columns.ASSEMBLY_DESCRIPTION)),
-                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrderAssembliesTable.Columns.QUANTITY)));
-    }
-
-}
 
 
 
@@ -173,24 +62,790 @@ public final class Inventory {
         db = inventoryHelper.getWritableDatabase();
     }
 
-    public List<SimulatedOrder> SearchOrdersByCriteria(String criteria)
+    class ProductCategoriesCursor extends CursorWrapper {
+        public ProductCategoriesCursor(Cursor cursor){
+            super(cursor);
+        }
+        public Product_Categories getCategory(){
+            Cursor cursor = getWrappedCursor();
+            return new Product_Categories(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductCategoriesTable.Columns.ID)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.ProductCategoriesTable.Columns.DESCRIPTION)));
+        }
+    }
+    class AssemblyCursor extends CursorWrapper{
+        public AssemblyCursor(Cursor cursor){
+            super(cursor);
+
+        }
+        public Assembly getAssembly(){
+            Cursor cursor = getWrappedCursor();
+            return  new Assembly(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.AssembliesTable.Columns.ID)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.AssembliesTable.Columns.DESCRIPTION)));
+
+        }
+    }
+    class ProductCursor extends CursorWrapper{
+        public ProductCursor(Cursor cursor){
+            super(cursor);
+        }
+        public ProductLara getProduct(){
+            Cursor cursor = getWrappedCursor();
+            return new ProductLara(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.ID)),
+                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.CATEGORY_ID)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.DESCRIPTION)),
+                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.PRICE)),
+                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.QUANTITY)));
+        }
+    }
+    class AssemblyProductsCursor extends CursorWrapper{
+        public AssemblyProductsCursor(Cursor cursor){
+            super(cursor);
+        }
+        public AssemblyProducts getAssemblyProducts(){//justCreateToRead
+            Cursor cursor = getWrappedCursor(); //the first param is assembly_id
+            return new AssemblyProducts(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.AssemblyProductsLaraTable.Columns.ID)),
+                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.AssemblyProductsLaraTable.Columns.PRODUCT_ID)),
+                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.AssemblyProductsLaraTable.Columns.QUANTITY)),
+                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.AssemblyProductsLaraTable.Columns.CATEGORY_ID)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.AssemblyProductsLaraTable.Columns.DESCRIPTION)),
+                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.AssemblyProductsLaraTable.Columns.PRICE)));
+        }
+    }
+    class CustomersCursor extends CursorWrapper{
+        public CustomersCursor(Cursor cursor){
+            super(cursor);
+        }
+        public Customer getCostumer(){
+            Cursor cursor = getWrappedCursor();
+            return new Customer(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.ID)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.FIRST_NAME)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.LAST_NAME)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.ADDRESS)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.PHONE1)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.PHONE2)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.PHONE3)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.E_MAIL))
+            );
+        }
+
+    }
+    class OrdersCursor extends CursorWrapper{
+        public OrdersCursor(Cursor cursor){
+            super(cursor);
+        }
+        public Order getOrder(){
+            Cursor cursor = getWrappedCursor();
+            return new Order(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.ID)),
+                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.STATUS_ID)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.STATUS_DESCRIPTION)),
+                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.COSTUMER_ID)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.COSTUMER_FIRSTNAME)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.COSTUMER_LASTNAME)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.DATE)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.CHANGE_LOG))
+            );
+        }
+
+    }
+    class OrderStatusCursor extends CursorWrapper{
+        public OrderStatusCursor(Cursor cursor){
+            super(cursor);
+        }
+        public Order_Status getOrderStatus(){
+            Cursor cursor = getWrappedCursor();
+            return new Order_Status(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersStatusTable.Columns.ID)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrdersStatusTable.Columns.DESCRIPTION)),
+                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersStatusTable.Columns.EDITABLE)),
+                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersStatusTable.Columns.NEXT)),
+                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersStatusTable.Columns.PREVIOUS)));
+        }
+
+    }
+    class OrderAssemblyCursor extends CursorWrapper{
+        public OrderAssemblyCursor(Cursor cursor){
+            super(cursor);
+        }
+        public Order_Assembly getOrderAssembly(){
+            Cursor cursor = getWrappedCursor();
+            return new Order_Assembly(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrderAssembliesTable.Columns.ID)),
+                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrderAssembliesTable.Columns.ASSEMBLY_ID)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrderAssembliesTable.Columns.ASSEMBLY_DESCRIPTION)),
+                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrderAssembliesTable.Columns.QUANTITY)));
+        }
+
+    }
+
+
+
+    public void SetVirtualTableOfProducts()
+    {
+        //En esta función se extraen todas las cantidades actuales de los productos en stock
+        //Se creará una nueva tabla en donde sólo importan los p_id, p_description, p_qty;
+
+        String query = null;
+        ArrayList<Product> listOrigProducts = new ArrayList<Product>();
+        Cursor cursor ;
+
+        query = "SELECT *\n" +
+                "FROM products p;";
+        cursor = db.rawQuery(query,null);
+
+        //cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.FIRST_NAME)),
+        while (cursor.moveToNext()){
+            listOrigProducts.add(new Product( cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.ID)),
+                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.CATEGORY_ID)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.DESCRIPTION)),
+                    cursor.getDouble(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.PRICE))/100,
+                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.QUANTITY))
+            ));
+        }
+        cursor.close();
+
+        query = "DROP TABLE IF EXISTS [simulated_products];";//Primero reiniciar la tabla temporal
+        db.execSQL(query);
+
+        query = null;
+
+        //Crear la nueva tabla temporal de productos
+        query = "CREATE TABLE [simulated_products](\n" +
+                "[p_id] INTEGER PRIMARY KEY,\n" +
+                "[p_categ_id] INTEGER,\n" +
+                "[p_description] TEXT,\n" +
+                "[p_price] INTEGER,\n" +
+                "[p_qty] INTEGER\n" +
+                ");";
+
+        db.execSQL(query);
+
+        //Agregar los productos actuales a la nueva tabla temporal
+        for (Product product: listOrigProducts)
+        {
+            query = null;
+            query = "INSERT INTO simulated_products(p_id, p_categ_id, p_description, p_price, p_qty) VALUES\n" +
+                    "(" + String.valueOf(product.getId()) +", " + String.valueOf(product.getCategoryId()) +
+                    ", 'nuevo producto'," + String.valueOf((int)product.getPrice()*100) + ", " +
+                    String.valueOf(product.getQty()) +" );";
+
+            db.execSQL(query);
+        }
+    }
+
+    public void SetNeededProductsInSimulation(String critreria)
+    {
+        //Esta función tiene como meta el crear una tabla temporal needed_products,
+        // en la cual se almacena los productos faltantes, sus cantidades faltantes
+        // y las respectivas id de las órdenes
+
+        //La tabla de los productos actuales en el stock se llama:
+        //simulated_products
+
+        //La tabla en donde se encuentran las órdenes que se van a simular:
+        //simulated_orders_temporary
+
+        String query = null;
+        ArrayList<SimulatedOrder> listSimOrders =  SearchTemporaryOrdersByCriteria(critreria);
+        ArrayList<Product> listProdPerOrder;
+        Cursor cursor;
+
+        query = "DROP TABLE IF EXISTS [prod_needed];";
+        db.execSQL(query);
+
+        query=null;
+
+
+        query = "CREATE TABLE [prod_needed](" +
+                "[ord_id] " +
+                "INTEGER," +
+                "[prod_id] INTEGER,"+
+                "[prod_qty_needed] INTEGER"+
+                ");";
+        db.execSQL(query);
+
+        for(SimulatedOrder simOrd : listSimOrders){
+            int ordIdToGetHisProducts = simOrd.getId();
+
+            listProdPerOrder = getAllProductsOfOrder(ordIdToGetHisProducts); //Tengo los productos de cada order
+            //1.¿El producto de la orden se encuentra en la tabla "prod_needed"?
+            //¿Sí? Obtener el valor más negativo de la cantidad de ese producto y a esa cantidad
+            //restarle la cantidad de ese producto necesitado por el ensamble
+
+            for (Product pOrd: listProdPerOrder) {
+                int productOfSelectedOrder_id = pOrd.getId();   //Id del producto que se compara.
+                int productOfSelectedOrder_qty = pOrd.getQty(); //Qty del producto que se compara.
+
+                query = null;
+                query = "SELECT *" +
+                        " FROM prod_needed pn" +
+                        " WHERE pn.prod_id = " + String.valueOf(productOfSelectedOrder_id) + ";";
+                cursor = db.rawQuery(query, null);
+                if (cursor.getCount() > 0) { //Verificar si la tabla no esta vacía
+                    query = null;
+                    //Verificar si el id del producto a buscar ya se encuentra en la tabla
+
+                    query = "SELECT * " +
+                            " FROM prod_needed pn" +
+                            " WHERE pn.ord_id =" + String.valueOf(productOfSelectedOrder_id) + ";";
+                    cursor = db.rawQuery(query, null);
+
+                    if (cursor.getCount() > 0) {
+
+                        query = "SELECT MIN(pn.prod_qty_needed), pn.ord_id" +
+                                " FROM prod_needed pn" +
+                                " WHERE pn.prod_id = " + String.valueOf(productOfSelectedOrder_id) + ";";
+                        cursor = db.rawQuery(query, null);
+                        cursor.moveToFirst(); //cursor.moveToNext(); //Probar con moveToFirst
+                        int minQtyInProductsNeededcursor = cursor.getInt(0);
+                        int idOfOrderOfMinQuantity = cursor.getInt(1);  //Si es igual al Id del que se está
+                        //analizando sumar el pn.prod_qty_needed
+
+                        int newMinQty = minQtyInProductsNeededcursor - productOfSelectedOrder_qty;
+
+                        query = null;
+
+                        if (idOfOrderOfMinQuantity == ordIdToGetHisProducts) {
+                            query = "UPDATE prod_needed SET prod_qty_needed = " + String.valueOf(newMinQty) + " WHERE prod_id = " + String.valueOf(productOfSelectedOrder_id)  + ";";
+                            db.execSQL(query);
+                        }else {
+
+                            query = "INSERT INTO prod_needed (ord_id, prod_id, prod_qty_needed)" +
+                                    " VALUES(" + String.valueOf(ordIdToGetHisProducts) + ", " + String.valueOf(productOfSelectedOrder_id) +
+                                    ", " + String.valueOf(newMinQty) +
+                                    ");";
+
+                            db.execSQL(query);
+                        }
+                    }
+                    else {  //Si no se encuentra en la tabla de prod_needed comparar los datos de la tabla del stock
+                        //Hacer la resta en la tabla de los productos del stock
+
+                        //Obtener el valor de la cantidad del producto que se busca
+                        query = null;
+                        query = "SELECT sp.p_qty" +
+                                " FROM simulated_products sp" +
+                                " WHERE sp.p_id = " + String.valueOf(productOfSelectedOrder_id)
+                                + ";";
+
+                        cursor = db.rawQuery(query,null);
+                        cursor.moveToFirst();
+                        int stockQty = cursor.getInt(0);
+                        //Falta restarle el qty del producto de la orden.
+                        int newStockQty = stockQty - productOfSelectedOrder_qty;
+
+                        if (newStockQty < 0)
+                        {
+                            //Agregarlo de una vez a prod_needed
+
+                            query = null;
+                            query = "INSERT INTO prod_needed (ord_id, prod_id, prod_qty_needed)" +
+                                    " VALUES(" + String.valueOf(ordIdToGetHisProducts) + ", " + String.valueOf(productOfSelectedOrder_id) +
+                                    ", " + String.valueOf(newStockQty) +
+                                    ");";
+                            db.execSQL(query);
+
+                            query = null; //Modificar también el stock
+                            //UPDATE empleados SET ventas = 0 WHERE oficina = 12;
+                            query = "UPDATE simulated_products SET p_qty = " + String.valueOf(newStockQty) +
+                                    " WHERE p_id = " + String.valueOf(productOfSelectedOrder_id) + ";" ;
+
+                            db.execSQL(query);
+                        }
+
+                        else{
+                            query = "UPDATE simulated_products SET p_qty = " + String.valueOf(newStockQty) +
+                                    " WHERE p_id = " + String.valueOf(productOfSelectedOrder_id) + ";" ;
+
+                            db.execSQL(query);
+                        }
+
+                    }
+                }
+
+                else { //Si la tabla está vacía
+                    //Obtener el valor de la cantidad del producto que se busca
+                    query = null;
+                    query = "SELECT sp.p_qty" +
+                            " FROM simulated_products sp" +
+                            " WHERE sp.p_id = " + String.valueOf(productOfSelectedOrder_id)
+                            + ";";
+
+                    cursor = db.rawQuery(query,null);
+                    cursor.moveToFirst();
+                    int stockQty = cursor.getInt(0);
+                    //Falta restarle el qty del producto de la orden.
+                    int newStockQty = stockQty - productOfSelectedOrder_qty;
+
+                    if (newStockQty < 0)
+                    {
+                        //Agregarlo de una vez a prod_needed
+
+                        query = null;
+                        query = "INSERT INTO prod_needed (ord_id, prod_id, prod_qty_needed)" +
+                                " VALUES(" + String.valueOf(ordIdToGetHisProducts) + ", " + String.valueOf(productOfSelectedOrder_id) +
+                                ", " + String.valueOf(newStockQty) +
+                                ");";
+                        db.execSQL(query);
+
+                        query = null; //Modificar también el stock
+                        //UPDATE empleados SET ventas = 0 WHERE oficina = 12;
+                        query = "UPDATE simulated_products SET p_qty = " + String.valueOf(newStockQty) +
+                                " WHERE p_id = " + String.valueOf(productOfSelectedOrder_id) + ";" ;
+
+                        db.execSQL(query);
+                    }
+
+                    else{
+                        query = "UPDATE simulated_products SET p_qty = " + String.valueOf(newStockQty) +
+                                " WHERE p_id = " + String.valueOf(productOfSelectedOrder_id) + ";" ;
+
+                        db.execSQL(query);
+                    }
+
+                }
+            }
+
+
+        }
+
+        //Sacar el query para determinar si la orden se encuentra en la tabla de product_needed
+        //y verificar si su número de productos = o < que los productos con el id de la orden
+        //en la tabla, para determinar el color del itemView (editar el canBeTaken)
+        if(listSimOrders.isEmpty() != true ) {
+            query = null;
+            for (SimulatedOrder simulatedOrder : listSimOrders) {
+                //Contar la variedad de productos que se tiene en determinada orden
+                query = "SELECT COUNT(p.id)\n" +
+                        "        FROM orders o \n" +
+                        "        INNER JOIN order_assemblies oa ON (o.id = oa.id)\n" +
+                        "        INNER JOIN assembly_products ap ON (oa.assembly_id = ap.id)\n" +
+                        "        INNER JOIN products p ON(ap.product_id = p.id)\n" +
+                        "        WHERE o.id=" + String.valueOf(simulatedOrder.getId()) +
+                        "        ORDER BY p.id;";
+
+                cursor = db.rawQuery(query, null);
+                cursor.moveToFirst();
+                int numOfProductInOrder = cursor.getInt(0); //num de  variedad de productos usados en una orden
+
+                query = "SELECT COUNT(pn.prod_id)" +
+                        " FROM prod_needed pn" +
+                        " WHERE pn.ord_id = " + String.valueOf(simulatedOrder.getId())
+                        + ";";
+                cursor = db.rawQuery(query, null);
+                cursor.moveToFirst();
+                int numOfNeededProductsOfOrder = cursor.getInt(0);
+
+                int difBetweenNumOfProductQty = numOfProductInOrder - numOfNeededProductsOfOrder;
+                if (difBetweenNumOfProductQty == 0) {   //La variedad de productos para la orden no están disponibles
+                    //es decir, le faltan todos los productos
+                    query = "UPDATE simulated_orders_temporary SET ord_can_be_taken = 0 WHERE ord_id = " +
+                            String.valueOf(simulatedOrder.getId()) + ";";
+                    db.execSQL(query);
+                } else if (difBetweenNumOfProductQty > 0) {  //Hacen falta productos para poder Confirmar esta orden
+                    //Pero no hacen falta todos los prductos
+                    query = "UPDATE simulated_orders_temporary SET ord_can_be_taken = 1 WHERE ord_id = " +
+                            String.valueOf(simulatedOrder.getId()) + ";";
+                    db.execSQL(query);
+                } else if (difBetweenNumOfProductQty == numOfProductInOrder) { //No hay productos faltantes
+                    //es decir, puede Confirmarse la orden
+                    query = "UPDATE simulated_orders_temporary SET ord_can_be_taken = 2 WHERE ord_id = " +
+                            String.valueOf(simulatedOrder.getId()) + ";";
+                    db.execSQL(query);
+                }
+            }
+        }
+
+    }
+
+
+    private ArrayList<Product> getAllProductsOfOrder (int orderId)
+    {
+        //Obtener todos los productos y sus cantidades, de una cierta orden
+        String query = null;
+        ArrayList<Product> list = new ArrayList<Product>();
+        Cursor cursor;
+
+        query="SELECT p.id, p.category_id, p.description, p.price, p.qty\n" +
+                "        FROM orders o \n" +
+                "        INNER JOIN order_assemblies oa ON (o.id = oa.id)\n" +
+                "        INNER JOIN assembly_products ap ON (oa.assembly_id = ap.id)\n" +
+                "        INNER JOIN products p ON(ap.product_id = p.id)\n" +
+                "        WHERE o.id=" + String.valueOf(orderId) +
+                " ORDER BY p.id;";
+
+        cursor = db.rawQuery(query,null);
+//list.add(new Customers(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.ID)),
+        while (cursor.moveToNext()){
+            list.add(new Product(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.ID)),
+                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.CATEGORY_ID)),
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.DESCRIPTION)),
+                    cursor.getDouble(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.PRICE))/100,
+                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.QUANTITY))
+            ));
+        }
+        cursor.close();
+        return list;
+    }
+
+    public Product getASpecificProductById (int id)
+    {
+        String query = null;
+        Cursor cursor;
+
+        query = "SELECT * " +
+                " FROM products p" +
+                " WHERE p.id = " + id +";";
+        cursor = db.rawQuery(query,null);
+        cursor.moveToFirst();
+        Product product = new Product(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.ID)),
+                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.CATEGORY_ID)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.DESCRIPTION)),
+                cursor.getDouble(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.PRICE))/100,
+                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.QUANTITY))
+        );
+
+        return product;
+    }
+
+    public ArrayList<SimProductsNeeded> GetInformationAboutNeededProducts(int orderId)
+    {
+        String query = null;
+        ArrayList<SimProductsNeeded> list = new ArrayList<SimProductsNeeded>();
+        Cursor cursor;
+
+        query = "SELECT *" +
+                " FROM prod_needed pn" +
+                " WHERE pn.ord_id = " + String.valueOf(orderId) + ";";
+
+        cursor = db.rawQuery(query, null);
+
+        while (cursor.moveToNext())
+        {
+            list.add( new SimProductsNeeded(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2))
+            );
+        }
+        cursor.close();
+        return list;
+    }
+
+    public  void SetVirtualTableToSimulate()
+    {
+        String query = null;
+        ArrayList<SimulatedOrder> listOrigOrders = new ArrayList<SimulatedOrder>();
+        Cursor cursor;
+
+
+        //Se extraen todas las órdenes pendientes para simular:
+        query = "SELECT o.id AS order_id, os.description AS order_status, c.last_name AS customerLN, c.first_name AS customerFN, \n" +
+                "       substr(o.date,1,2) AS date_day, substr(o.date,4,2) AS date_month, substr(o.date,7,4)AS date_year,\n" +
+                "       tNew.order_price AS order_price\n" +
+                "FROM\n" +
+                "        (\n" +
+
+                "        SELECT tabPrices.id_order AS orderID, SUM(tabPrices.tot_prodPrice) AS order_price\n" +
+                "        FROM\n" +
+                "        (SELECT o.id AS id_order, oa.id AS id_assembly, oa.qty AS oa_qty,  ap.qty AS ap_qty, p.id AS id_product , p.price AS p_price, (p.price*ap.qty*oa.qty        ) AS tot_prodPrice\n" +
+                "        FROM orders o \n" +
+                "        INNER JOIN order_assemblies oa ON (o.id = oa.id)\n" +
+                "        INNER JOIN assembly_products ap ON (oa.assembly_id = ap.id)\n" +
+                "        INNER JOIN products p ON(ap.product_id = p.id)\n" +
+                "        ORDER BY o.id, p.id) AS tabPrices \n" +
+                "        GROUP BY tabPrices.id_order\n" +
+                "        HAVING SUM(tabPrices.tot_prodPrice)\n" +
+                "        ) AS tNew\n" +
+                "INNER JOIN orders o ON (o.id = tNew.orderID)\n" +
+                "INNER JOIN customers c ON (o.customer_id = c.id)\n" +
+                "INNER JOIN order_status os ON (o.status_id = os.id)\n" +
+                "WHERE os.description = 'Pendiente'\n" +
+                "ORDER BY c.last_name, c.first_name,o.id DESC";
+
+        cursor=db.rawQuery(query,null);
+
+        while (cursor.moveToNext())
+        {
+                        /*
+                        //0     1       2     3     4    5     6     7
+                        //id,status, LName,FName, day, month, year, price
+                        //int id, String status, String lastName, String firstName, Date date, double price, int canBeTaken
+                        */
+            listOrigOrders.add(new SimulatedOrder(
+                    cursor.getInt(0),       //Id
+                    cursor.getString(1),    //Status
+                    cursor.getString(2),    //LName
+                    cursor.getString(3),    //FName
+                    Date.valueOf(cursor.getString(6) + "-" + cursor.getString(5) + "-" + cursor.getString(4)), //Date
+                    (cursor.getDouble(7)/100), //Price
+                    0                           //canBeTaken
+            ));
+        }
+        cursor.close();
+
+        //Aquí se va a crear la nueva tabla temporal de todas las órdenes que se tienen actualmente
+        //en el recycler view
+
+        query = "DROP TABLE IF EXISTS [simulated_orders_temporary];";//Primero reiniciar la tabla temporal
+        db.execSQL(query);
+
+        query = " ";
+
+        query = "CREATE TABLE [simulated_orders_temporary] (\n" + //Si es una TEMPORARY TABLE se tiene problemas
+                "[ord_id] INTEGER PRIMARY KEY,\n" +
+                "[ord_status] TEXT,\n" +
+                "[cust_last_name] TEXT,\n" +
+                "[cust_first_name] TEXT,\n" +
+                "[ord_date] TEXT,\n" +
+                "[ord_price] INTEGER,\n" +
+                "[ord_can_be_taken] INTEGER\n" +
+                ");";
+        db.execSQL(query);
+
+        for(SimulatedOrder simulatedO : listOrigOrders)
+        {
+            //Aquí se ejecutan los querys para agregar todos los valores de las órdenes a simular
+            //a la nueva tabla temporal
+
+            int tempId = simulatedO.getId();
+            String tempStatus = simulatedO.getStatus();
+            String tempLastName = simulatedO.getLastName();
+            String tempFirstName = simulatedO.getFirstName();
+            String tempDate = simulatedO.getDate().toString();
+            int newPrice = (int)(simulatedO.getPrice()) *100;
+            int newCanBeTaken = simulatedO.getCanBeTaken();
+
+            query = " ";
+            query ="INSERT INTO simulated_orders_temporary " +
+                    "(ord_id, ord_status, cust_last_name,cust_first_name,ord_date, ord_price, ord_can_be_taken) VALUES (" +
+                    String.valueOf(tempId) +  ", " + "'" + tempStatus + "'"   + ", " + "'" + tempLastName + "'" +", " +
+                    "'" + tempFirstName + "'" + ", " + "'" + tempDate + "'" + ", " + String.valueOf(newPrice) + ", " + String.valueOf(newCanBeTaken) +
+                    ");"         ;
+
+            db.execSQL(query);
+        }
+    }
+
+    public ArrayList<SimulatedOrder> SearchTemporaryOrdersByCriteria( String critreria) {
+        //Debe de devolverse la misma lista de órdenes en total, sólo que aquí se deben de ordenar
+        //dependiendo de lo que se seleccione en el spinner.
+        //Es decir, que lo que se hizo en la función de SearchOrdersByCriteria debe de hacerse aquí.
+        //Checar si es mejor modificar SearchOrdersByCriteria o hacer los cambios en esta función.
+
+        String query = null;
+        ArrayList<SimulatedOrder> list = new ArrayList<SimulatedOrder>();
+        Cursor cursor;
+
+        if (!critreria.isEmpty()) {
+            switch (critreria) {
+                case "Cliente":
+                    query = "SELECT *" +
+                            "FROM simulated_orders_temporary sot " +
+                            "ORDER BY sot.cust_last_name, sot.cust_first_name, sot.ord_date;";
+
+                    cursor = db.rawQuery(query, null);
+
+                    while (cursor.moveToNext()) {
+                        list.add(new SimulatedOrder(
+                                cursor.getInt(0), //Id
+                                cursor.getString(1), //Status
+                                cursor.getString(2), //LastName
+                                cursor.getString(3), //FirstName
+                                Date.valueOf(cursor.getString(4)), //Date
+                                (cursor.getDouble(5) / 100), //Price
+                                cursor.getInt(6)            // CanBeTaken
+                        ));
+                    }
+                    cursor.close();
+                    return list;
+
+
+                case "Fecha":
+                    query = "SELECT *" +
+                            "FROM simulated_orders_temporary sot " +
+                            "ORDER BY sot.ord_date, sot.ord_price, sot.cust_last_name, sot.cust_first_name;";
+
+                    cursor = db.rawQuery(query, null);
+
+                    while (cursor.moveToNext()) {
+                        list.add(new SimulatedOrder(
+                                cursor.getInt(0), //Id
+                                cursor.getString(1), //Status
+                                cursor.getString(2), //LastName
+                                cursor.getString(3), //FirstName
+                                Date.valueOf(cursor.getString(4)), //Date
+                                (cursor.getDouble(5) / 100), //Price
+                                cursor.getInt(6)            // CanBeTaken
+                        ));
+                    }
+                    cursor.close();
+                    return list;
+
+
+                case "Monto de Venta":
+                    query = "SELECT * \n" +
+                            "FROM simulated_orders_temporary sot\n" +
+                            "ORDER BY sot.ord_price DESC, sot.ord_date, sot.cust_last_name, sot.cust_first_name;";
+
+                    cursor = db.rawQuery(query, null);
+
+                    while (cursor.moveToNext()) {
+                        list.add(new SimulatedOrder(
+                                cursor.getInt(0), //Id
+                                cursor.getString(1), //Status
+                                cursor.getString(2), //LastName
+                                cursor.getString(3), //FirstName
+                                Date.valueOf(cursor.getString(4)), //Date
+                                (cursor.getDouble(5) / 100), //Price
+                                cursor.getInt(6)            // CanBeTaken
+                        ));
+                    }
+                    cursor.close();
+                    return list;
+                default: list.clear(); return list;
+            }
+
+        }
+        else { list.clear(); return list; }
+    }
+
+
+    public SimulatedOrder getSimulatedOrderById (int Id)
+    {
+        String query = null;
+        Cursor cursor;
+
+        query = "SELECT *" +
+                " FROM simulated_orders_temporary sot" +
+                " WHERE sot.ord_id = " + String.valueOf(Id) + ";";
+        //simulated_orders_temporary
+        //"(ord_id, ord_status, cust_last_name,cust_first_name,ord_date, ord_price, ord_can_be_taken) VALUES (" +
+
+        cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+
+        SimulatedOrder simulatedOrder = new SimulatedOrder(cursor.getInt(0), cursor.getString(1), cursor.getString(2),
+                cursor.getString(3), Date.valueOf(cursor.getString(4)), cursor.getDouble(5)/100, cursor.getInt(6)
+        );
+
+        return simulatedOrder;
+
+    }
+
+    public void CancelOrderInVirtualTableContent(int orderId)
+    {
+        //En esta función se debe de cancelar la orden deseada en la tambla creada temporalmente.
+        //Deben de sumarse las cantidades de los productos de esta orden a la tabla temporal
+        //de productos actuales en el stock.
+        String query = null;
+        ArrayList<SimProductsNeeded> list = new ArrayList<SimProductsNeeded>();
+        Cursor cursor;
+
+        int pastValue = 0;
+        int actualValue = 0;
+
+        query = " SELECT * " +
+                " FROM prod_needed pn " +
+                " WHERE pn.ord_id = "+ String.valueOf(orderId) +
+                " ORDER BY pn.prod_id;";
+        cursor = db.rawQuery(query, null);
+        while(cursor.moveToNext()) {
+
+            int oId = cursor.getInt(0);
+            int pId = cursor.getInt(1);
+            actualValue = pId;
+            int pQty = cursor.getInt(2);
+            query = " SELECT nTab.oId, nTab.pId, MIN(nTab.qty) " +
+                    " FROM" +
+                    " (SELECT pn.ord_id AS oId, pn.prod_id AS pId, pn.prod_qty_needed AS qty " +
+                    " FROM prod_needed pn" +
+                    " WHERE (pn.ord_id = " + String.valueOf(oId) + " AND pn.prod_id = "+ String.valueOf(pId) +")) AS nTab" +
+                    ";";
+
+            Cursor cursor1 = db.rawQuery(query, null);
+
+            cursor1.moveToFirst();
+
+            cursor1.close();
+            query = " SELECT sp.p_qty" +
+                    " FROM simulated_products sp" +
+                    " WHERE sp.p_id =" + String.valueOf(pId) + ";";
+            cursor1 = db.rawQuery(query, null);
+            cursor1.moveToFirst();
+            int productQtyInStock = cursor.getInt(0);
+            cursor1.close();
+            int newProductQtyInStock = productQtyInStock + ((-1) * pQty);
+            query = " UPDATE simulated_products SET p_qty = " + String.valueOf(newProductQtyInStock) + " WHERE p_id = " + String.valueOf(pId) + ";";
+            db.execSQL(query);
+
+            if(actualValue != pastValue ) {
+                //query para eliminar
+                query = "DELETE FROM prod_needed WHERE(ord_id = " + String.valueOf(oId) + " AND  prod_id = " + String.valueOf(pId) + ");";
+                db.execSQL(query); //(ord_id, prod_id, prod_qty_needed)
+            }
+
+            pastValue = actualValue;
+
+
+        /*"CREATE TABLE [simulated_products](\n" +
+                "[p_id] INTEGER PRIMARY KEY,\n" +
+                "[p_categ_id] INTEGER,\n" +
+                "[p_description] TEXT,\n" +
+                "[p_price] INTEGER,\n" +
+                "[p_qty] INTEGER\n" +
+                ");";
+                */
+
+
+
+        }
+        cursor.close();
+
+        query = "UPDATE simulated_orders_temporary SET ord_status = 'Cancelado' WHERE ord_id = " + String.valueOf(orderId) + ";";
+                /*"CREATE TABLE [simulated_orders_temporary] (\n" + //Si es una TEMPORARY TABLE se tiene problemas
+                "[ord_id] INTEGER PRIMARY KEY,\n" +
+                "[ord_status] TEXT,\n" +
+                "[cust_last_name] TEXT,\n" +
+                "[cust_first_name] TEXT,\n" +
+                "[ord_date] TEXT,\n" +
+                "[ord_price] INTEGER,\n" +
+                "[ord_can_be_taken] INTEGER\n" +
+                ");";*/
+        db.execSQL(query);
+    }
+
+    public String orderStatus (int orderId)
+    {
+        String query = "SELECT sot.ord_status" +
+                " FROM simulated_orders_temporary sot " +
+                " WHERE sot.ord_id = " + String.valueOf(orderId) + ";";
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        return cursor.getString(0);
+    }
+
+    public void ConfirmOrderInVirtualTableContent ( int orderId)
+    {
+        //En esta función se debe de confirmar la orden seleccionada.
+        //Se debe de verificar si se tienen los productos necesarios para poder confirmar la orden.
+    }
+
+    public ArrayList<SimulatedOrder> SearchOrdersByCriteria(String criteria)
     {
         String query = null;
         ArrayList<SimulatedOrder> list = new ArrayList<SimulatedOrder>();
         Cursor cursor;
+
 
         if (!criteria.isEmpty())
         {
             switch (criteria)
             {
                 case "Cliente":
-                    query = "SELECT o.id AS order_id, os.description AS order_status, c.last_name AS customerLN, c.first_name AS customerFN, o.date AS order_date,\n" +
-                            "tNew.order_price AS order_price\n" +
+                    query = "SELECT o.id AS order_id, os.description AS order_status, c.last_name AS customerLN, c.first_name AS customerFN, \n" +
+                            "       substr(o.date,1,2) AS date_day, substr(o.date,4,2) AS date_month, substr(o.date,7,4)AS date_year,\n" +
+                            "       tNew.order_price AS order_price\n" +
                             "FROM\n" +
                             "        (\n" +
+                            "        --Obtener el precio de cada orden\n" +
                             "        SELECT tabPrices.id_order AS orderID, SUM(tabPrices.tot_prodPrice) AS order_price\n" +
                             "        FROM\n" +
-                            "        (SELECT o.id AS id_order, oa.id AS id_assembly, oa.qty AS oa_qty,  ap.qty AS ap_qty, p.id AS id_product , p.price AS p_price, (p.price*ap.qty*oa.qty) AS tot_prodPrice\n" +
+                            "        (SELECT o.id AS id_order, oa.id AS id_assembly, oa.qty AS oa_qty,  ap.qty AS ap_qty, p.id AS id_product , p.price AS p_price, (p.price*ap.qty*oa.qty        ) AS tot_prodPrice\n" +
                             "        FROM orders o \n" +
                             "        INNER JOIN order_assemblies oa ON (o.id = oa.id)\n" +
                             "        INNER JOIN assembly_products ap ON (oa.assembly_id = ap.id)\n" +
@@ -202,27 +857,42 @@ public final class Inventory {
                             "INNER JOIN orders o ON (o.id = tNew.orderID)\n" +
                             "INNER JOIN customers c ON (o.customer_id = c.id)\n" +
                             "INNER JOIN order_status os ON (o.status_id = os.id)\n" +
-                            "ORDER BY c.last_name, c.first_name,os.id DESC";
+                            "WHERE os.description = 'Pendiente'\n" +
+                            "ORDER BY c.last_name, c.first_name,o.id DESC";
 
                     cursor=db.rawQuery(query,null);
 
                     while (cursor.moveToNext())
                     {
-                     list.add(new SimulatedOrder(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),
-                             Date.valueOf(cursor.getString(4)), (cursor.getDouble(5)/100)));
+                        /*
+                        //0     1       2     3     4    5     6     7
+                        //id,status, LName,FName, day, month, year, price
+                        //int id, String status, String lastName, String firstName, Date date, double price, int canBeTaken
+                        */
+                        list.add(new SimulatedOrder(
+                                cursor.getInt(0),       //Id
+                                cursor.getString(1),    //Status
+                                cursor.getString(2),    //LName
+                                cursor.getString(3),    //FName
+                                Date.valueOf(cursor.getString(6) + "-" + cursor.getString(5) + "-" + cursor.getString(4)), //Date
+                                (cursor.getDouble(7)/100), //Price
+                                0                           //canBeTaken
+                        ));
                     }
                     cursor.close();
                     return list;
 
                 case "Fecha":
 
-                    query = "SELECT o.id AS order_id, os.description AS order_status, c.last_name AS customerLN, c.first_name AS customerFN, o.date AS order_date,\n" +
-                            "tNew.order_price AS order_price\n" +
+                    query = "SELECT o.id AS order_id, os.description AS order_status, c.last_name AS customerLN, c.first_name AS customerFN, \n" +
+                            "       substr(o.date,1,2) AS date_day, substr(o.date,4,2) AS date_month, substr(o.date,7,4)AS date_year,\n" +
+                            "       tNew.order_price AS order_price\n" +
                             "FROM\n" +
                             "        (\n" +
+                            "        --Obtener el precio de cada orden\n" +
                             "        SELECT tabPrices.id_order AS orderID, SUM(tabPrices.tot_prodPrice) AS order_price\n" +
                             "        FROM\n" +
-                            "        (SELECT o.id AS id_order, oa.id AS id_assembly, oa.qty AS oa_qty,  ap.qty AS ap_qty, p.id AS id_product , p.price AS p_price, (p.price*ap.qty*oa.qty) AS tot_prodPrice\n" +
+                            "        (SELECT o.id AS id_order, oa.id AS id_assembly, oa.qty AS oa_qty,  ap.qty AS ap_qty, p.id AS id_product , p.price AS p_price, (p.price*ap.qty*oa.qty        ) AS tot_prodPrice\n" +
                             "        FROM orders o \n" +
                             "        INNER JOIN order_assemblies oa ON (o.id = oa.id)\n" +
                             "        INNER JOIN assembly_products ap ON (oa.assembly_id = ap.id)\n" +
@@ -234,21 +904,32 @@ public final class Inventory {
                             "INNER JOIN orders o ON (o.id = tNew.orderID)\n" +
                             "INNER JOIN customers c ON (o.customer_id = c.id)\n" +
                             "INNER JOIN order_status os ON (o.status_id = os.id)\n" +
-                            "ORDER BY o.date, c.last_name, c.first_name DESC";
+                            "WHERE os.description = 'Pendiente'\n" +
+                            "ORDER BY date_year, date_month, date_day ASC";
 
                     cursor=db.rawQuery(query,null);
 
                     while (cursor.moveToNext())
                     {
-                        list.add(new SimulatedOrder(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),
-                                Date.valueOf(cursor.getString(4)), (cursor.getDouble(5)/100)));
+                        list.add(new SimulatedOrder(
+                                cursor.getInt(0),       //Id
+                                cursor.getString(1),    //Status
+                                cursor.getString(2),    //LName
+                                cursor.getString(3),    //FName
+                                Date.valueOf(cursor.getString(6) + "-" + cursor.getString(5) + "-" + cursor.getString(4)), //Date
+                                (cursor.getDouble(7)/100), //Price
+                                0                           //canBeTaken
+                        ));
                     }
                     cursor.close();
+
+                    //Implementar método para ordenar las fechas por java
                     return list;
 
                 case "Monto de Venta":
-                    query = "SELECT o.id AS order_id, os.description AS order_status, c.last_name AS customerLN, c.first_name AS customerFN, o.date AS order_date,\n" +
-                            "tNew.order_price AS order_price\n" +
+                    query = "SELECT o.id AS order_id, os.description AS order_status, c.last_name AS customerLN, c.first_name AS customerFN, \n" +
+                            "       substr(o.date,1,2) AS date_day, substr(o.date,4,2) AS date_month, substr(o.date,7,4)AS date_year,\n" +
+                            "       tNew.order_price AS order_price\n" +
                             "FROM\n" +
                             "        (\n" +
                             "        SELECT tabPrices.id_order AS orderID, SUM(tabPrices.tot_prodPrice) AS order_price\n" +
@@ -265,14 +946,29 @@ public final class Inventory {
                             "INNER JOIN orders o ON (o.id = tNew.orderID)\n" +
                             "INNER JOIN customers c ON (o.customer_id = c.id)\n" +
                             "INNER JOIN order_status os ON (o.status_id = os.id)\n" +
+                            "WHERE os.description = 'Pendiente'\n" +
                             "ORDER BY tNew.order_price DESC";
 
                     cursor=db.rawQuery(query,null);
 
                     while (cursor.moveToNext())
                     {
-                        list.add(new SimulatedOrder(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),
-                                Date.valueOf(cursor.getString(4)), (cursor.getDouble(5)/100)));
+                        String day = cursor.getString(5);
+                        String month = cursor.getString(6);
+                        String year = cursor.getString(7);
+                        String newDate = year + "/" + month + "/" +day;
+                        //0,    1,      2,  3,      4,     5,   6,      7
+                        //id,status, LName,FName, price, day, month, year
+
+                        list.add(new SimulatedOrder(
+                                cursor.getInt(0),       //Id
+                                cursor.getString(1),    //Status
+                                cursor.getString(2),    //LName
+                                cursor.getString(3),    //FName
+                                Date.valueOf(cursor.getString(6) + "-" + cursor.getString(5) + "-" + cursor.getString(4)), //Date
+                                (cursor.getDouble(7)/100), //Price
+                                0                           //canBeTaken
+                        ));
                     }
                     cursor.close();
                     return list;
@@ -289,7 +985,7 @@ public final class Inventory {
         }
     }
 
-    public List<Customers> searchCustomersByFilter(int intFilter, String criteria)  //Búsqueda unitaria
+    public ArrayList<Customers> searchCustomersByFilter(int intFilter, String criteria)  //Búsqueda unitaria
     {
         String query = null;
         ArrayList<Customers> list = new ArrayList<Customers>();
@@ -536,6 +1232,10 @@ public final class Inventory {
     }
 
 
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public List<Integer> Orders ()
     {
         ArrayList<Integer> ordenes = new ArrayList<Integer>();
@@ -1927,6 +2627,41 @@ public final class Inventory {
 
 
 
+
+
+    public void UpdateClient( int id, String FN, String LN,String AD , String PH1, String PH2, String PH3, String EM)
+    {
+        String Id = String.valueOf(id);
+        String args[] = {Id};
+        ContentValues valores = new ContentValues();
+
+        valores.put("first_name",FN);
+        valores.put("last_name",LN);
+        valores.put("address",AD);
+        valores.put("phone1",PH1);
+        valores.put("phone2",PH2);
+        valores.put("phone3",PH3);
+        valores.put("e_mail",EM);
+
+        db.update("customers", valores, "id = ?",args );
+    }
+
+    public void DeleteCustomer (int ClientId)
+    {
+        String id= String.valueOf(ClientId);
+        String args[]={id};
+        db.delete("customers", "id = ?", args);
+
+    }
+
+    public boolean CheckDelete(int Id)
+    {
+        String id = String.valueOf(Id);
+        Cursor cursor = db.rawQuery("select * from orders where customer_id = "+id,null);
+        cursor.moveToFirst();
+        if(cursor.getCount()==0) return true;
+        else return false;
+    }
 
 
 

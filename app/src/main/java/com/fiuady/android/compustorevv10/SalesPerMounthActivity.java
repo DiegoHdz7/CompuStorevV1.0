@@ -104,8 +104,10 @@ public class SalesPerMounthActivity extends AppCompatActivity {
 
                            Intent x = new Intent(SalesPerMounthActivity.this,DetailSalesResumeActivity.class);
 
+                           /*
                            x.putExtra(DetailSalesResumeActivity.EXTRA_Position,AdapterPosition);
                            x.putExtra(DetailSalesResumeActivity.EXTRA_AÑO,spnSales.getSelectedItem().toString());
+                           */
 
                            startActivity(x);
 

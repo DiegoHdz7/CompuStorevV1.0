@@ -48,7 +48,8 @@ public class DetailsPerOrderActivity extends AppCompatActivity {
 
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         rv.setLayoutManager(llm);
-        DetailResumeAdapter adapter = new DetailResumeAdapter (manager.GetDetailInfo(mes,año),2);
+        /*
+        DetailResumeAdapter adapter = new DetailResumeAdapter(); //(manager.GetDetailInfo(mes,año),2);
         rv.setAdapter(adapter);
 
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -65,5 +66,6 @@ public class DetailsPerOrderActivity extends AppCompatActivity {
         txtOId.setText(String.valueOf( adapter.GetItemOfList(0).getOrderId()));
         txtOS.setText(String.valueOf( adapter.GetItemOfList(0).getStatus_Description()));
         txtAddress.setText(adapter.GetItemOfList(0).getAddress());
+        */
     }
 }

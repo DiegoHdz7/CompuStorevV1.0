@@ -19,6 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ReportSimulatorNeededProductsActivity" />
         <activity android:name=".ClientsActivity" />
         <activity android:name=".NewClientActivity" />
         <activity android:name=".ReportsActivity" />
@@ -37,6 +39,7 @@
         <activity android:name=".AddProductsToAssembly_Activity" />
         <activity android:name=".Orders_Activity"/>
         <activity android:name=".AddOrder_Activity"/>
+        <activity android:name=".UpdateClientActivity"/>
         <activity android:name=".EditOrder_Activity"/>
         <activity android:name=".AddAssemblyToOrder_Activity"/>
 

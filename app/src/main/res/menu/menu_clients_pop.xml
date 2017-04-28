@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/update_client"
+        app:showAsAction="always"
+        android:title="Modificar"
+        android:icon="@drawable/tlb_close"
+
+        />
+
+    <item
+        android:id="@+id/delete_client"
+        app:showAsAction="always"
+        android:title="Eliminar"
+
+
+        />
 
 </menu>

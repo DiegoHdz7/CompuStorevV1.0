@@ -21,6 +21,11 @@ public class AddProductActivity extends AppCompatActivity {
     Spinner spnCat;
     EditText txtNewPrice, txtNewDes;
     Button btnAdd, btnCancel;
+
+    public static int CODE_ADD_PRODUCT = 1;
+
+    public static int CODE_CATEGORY;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +66,8 @@ public class AddProductActivity extends AppCompatActivity {
                     if (manager.CheckDescription(NewDescription)) {
                         manager.AddProduct(category_Id, NewDescription, NewPrice);
                         Toast.makeText(getApplicationContext(), "Producto agregado correctamente", Toast.LENGTH_SHORT).show();
+                        CODE_CATEGORY = Integer.valueOf(category_Id);
+                        setResult(RESULT_OK);
                         finish();
 
                     }
