@@ -1092,6 +1092,45 @@ public final class Inventory {
     }
 
 
+    public void UpdateClient( int id, String FN, String LN,String AD , String PH1, String PH2, String PH3, String EM)
+    {
+        String Id = String.valueOf(id);
+        String args[] = {Id};
+        ContentValues valores = new ContentValues();
+
+        valores.put("first_name",FN);
+        valores.put("last_name",LN);
+        valores.put("address",AD);
+        valores.put("phone1",PH1);
+        valores.put("phone2",PH2);
+        valores.put("phone3",PH3);
+        valores.put("e_mail",EM);
+
+        // Log.i("eval = ",newPrice);
+
+
+//Actualizamos el registro en la base de datos
+        db.update("customers", valores, "id = ?",args );
+    }
+
+    public void DeleteCustomer (int ClientId)
+    {
+        String id= String.valueOf(ClientId);
+        String args[]={id};
+        db.delete("customers", "id = ?", args);
+
+    }
+
+    public boolean CheckDelete(int Id)
+    {
+        String id = String.valueOf(Id);
+        Cursor cursor = db.rawQuery("select * from orders where customer_id = "+id,null);
+        cursor.moveToFirst();
+        if(cursor.getCount()==0) return true;
+        else return false;
+    }
+
+
 
 
 

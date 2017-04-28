@@ -30,6 +30,7 @@
         <activity android:name=".Productos.Product_Activity" />
         <activity android:name=".Productos.AddProductActivity" />
         <activity android:name=".Productos.UpdateActivity" />
+        <activity android:name=".UpdateClientActivity"></activity>
     </application>
 
 </manifest>

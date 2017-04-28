@@ -518,7 +518,7 @@ public class Product_Activity extends AppCompatActivity implements DialogAlerta.
         {
             case R.id.add_product:
                 Intent i = new Intent(Product_Activity.this,AddProductActivity.class);
-                startActivity(i);
+                startActivityForResult(i,AddProductActivity.CODE_ADD_PRODUCT);
 
                 break;
         }
@@ -530,9 +530,12 @@ public class Product_Activity extends AppCompatActivity implements DialogAlerta.
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        Inventory manager = new Inventory(getApplicationContext());
         if (resultCode == RESULT_OK) {
 
-            SetAdapterList();
+            if(AddProductActivity.CODE_CATEGORY == manager.GetCategoryId(spnCat.getSelectedItem().toString())) {
+                SetAdapterList();
+            }
         }
     }
 
