@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/product_categories_pressed"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        >
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,8 +26,22 @@
         <activity android:name=".ReportSimulatorActivity" />
         <activity android:name=".SalesPerMounthActivity" />
         <activity android:name=".DetailSalesResumeActivity" />
-        <activity android:name=".ReportSimulatorNeededProductsActivity" />
-        <activity android:name=".DetailsPerOrderActivity"></activity>
-    </application>
+        <activity android:name=".DetailsPerOrderActivity" />
+        <activity android:name=".Productos.Product_Activity" />
+        <activity android:name=".Productos.AddProductActivity" />
+        <activity android:name=".Productos.UpdateActivity" />
+        <activity android:name=".ProductCategory_Activity" />
+        <activity android:name=".Assemblies_Activity" />
+        <activity android:name=".AddAssembly_Activity" />
+        <activity android:name=".EditAssembly_Activity" />
+        <activity android:name=".AddProductsToAssembly_Activity" />
+        <activity android:name=".Orders_Activity"/>
+        <activity android:name=".AddOrder_Activity"/>
+        <activity android:name=".EditOrder_Activity"/>
+        <activity android:name=".AddAssemblyToOrder_Activity"/>
 
+
+    </application>
 </manifest>
+
+

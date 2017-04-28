@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.fiuady.android.compustorevv10.db.Inventory;
 
+import java.text.SimpleDateFormat;
+
 public class DetailsPerOrderActivity extends AppCompatActivity {
 
     public static final String EXTRA_Position_A = "com.fiuady.android.compustorevv10.AdapterPosition_A";
@@ -50,12 +52,15 @@ public class DetailsPerOrderActivity extends AppCompatActivity {
         DetailResumeAdapter adapter = new DetailResumeAdapter(); //(manager.GetDetailInfo(mes,año),2);
         rv.setAdapter(adapter);
 
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
+        String fecha = df.format(adapter.GetItemOfList(0).getDate());
 
         //adapter.GetItemOfList(mes)
         txtCId.setText(String.valueOf(mes));
 
         txtCId.setText(String.valueOf( adapter.GetItemOfList(0).getClientId()));
-       txtDate.setText(String.valueOf( adapter.GetItemOfList(0).getDate()));
+       txtDate.setText(fecha);
         txtfstName.setText( String.valueOf(adapter.GetItemOfList(0).getFirstName())+" ");
         txtscnName.setText( String.valueOf(adapter.GetItemOfList(0).getLastName()));
         txtOId.setText(String.valueOf( adapter.GetItemOfList(0).getOrderId()));

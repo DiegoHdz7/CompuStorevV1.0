@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.44">
+        <TextView
+            android:id="@+id/txtWindowName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Change Status"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:background="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:textColor="@color/background_material_light"
+            style="@style/AlertDialog.AppCompat" />
+        <TextView
+            android:id="@+id/txt_ChangeLogText"
+            android:text="Change to: "
+            android:textSize="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtWindowName"
+            android:layout_alignStart="@id/txt_CommentsText"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"/>
+        <Spinner
+            android:id="@+id/spinner_ChangeLogDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtWindowName"
+            android:layout_toRightOf="@id/txt_ChangeLogText"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_alignTop="@id/txt_ChangeLogText"
+            />
+        <TextView
+            android:id="@+id/txt_CommentsText"
+            android:text="Comments "
+            android:textSize="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_ChangeLogText"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:overScrollMode="always"
+            android:lines="5"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="insideInset"
+            android:gravity="top|left"
+            android:id="@+id/editText_CommentsDescription"
+            android:layout_below="@id/txt_CommentsText"
+            android:layout_alignLeft="@id/txt_CommentsText"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="15dp"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

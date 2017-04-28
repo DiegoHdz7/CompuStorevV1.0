@@ -6,81 +6,82 @@
     android:layout_height="match_parent"
     tools:context="com.fiuady.android.compustorevv10.SalesPerMounthActivity">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="402dp"
-        android:layout_height="121dp"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="2dp"
+    <!-- <android.support.v7.widget.CardView
+         android:layout_width="402dp"
+         android:layout_height="121dp"
+         tools:layout_editor_absoluteX="4dp"
+         tools:layout_editor_absoluteY="2dp"
 
 
-        android:id="@+id/cardView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+         android:id="@+id/cardView"
+         android:layout_alignParentTop="true"
+         android:layout_centerHorizontal="true">
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+         <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/txtMounth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/rvPrecioMes"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="20dp"
-                android:text="TextView"
-                android:textColor="@android:color/holo_green_dark"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+             <TextView
+                 android:id="@+id/txtMounth"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_above="@+id/rvPrecioMes"
+                 android:layout_alignParentStart="true"
+                 android:layout_marginStart="20dp"
+                 android:text="TextView"
+                 android:textColor="@android:color/holo_green_dark"
+                 android:textSize="30sp"
+                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/rvPrecioMes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="32dp"
-                android:text="TextView"
-                android:textColor="#ffe3e3e3"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                tools:textColor="@android:color/background_dark"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true" />
+             <TextView
+                 android:id="@+id/rvPrecioMes"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="bottom"
+                 android:layout_marginBottom="8dp"
+                 android:layout_marginEnd="32dp"
+                 android:text="TextView"
+                 android:textColor="#ffe3e3e3"
+                 android:textSize="30sp"
+                 android:textStyle="bold"
+                 tools:textColor="@android:color/background_dark"
+                 android:layout_alignParentBottom="true"
+                 android:layout_alignParentEnd="true" />
 
-            <TextView
-                android:id="@+id/txtTotalTag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Total: "
-                android:textColor="@android:color/holo_blue_light"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:layout_above="@+id/rvPrecioMes"
-                android:layout_alignEnd="@+id/rvPrecioMes"
-                android:layout_marginEnd="62dp"
-                android:layout_marginBottom="8dp" />
+             <TextView
+                 android:id="@+id/txtTotalTag"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Total: "
+                 android:textColor="@android:color/holo_blue_light"
+                 android:textSize="30sp"
+                 android:textStyle="bold"
+                 android:layout_above="@+id/rvPrecioMes"
+                 android:layout_alignEnd="@+id/rvPrecioMes"
+                 android:layout_marginEnd="62dp"
+                 android:layout_marginBottom="8dp" />
 
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
+         </RelativeLayout>
+     </android.support.v7.widget.CardView>-->
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_SalesPerMounth"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/cardView"
-        android:layout_below="@+id/cardView"
-        android:layout_marginTop="98dp" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/spinner_years"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="21dp" />
 
     <Spinner
         android:id="@+id/spinner_years"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="39dp"
-        android:layout_below="@+id/cardView"
-        android:layout_toEndOf="@+id/txtAñoTag"
-        android:layout_marginStart="28dp" />
+        android:layout_marginTop="34dp"
+        android:layout_marginStart="9dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/txtAñoTag" />
 
     <TextView
         android:id="@+id/txtAñoTag"
@@ -89,7 +90,9 @@
         android:layout_alignStart="@+id/cardView"
         android:layout_alignTop="@+id/spinner_years"
         android:layout_marginStart="28dp"
-        android:text="Año: " />
+        android:text="Año: "
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>

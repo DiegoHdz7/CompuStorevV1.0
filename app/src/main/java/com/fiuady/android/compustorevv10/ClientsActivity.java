@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,12 +19,16 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-
+import com.fiuady.android.compustorevv10.Productos.DialogAlerta;
+import com.fiuady.android.compustorevv10.Productos.Product_Activity;
+import com.fiuady.android.compustorevv10.Productos.RecyclerItemOnClickListener;
+import com.fiuady.android.compustorevv10.Productos.UpdateActivity;
 import com.fiuady.android.compustorevv10.db.ClientsFilters;
 
 import com.fiuady.android.compustorevv10.db.Customers;
@@ -33,6 +38,7 @@ import com.fiuady.android.compustorevv10.db.Inventory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class ClientsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, MultiselectionSpinner.OnMultipleItemsSelectedListener{
 
@@ -262,22 +268,107 @@ public class ClientsActivity extends AppCompatActivity implements AdapterView.On
             }
         });
 
-        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+
+
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemOnClickListener(ClientsActivity.this, recyclerView, new RecyclerItemOnClickListener.OnItemClickListener() {
             @Override
-            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                return false;
+            public void onItemClick(final View v, final int position) {
+
+                final PopupMenu popmenu = new PopupMenu(v.getContext(), v);
+                popmenu.inflate(R.menu.menu_clients_pop);
+                popmenu.show();
+                int AdapterPos = recyclerView.getChildAdapterPosition(v);
+
+                final int ClientId = customerAdapter.getItemOfList(AdapterPos).getId();
+                final  String FN = customerAdapter.getItemOfList(AdapterPos).getFirstName();
+                final  String LN = customerAdapter.getItemOfList(AdapterPos).getLastName();
+                final  String AD = customerAdapter.getItemOfList(AdapterPos).getAddress();
+                final  String EM = customerAdapter.getItemOfList(AdapterPos).geteMail();
+
+                final String LD1;
+                final String N1;
+                final String LD2;
+                final String N2;
+                final String LD3;
+                final String N3;
+
+
+
+
+
+
+               /* StringTokenizer ts3 = new StringTokenizer(customerAdapter.getItemOfList(AdapterPos).getPhone3(),"-");
+
+                final String LD3 = ts3.nextToken();
+                final String N3 = ts3.nextToken();*/
+
+
+
+
+
+
+                popmenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        switch(item.getItemId()) {
+
+                            case R.id.update_client:
+                                Intent i = new Intent(ClientsActivity.this,UpdateClientActivity.class);
+                                i.putExtra(UpdateClientActivity.EXTRA_CLIENT_ID_TO_UP,ClientId );
+                                i.putExtra(UpdateClientActivity.EXTRA_FIRST_NAME_CLIENT,FN );
+                                i.putExtra(UpdateClientActivity.EXTRA_LAST_NAME_CLIENT,LN );
+                                i.putExtra(UpdateClientActivity.EXTRA_ADDRRES_CLIENT,AD );
+                                i.putExtra(UpdateClientActivity.EXTRA_EMAIL_CLIENT,EM );
+                               // i.putExtra(UpdateClientActivity.EXTRA_LADA1,LD1);
+                                //i.putExtra(UpdateClientActivity.EXTRA_PHONE1,N1);
+
+                               /* i.putExtra(UpdateClientActivity.EXTRA_LADA2,LD2);
+                                i.putExtra(UpdateClientActivity.EXTRA_PHONE2,N2);
+                                i.putExtra(UpdateClientActivity.EXTRA_LADA3,LD3);
+                                i.putExtra(UpdateClientActivity.EXTRA_PHONE3,N3);*/
+
+
+                                startActivityForResult(i,UpdateClientActivity.CODE_UPDATE_CUSTOMER);
+                                return true;
+
+
+                            case R.id.delete_client:
+                                Inventory manager = new Inventory(ClientsActivity.this);
+
+                                if(manager.CheckDelete(ClientId)==true) {
+                                    manager.DeleteCustomer(ClientId);
+                                    customerAdapter = new CustomerAdapter(inventory.searchCustomersByFilter(
+                                            getIntOfClientFilter(spnFilter.getSelectedItem().toString()),
+                                            String.valueOf(edtSearch.getText().toString()))
+                                    );
+                                    recyclerView.setAdapter(customerAdapter);
+                                }
+
+                                else Toast.makeText(getApplicationContext(),"Orden en proceso, no se puede eliminar",Toast.LENGTH_SHORT).show();
+
+                                return true;
+
+                            default:
+                                return false;
+                        }
+
+
+                    }
+                });
+
+
             }
 
             @Override
-            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+            public void onLongItemClick(View v, int position) {
+
 
             }
+        }));
 
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
 
-            }
-        });
 
     }
 
@@ -308,6 +399,10 @@ public class ClientsActivity extends AppCompatActivity implements AdapterView.On
             case R.id.action_clients_close:
                 finish();
                 return true;
+
+            case R.id.update_client:
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -321,6 +416,20 @@ public class ClientsActivity extends AppCompatActivity implements AdapterView.On
     @Override
     public void selectedStrings(List<String> strings) {
         Toast.makeText(this, strings.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            Toast.makeText(getApplicationContext(),"Se agregó el producto",Toast.LENGTH_SHORT).show();
+            customerAdapter = new CustomerAdapter(inventory.searchCustomersByFilter(
+                    getIntOfClientFilter(spnFilter.getSelectedItem().toString()),
+                    String.valueOf(edtSearch.getText().toString()))
+            );
+            recyclerView.setAdapter(customerAdapter);
+        }
     }
 }
 

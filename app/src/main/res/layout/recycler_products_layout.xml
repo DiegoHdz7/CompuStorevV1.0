@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    style="?android:listSeparatorTextViewStyle"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/pIdTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/pIdTxt"
+        android:layout_alignBottom="@+id/pIdTxt"
+        android:layout_alignLeft="@+id/pDescriptionTag"
+        android:layout_alignStart="@+id/pDescriptionTag"
+        android:text="Id:  " />
+
+    <TextView
+        android:id="@+id/pIdTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/pDescriptionTag"
+        android:layout_marginBottom="18dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_toEndOf="@+id/pIdTag"
+        android:layout_toRightOf="@+id/pIdTag"
+        android:text="IdTxt" />
+
+    <TextView
+        android:id="@+id/pDescriptionTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="64dp"
+        android:text="Descripcion:  " />
+
+    <TextView
+        android:id="@+id/DesProductTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/pDescriptionTag"
+        android:layout_alignBottom="@+id/pDescriptionTag"
+        android:layout_toEndOf="@+id/pDescriptionTag"
+        android:layout_toRightOf="@+id/pDescriptionTag"
+        android:text="DesTxt" />
+
+    <TextView
+        android:id="@+id/pPrecioTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/pDescriptionTag"
+        android:layout_alignStart="@+id/pDescriptionTag"
+        android:layout_below="@+id/pDescriptionTag"
+        android:layout_marginTop="10dp"
+        android:paddingTop="20dp"
+        android:text="Precio: " />
+
+    <TextView
+        android:id="@+id/pPrecioTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pDescriptionTag"
+        android:layout_toEndOf="@+id/pPrecioTag"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/pPrecioTag"
+        android:paddingTop="20dp"
+        android:text="Precio Txt" />
+
+    <TextView
+        android:id="@+id/pQtyTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/pPrecioTag"
+        android:layout_alignStart="@+id/pPrecioTag"
+        android:layout_below="@+id/pPrecioTag"
+        android:text="Cantidad: " />
+
+    <TextView
+        android:id="@+id/pQtyTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pPrecioTxt"
+        android:layout_toEndOf="@+id/pQtyTag"
+        android:layout_toRightOf="@+id/pQtyTag"
+        android:text="CantidadTxt" />
+
+    <TextView
+        android:id="@+id/tagDesP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/pQtyTag"
+        android:layout_below="@+id/pQtyTag"
+        android:layout_marginTop="13dp"
+        android:text="Categoría: " />
+
+    <TextView
+        android:id="@+id/txtPdes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_alignBaseline="@+id/tagDesP"
+
+        android:layout_toEndOf="@+id/pDescriptionTag" />
+</RelativeLayout>

@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.41"
         android:text="TextView"
+        android:gravity="center"
         android:textAlignment="center" />
 
     <TextView
@@ -19,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0.41"
+        android:gravity="center"
         android:text="TextView"
         android:textAlignment="center" />
 </LinearLayout>

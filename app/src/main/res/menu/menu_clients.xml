@@ -11,7 +11,7 @@
         android:id="@+id/action_clients_close"
         app:showAsAction="always"
         android:title="@string/action_close"
-        android:icon="@drawable/tlb_close"
+        android:icon="@drawable/tlb_close"/>
 
-        />
+
 </menu>

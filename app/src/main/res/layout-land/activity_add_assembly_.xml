@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/addAssembly_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#fafafa"
+        android:elevation="10dp"
+        app:titleTextColor="#000000"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:layout_alignParentStart="true"/>
+    <EditText
+        android:id="@+id/addAssembly_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/addAssembly_toolbar"
+        android:hint="New Assembly Name"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="350dp"
+        android:maxLines="2"
+
+        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/addAssembly_RecyclerView"
+        android:layout_width="340dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="2dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/addAssembly_text"></android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/addAssembly_cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:layout_below="@id/addAssembly_text"
+        android:layout_marginTop="70dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        />
+    <Button
+        android:id="@+id/addAssembly_saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_alignTop="@id/addAssembly_cancelButton"
+        android:layout_toRightOf="@id/addAssembly_cancelButton"
+        android:layout_marginLeft="30dp"/>
+
+</RelativeLayout>

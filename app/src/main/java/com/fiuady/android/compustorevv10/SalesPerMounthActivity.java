@@ -28,15 +28,15 @@ public class SalesPerMounthActivity extends AppCompatActivity {
     RecyclerView RvSales ;
     Spinner spnSales;
 
-    CardView cardView ;
-    TextView txt;
+    //CardView cardView ;
+    //TextView txt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sales_per_mounth);
 
-        cardView= (CardView) findViewById(R.id.cardView);
-        txt= (TextView) findViewById(R.id.rvPrecioMes);
+        //cardView= (CardView) findViewById(R.id.cardView);
+        //txt= (TextView) findViewById(R.id.rvPrecioMes);
        RvSales = (RecyclerView) findViewById(R.id.rv_SalesPerMounth);
         //RvSales=(RecyclerView) findViewById(R.id.rvDetailedResume);
         spnSales = (Spinner)  findViewById(R.id.spinner_years);
@@ -96,10 +96,11 @@ public class SalesPerMounthActivity extends AppCompatActivity {
                        }
 
                        else
-                       {txt.setText("notE");
+                       {
+                           //txt.setText("notE");
 
                            manager.GetDetailInfo(AdapterPosition,spnSales.getSelectedItem().toString());
-                           txt.setText(String.valueOf(AdapterPosition));
+                           //txt.setText(String.valueOf(AdapterPosition));
 
                            Intent x = new Intent(SalesPerMounthActivity.this,DetailSalesResumeActivity.class);
 
@@ -138,7 +139,7 @@ public class SalesPerMounthActivity extends AppCompatActivity {
 
 
 
-      txt.setText( String.valueOf(manager.GetTotalSalesPerMounth(10,spnSales.getSelectedItem().toString())));
+      //txt.setText( String.valueOf(manager.GetTotalSalesPerMounth(10,spnSales.getSelectedItem().toString())));
 
 
 

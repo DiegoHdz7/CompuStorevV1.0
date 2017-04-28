@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.fiuady.android.compustorevv10.db.Inventory;
@@ -29,16 +28,16 @@ public class NewClientActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_new);
 
-        final EditText edtFirstName = (EditText) findViewById(R.id.etx_clientFN);
-        final EditText edtLastName = (EditText)findViewById(R.id.etx_fieldLN);
-        final EditText edtAddress = (EditText)findViewById(R.id.etx_clientAd);
-        final EditText edtPhone1A = (EditText)findViewById(R.id.etx_clientT1_a);
+        final EditText edtFirstName = (EditText) findViewById(R.id.etx_clientFN_up);
+        final EditText edtLastName = (EditText)findViewById(R.id.etx_fieldLN_up);
+        final EditText edtAddress = (EditText)findViewById(R.id.etx_clientAd_up);
+        final EditText edtPhone1A = (EditText)findViewById(R.id.etx_clientT1_a_up);
         final EditText edtPhone1B = (EditText)findViewById(R.id.etx_clientT1_b);
-        final EditText edtPhone2A = (EditText)findViewById(R.id.etx_clientT2_a);
-        final EditText edtPhone2B = (EditText)findViewById(R.id.etx_clientT2_b);
-        final EditText edtPhone3A = (EditText)findViewById(R.id.etx_clientT3_a);
-        final EditText edtPhone3B = (EditText)findViewById(R.id.etx_clientT3_b);
-        final EditText edtEMail = (EditText)findViewById(R.id.etx_clientEm);
+        final EditText edtPhone2A = (EditText)findViewById(R.id.etx_clientT2_a_up);
+        final EditText edtPhone2B = (EditText)findViewById(R.id.etx_clientT2_b_up);
+        final EditText edtPhone3A = (EditText)findViewById(R.id.etx_clientT3_a_up);
+        final EditText edtPhone3B = (EditText)findViewById(R.id.etx_clientT3_b_up);
+        final EditText edtEMail = (EditText)findViewById(R.id.etx_clientEm_up);
 
         Button btnSave = (Button) findViewById(R.id.btn_clientSave);
         Button btnCancel = (Button) findViewById(R.id.btn_clientCancel);

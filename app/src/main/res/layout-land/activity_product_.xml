@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fiuady.android.compustorevv10.Productos.Product_Activity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_products"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:id="@+id/relativeLayout"
+        android:layout_marginBottom="25dp"
+        android:layout_above="@+id/iBtnSearch"
+        android:layout_alignStart="@+id/eTxtSearch">
+
+        <TextView
+            android:text="Categoría: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+
+            android:id="@+id/textView2"
+            android:layout_weight="1"
+
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="14dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/spnProducts"
+            android:layout_marginStart="14dp"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/textView2" />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerProducts"
+        style="@style/Theme.AppCompat.Light"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_products"
+        android:layout_toEndOf="@+id/iBtnSearch"
+        android:layout_weight="64.22"
+        android:clickable="true"
+        android:contextClickable="true"
+        tools:clickable="true" />
+
+    <EditText
+        android:id="@+id/eTxtSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="47dp"
+        android:layout_marginStart="19dp"
+        android:ems="10"
+        android:hint="Buscar"
+        android:inputType="textPersonName"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="126dp" />
+
+    <ImageButton
+        android:id="@+id/iBtnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/eTxtSearch"
+        android:layout_toEndOf="@+id/eTxtSearch"
+        app:srcCompat="@android:drawable/ic_menu_search" />
+
+
+
+
+
+
+
+
+</RelativeLayout>
