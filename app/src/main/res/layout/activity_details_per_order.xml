@@ -109,9 +109,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:layout_alignBaseline="@+id/txtfstName_o"
+        android:layout_toRightOf="@+id/txtfstName_o"
         android:layout_alignBottom="@+id/txtfstName_o"
-        android:layout_toStartOf="@+id/txtCustomerId_o" />
+        android:layout_marginStart="9dp" />
 
     <TextView
         android:id="@+id/tagOrderStatus_o"

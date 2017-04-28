@@ -72,17 +72,17 @@ public class SalesPerMounthAdapter extends RecyclerView.Adapter<SalesPerMounthAd
 
     public static class SalesViewHolder extends RecyclerView.ViewHolder  {
 
-        private TextView txtMeses, txtPrecio,txtTotalTag;
+            private TextView txtMeses, txtPrecio,txtTotalTag;
 
-        public SalesViewHolder(View itemView) {
-            super(itemView);
+            public SalesViewHolder(View itemView) {
+                super(itemView);
 
 
-            txtMeses = (TextView) itemView.findViewById(R.id.rvMounth);
-            txtPrecio = (TextView) itemView.findViewById(R.id.rvPrecioMes);
-            txtTotalTag=(TextView)itemView.findViewById(R.id.rvTotalTag);
+                txtMeses = (TextView) itemView.findViewById(R.id.rvMounth);
+                txtPrecio = (TextView) itemView.findViewById(R.id.rvPrecioMes);
+                txtTotalTag=(TextView)itemView.findViewById(R.id.rvTotalTag);
 
-        }
+            }
     }
 }
 

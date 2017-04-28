@@ -20,16 +20,17 @@ public class Product {
     private int categoryId;
     private String description;
     private double price;
-
+    private String Cat_description;
     private int qty;
 
-    Product(int id, int CatId, String descripcion, double precio, int cantidad)
+    public  Product(int id, int CatId, String descripcion, double precio, int cantidad,String cat_description)
     {
         this.Id=id;
         this.categoryId = CatId;
         this.description = descripcion;
         this.price = precio;
         this.qty = cantidad;
+        this.Cat_description=cat_description;
     }
 
     public void setId(int id) {
@@ -71,4 +72,12 @@ public class Product {
     public double getPrice() {
         return price;
     }
+    public String getCat_description() {
+        return Cat_description;
+    }
+
+    public void setCat_description(String cat_description) {
+        Cat_description = cat_description;
+    }
+
 }

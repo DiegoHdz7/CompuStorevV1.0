@@ -11,7 +11,10 @@ import android.widget.Toast;
 
 import com.fiuady.android.compustorevv10.DetailInfo;
 import com.fiuady.android.compustorevv10.MissingProductsActivity;
+import com.fiuady.android.compustorevv10.Product;
 import com.fiuady.android.compustorevv10.ProductoFaltante;
+import com.fiuady.android.compustorevv10.Productos.Product_Activity;
+import com.fiuady.android.compustorevv10.Productos.Proudct_Category;
 import com.fiuady.android.compustorevv10.SalesPerMounthActivity;
 
 import java.sql.Date;
@@ -19,6 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 // khhj
 public final class Inventory {
@@ -511,22 +515,6 @@ public final class Inventory {
     }*/
 
 
-
-    public void CreateTemporaryTable()
-    {
-        //db.rawQuery("drop table CheckIfCanAssembly",null);
-        db.rawQuery("CREATE TEMPORARY TABLE CheckIfCanAssembly AS\n" +
-                "WITH CheckIf AS (\n" +
-                "select ap.id as idAP,product_id,\n" +
-                " category_id,\n" +
-                " ap.qty as qtyAP,\n" +
-                " p.qty as qtyP \n" +
-                " from assembly_products ap inner join products p  on p.id = ap.product_id \n" +
-                "   \n" +
-                ")\n" +
-                "SELECT * FROM CheckIf;",null);
-    }
-
     public List<Integer> GetMissingProductsByAssemblyID (int multiplicador, int AssemblyProductId)
     {
         ArrayList<Integer> faltantes = new ArrayList<Integer>();
@@ -722,7 +710,7 @@ public final class Inventory {
                         cursor.getString(3),
                         cursor.getString(4),
                         cursor.getString(5),
-                        Date.valueOf(cursor.getString(7)),
+                        date,
                         cursor.getString(6),
                         cursor.getDouble(9) / 100));
 
@@ -796,10 +784,318 @@ public final class Inventory {
     }
 
 
+    ///////////////Products Section
+
+    public List<Proudct_Category> getAllCategories ()
+    {
+        ArrayList<Proudct_Category> categories = new ArrayList<Proudct_Category>();
+
+        Cursor cursor = db.rawQuery("select * from product_categories",null);
+
+        while (cursor.moveToNext()) {
+           categories.add(new Proudct_Category(cursor.getInt(0),cursor.getString(1)));
+
+
+        }
+
+
+        cursor.close();
+
+        return categories;
+
+    }
+
+
+
+    //This shit falla preguntarle a Edson
+    public boolean comprobacion2 (int categoryId, String StartWith)
+    {
+        String catId = String.valueOf(categoryId);
+        Cursor cursor = db.rawQuery("select * from products p  inner join product_categories pc on P.category_id = pc.id \n" +
+                "where p.category_id = "+catId+" and p.description like '"+StartWith+"%' order by description asc",null);
+
+        cursor.moveToFirst();
+
+
+
+        if (cursor.getCount()==0) {
+            cursor.close();
+            return true;
+
+        } else {
+
+            cursor.close();
+            return false;
+        }
+
+    }
+
+
+
+
+    public int GetCategoryId (String cat)
+    {
+        int id;
+
+        Cursor cursor = db.rawQuery(" select id from product_categories where description like '"+cat+"'",null);
+        cursor.moveToFirst();
+          id=cursor.getInt(0);
+
+
+        return id;
+    }
+
+
+
+    public ArrayList<Product> GetFilteredProducts (int CId, String SW, String cat_des)
+    {
+        String catId=String.valueOf(CId);
+        ArrayList<Product> products = new ArrayList<Product>();
+
+
+        Log.i("log",SW);
+
+
+        if(cat_des.equals("Todas")&& SW.length() == 0)
+        {
+            Cursor cursor = db.rawQuery("select * from products p  inner join product_categories pc on p.category_id = pc.id  order by description asc;",null);
+
+
+
+            while (cursor.moveToNext()) {
+                if (cursor.getCount() == 0) {
+                    cursor.close();
+                    products.clear();
+                    return products;
+
+                }
+
+                else {
+                    products.add(new Product(cursor.getInt(0), cursor.getInt(1), cursor.getString(2),
+                            cursor.getDouble(3) / 100, cursor.getInt(4), cursor.getString(6)));
+                }
+
+            }
+
+            cursor.close();
+            return products;
+
+        }
+////////////////////////////////////////////////////////////////////////////////////////
+        if(cat_des.equals("Todas") && SW.length() > 0)
+        {
+            Cursor cursor = db.rawQuery("select * from products p  inner join product_categories pc on P.category_id = pc.id "+
+                    "where p.description like '%"+SW+"%' order by description asc",null);
+
+            while (cursor.moveToNext()) {
+                if (cursor.getCount() == 0) {
+                    cursor.close();
+                    products.clear();
+                    return products;
+
+                }
+
+                else {
+                    products.add(new Product(cursor.getInt(0), cursor.getInt(1), cursor.getString(2),
+                            cursor.getDouble(3) / 100, cursor.getInt(4), cursor.getString(6)));
+                }
+
+            }
+
+            cursor.close();
+            return products;
+
+        }
+///////////////////////////////////////////////////////////////////////////////////////
+         if(cat_des.equals("Todas")==false && SW.length() == 0)
+        {
+            Cursor cursor = db.rawQuery("select * from products p  inner join product_categories pc on P.category_id = pc.id \n" +
+                    "where  p.category_id = "+catId+"  order by description asc",null);
+
+            while (cursor.moveToNext()) {
+                if (cursor.getCount() == 0) {
+                    cursor.close();
+                    products.clear();
+                    return products;
+
+                } else {
+                    products.add(new Product(cursor.getInt(0), cursor.getInt(1), cursor.getString(2),
+                            cursor.getDouble(3) / 100, cursor.getInt(4), cursor.getString(6)));
+                }
+
+
+
+
+
+
+            }
+            cursor.close();
+            return products;
+
+        }
+////////////////////////////////////////////////////////////////////////////////////////////
+       if(cat_des.equals("Todas")==false && SW.length() > 0)
+        {
+            Cursor cursor = db.rawQuery("select * from products p  inner join product_categories pc on P.category_id = pc.id \n" +
+                    "where p.category_id = "+catId+" and p.description like '%"+SW+"%' order by description asc",null);
+
+            while (cursor.moveToNext()) {
+                if (cursor.getCount() == 0) {
+                    cursor.close();
+                    products.clear();
+                    return products;
+
+                } else {
+                    products.add(new Product(cursor.getInt(0), cursor.getInt(1), cursor.getString(2),
+                            cursor.getDouble(3) / 100, cursor.getInt(4), cursor.getString(6)));
+                }
+
+
+
+
+
+
+            }
+            cursor.close();
+            return products;
+
+        }
+
+      products.clear();
+            return products;
+
+
+    }
+
+
+    public  boolean CheckDescription (String description)
+    {
+
+        Cursor cursor = db.rawQuery("select * from products p where p.description like '"+description+"';",null);
+
+        cursor.moveToFirst();
+
+        if (cursor.getCount() > 0)
+        {
+            cursor.close();
+            return false;
+        }
+
+        else
+        {
+            cursor.close();
+            return true;
+        }
+
+
+
+
+
+    }
+
+    public void AddProduct (String categoryId, String descripcion, String precio)
+    {
+        Cursor cursor = db.rawQuery("SELECT MAX(id)AS qty FROM products",null);
+        cursor.moveToNext();
+        int max= cursor.getInt(0) + 1;
+        String g = String.valueOf(max);
+        Log.i("eval = ",g);
+        //INSERT INTO [products](id, category_id, description, price, qty) VALUES(2, 0, 'Toshiba 3.5" 3TB, SATA 6.0Gb/s 64MB Cache, 7200 RPM', 209900, 0);
+
+        ContentValues contenedor = new ContentValues();
+        contenedor.put("id",g);
+        contenedor.put("category_id",categoryId);
+        contenedor.put("description",descripcion);
+        contenedor.put("price",precio);
+        contenedor.put("qty","0");
+
+        db.insert("products",null,contenedor);
+        cursor.close();
+
+    }
+
+    public void DeleteProduct (int Id)
+    {
+        String id= String.valueOf(Id);
+        String args[]={id};
+
+
+        db.delete("products", "id = ?", args);
+        //r.setAdapter(new MyProductAdapter(String.valueOf(fragment),Integer.valueOf(categoryId),String.valueOf(categoria)));
+
+    }
+
+    public void UpdateProduct (String newDescription, int id, String newPrice,String Category)
+    {
+        String Id = String.valueOf(id);
+        String args[] = {Id};
+        ContentValues valores = new ContentValues();
+        valores.put("description",newDescription);
+        valores.put("price",newPrice);
+        valores.put("category_id",Category);
+
+
+        Log.i("eval = ",newDescription);
+        Log.i("eval = ",String.valueOf(id));
+        Log.i("eval = ",newPrice);
+
+
+//Actualizamos el registro en la base de datos
+        db.update("products", valores, "id = ?",args );
+    }
+
+    public void AddStockProduct( int id, String qty)
+    {
+        String Id = String.valueOf(id);
+        String args[] = {Id};
+        ContentValues valores = new ContentValues();
+
+        valores.put("qty",qty);
+
+       // Log.i("eval = ",newPrice);
+
+
+//Actualizamos el registro en la base de datos
+        db.update("products", valores, "id = ?",args );
+    }
+
+
+    public List<Product> prueba3 (int CId, String SW, String cat_des) {
+        String catId = String.valueOf(CId);
+
+        Log.i("log", catId);
+        Log.i("log", SW);
+        Log.i("log", cat_des);
+        ArrayList<Product> products = new ArrayList<Product>();
+        Cursor cursor = db.rawQuery("select * from products p  inner join product_categories pc on P.category_id = pc.id \n" +
+                "where p.category_id = " + catId + " and p.description like '%" + SW + "%' order by description asc", null);
+
+
+        while (cursor.moveToNext()) {
+            if (cursor.getCount() == 0) {
+                cursor.close();
+                products.clear();
+                return products;
+
+            } else {
+                products.add(new Product(cursor.getInt(0), cursor.getInt(1), cursor.getString(2),
+                        cursor.getDouble(3) / 100, cursor.getInt(4), cursor.getString(6)));
+            }
+
+
+            cursor.close();
+
+
+
+        }
+        return products;
+    }
 
 
 
 
 
 }
+
+
 

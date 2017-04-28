@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.fiuady.android.compustorevv10.Productos.Product_Activity;
 import com.fiuady.android.compustorevv10.db.Inventory;
 import com.fiuady.android.compustorevv10.db.InventoryHelper;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private InventoryHelper inventoryHelper;
     private  ImageButton ReportsBtn;
+    private ImageButton btnProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mainToolbar);
 
         ReportsBtn = (ImageButton) findViewById(R.id.ibt_reports);
+        btnProducts = (ImageButton) findViewById(R.id.ibt_products);
 
 
         /* Petición para escribir en el almacenamiento externo -->*/
@@ -68,6 +71,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(),ReportsActivity.class);
                 startActivity(i);
 
+            }
+        });
+
+        btnProducts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, Product_Activity.class);
+                startActivity(i);
             }
         });
     }

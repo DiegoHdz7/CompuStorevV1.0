@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fiuady.android.compustorevv10.Productos.UpdateActivity">
+
+
+    <TextView
+        android:text="Categoria: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="22dp"
+        android:id="@+id/CatUpTag"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spnUpdate"
+        android:layout_alignTop="@+id/CatUpTag"
+        android:layout_toRightOf="@+id/CatUpTag"
+        android:layout_toEndOf="@+id/CatUpTag" />
+
+    <TextView
+        android:text="Descripcion: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spnUpdate"
+        android:layout_toLeftOf="@+id/spnUpdate"
+        android:layout_toStartOf="@+id/spnUpdate"
+        android:layout_marginTop="24dp"
+        android:id="@+id/desUpTag" />
+
+    <TextView
+        android:text="Precio: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/desUpTag"
+
+        android:layout_marginTop="40dp"
+        android:id="@+id/priceupTag" />
+
+    <Button
+        android:text="Modificar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/priceupTag"
+        android:layout_alignLeft="@+id/CatUpTag"
+        android:layout_alignStart="@+id/CatUpTag"
+        android:layout_marginTop="151dp"
+        android:id="@+id/btnUpdate" />
+
+    <Button
+        android:text="Cancelar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btnUpdate"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="43dp"
+        android:layout_marginEnd="43dp"
+        android:id="@+id/btnCancelUp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/UpDescriptionTxt"
+        android:hint="Escribe la nueva categoría"
+        android:layout_alignBaseline="@+id/desUpTag"
+        android:layout_alignBottom="@+id/desUpTag"
+        android:layout_toRightOf="@+id/desUpTag" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:layout_below="@+id/UpDescriptionTxt"
+        android:layout_toRightOf="@+id/priceupTag"
+        android:layout_toEndOf="@+id/priceupTag"
+        android:layout_marginTop="15dp"
+        android:id="@+id/UpPriceTxt"
+        android:hint="Escribe el nuevo precio" />
+
+</RelativeLayout>

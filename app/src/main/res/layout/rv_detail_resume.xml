@@ -11,200 +11,203 @@
         android:layout_height="165dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        app:cardElevation="10dp"
         app:cardBackgroundColor="@android:color/transparent">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/TagOrderId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="22dp"
+                android:textStyle="bold"
+                tools:textColor="@android:color/background_dark"
+                android:text="OrderId: " />
+
+            <TextView
+                android:id="@+id/txtOrderId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/TagOrderId"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/TagOrderId"
+                android:textStyle="bold"
+                tools:textColor="@android:color/background_dark"
+                android:text="Oid" />
+
+            <TextView
+                android:id="@+id/tagAssemblyId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/txtOrderId"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@+id/txtOrderId"
+                android:textStyle="bold"
+                tools:textColor="@android:color/background_dark"
+                android:text="AssemblyId: " />
+
+            <TextView
+                android:id="@+id/txtAssemblyId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tagAssemblyId"
+                android:layout_alignBottom="@+id/tagAssemblyId"
+                android:layout_toEndOf="@+id/tagAssemblyId"
+                android:textStyle="bold"
+                tools:textColor="@android:color/background_dark"
+                android:text="AId" />
+
+            <TextView
+                android:id="@+id/TagDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/txtAssemblyId"
+                android:layout_marginStart="13dp"
+                android:layout_toEndOf="@+id/txtAssemblyId"
+                android:textStyle="bold"
+                tools:textColor="@android:color/background_dark"
+                android:text="Date: " />
+
+            <TextView
+                android:id="@+id/txtDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/TagDate"
+                android:layout_toEndOf="@+id/TagDate"
+                android:textStyle="bold"
+                tools:textColor="@android:color/background_dark"
+                android:text="Date" />
+
+            <TextView
+                android:id="@+id/tagClientId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/TagOrderId"
+                android:layout_below="@+id/TagOrderId"
+                android:layout_marginTop="22dp"
+                android:textStyle="bold"
+                tools:textColor="@android:color/background_dark"
+                android:text="CustomerId: " />
+
+            <TextView
+                android:id="@+id/txtCustomerId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Id"
+                android:textStyle="bold"
+                tools:textColor="@android:color/background_dark"
+                android:layout_alignBaseline="@+id/tagClientId"
+                android:layout_alignBottom="@+id/tagClientId"
+                android:layout_toEndOf="@+id/txtOrderId"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                android:id="@+id/tagOrderStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Order Status: "
+                android:textStyle="bold"
+                tools:textColor="@android:color/background_dark"
+                android:layout_alignBaseline="@+id/txtCustomerId"
+                android:layout_alignBottom="@+id/txtCustomerId"
+                android:layout_alignStart="@+id/TagDate" />
+
+            <TextView
+                android:id="@+id/txtOrderStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="status"
+                android:layout_alignBaseline="@+id/tagOrderStatus"
+                android:layout_alignBottom="@+id/tagOrderStatus"
+                android:layout_toEndOf="@+id/tagOrderStatus"
+                android:textStyle="bold"
+                tools:textColor="@android:color/background_dark"
+                android:layout_marginStart="7dp" />
+
+            <TextView
+                android:id="@+id/tagFullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/tagClientId"
+                android:layout_below="@+id/tagClientId"
+                android:textStyle="bold"
+                tools:textColor="@android:color/background_dark"
+                android:layout_marginTop="12dp"
+                android:text="Full Name: " />
+
+            <TextView
+                android:id="@+id/txtFisrtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tagFullName"
+                android:layout_toEndOf="@+id/tagClientId"
+                android:textStyle="bold"
+                tools:textColor="@android:color/background_dark"
+                android:text="FullName" />
+
+            <TextView
+                android:id="@+id/txtLastName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/txtFisrtName"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@+id/txtFisrtName"
+                android:textStyle="bold"
+                tools:textColor="@android:color/background_dark"
+                android:text="LstName" />
+
+            <TextView
+                android:id="@+id/txtPrecio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                tools:textColor="@android:color/background_dark"
+                android:layout_marginEnd="6dp"
+                android:text="TextView"
+                android:layout_alignTop="@+id/txtLastName"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="6dp" />
+
+            <TextView
+                android:id="@+id/tagPrecio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price: "
+                android:layout_alignBaseline="@+id/txtPrecio"
+                android:layout_alignBottom="@+id/txtPrecio"
+                android:layout_toStartOf="@+id/txtPrecio" />
+
+            <TextView
+                android:id="@+id/tagAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/tagFullName"
+                android:layout_below="@+id/tagFullName"
+                android:textStyle="bold"
+                tools:textColor="@android:color/background_dark"
+                android:layout_marginTop="15dp"
+                android:text="Address: " />
+
+            <TextView
+                android:id="@+id/txtAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tagAddress"
+                android:layout_toEndOf="@+id/tagFullName"
+                android:textStyle="bold"
+                tools:textColor="@android:color/background_dark"
+                android:text="TextView" />
+
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
-    <TextView
-        android:id="@+id/TagOrderId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="22dp"
-        android:textStyle="bold"
-        tools:textColor="@android:color/background_dark"
-        android:text="OrderId: " />
-
-    <TextView
-        android:id="@+id/txtOrderId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/TagOrderId"
-        android:layout_marginStart="8dp"
-        android:layout_toEndOf="@+id/TagOrderId"
-        android:textStyle="bold"
-        tools:textColor="@android:color/background_dark"
-        android:text="Oid" />
-
-    <TextView
-        android:id="@+id/tagAssemblyId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/txtOrderId"
-        android:layout_marginStart="16dp"
-        android:layout_toEndOf="@+id/txtOrderId"
-        android:textStyle="bold"
-        tools:textColor="@android:color/background_dark"
-        android:text="AssemblyId: " />
-
-    <TextView
-        android:id="@+id/txtAssemblyId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tagAssemblyId"
-        android:layout_alignBottom="@+id/tagAssemblyId"
-        android:layout_toEndOf="@+id/tagAssemblyId"
-        android:textStyle="bold"
-        tools:textColor="@android:color/background_dark"
-        android:text="AId" />
-
-    <TextView
-        android:id="@+id/TagDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/txtAssemblyId"
-        android:layout_marginStart="13dp"
-        android:layout_toEndOf="@+id/txtAssemblyId"
-        android:textStyle="bold"
-        tools:textColor="@android:color/background_dark"
-        android:text="Date: " />
-
-    <TextView
-        android:id="@+id/txtDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/TagDate"
-        android:layout_toEndOf="@+id/TagDate"
-        android:textStyle="bold"
-        tools:textColor="@android:color/background_dark"
-        android:text="Date" />
-
-    <TextView
-        android:id="@+id/tagClientId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/TagOrderId"
-        android:layout_below="@+id/TagOrderId"
-        android:layout_marginTop="22dp"
-        android:textStyle="bold"
-        tools:textColor="@android:color/background_dark"
-        android:text="CustomerId: " />
-
-    <TextView
-        android:id="@+id/txtCustomerId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Id"
-        android:textStyle="bold"
-        tools:textColor="@android:color/background_dark"
-        android:layout_alignBaseline="@+id/tagClientId"
-        android:layout_alignBottom="@+id/tagClientId"
-        android:layout_toEndOf="@+id/txtOrderId"
-        android:layout_marginStart="8dp" />
-
-    <TextView
-        android:id="@+id/tagOrderStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Order Status: "
-        android:textStyle="bold"
-        tools:textColor="@android:color/background_dark"
-        android:layout_alignBaseline="@+id/txtCustomerId"
-        android:layout_alignBottom="@+id/txtCustomerId"
-        android:layout_alignStart="@+id/TagDate" />
-
-    <TextView
-        android:id="@+id/txtOrderStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="status"
-        android:layout_alignBaseline="@+id/tagOrderStatus"
-        android:layout_alignBottom="@+id/tagOrderStatus"
-        android:layout_toEndOf="@+id/tagOrderStatus"
-        android:textStyle="bold"
-        tools:textColor="@android:color/background_dark"
-        android:layout_marginStart="7dp" />
-
-    <TextView
-        android:id="@+id/tagFullName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tagClientId"
-        android:layout_below="@+id/tagClientId"
-        android:textStyle="bold"
-        tools:textColor="@android:color/background_dark"
-        android:layout_marginTop="12dp"
-        android:text="Full Name: " />
-
-    <TextView
-        android:id="@+id/txtFisrtName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tagFullName"
-        android:layout_toEndOf="@+id/tagClientId"
-        android:textStyle="bold"
-        tools:textColor="@android:color/background_dark"
-        android:text="FullName" />
-
-    <TextView
-        android:id="@+id/txtLastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/txtFisrtName"
-        android:layout_marginStart="15dp"
-        android:layout_toEndOf="@+id/txtFisrtName"
-        android:textStyle="bold"
-        tools:textColor="@android:color/background_dark"
-        android:text="LstName" />
-
-    <TextView
-        android:id="@+id/txtPrecio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        tools:textColor="@android:color/background_dark"
-        android:layout_marginEnd="6dp"
-        android:text="TextView"
-        android:layout_alignTop="@+id/txtLastName"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="6dp" />
-
-    <TextView
-        android:id="@+id/tagPrecio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Price: "
-        android:layout_alignBaseline="@+id/txtPrecio"
-        android:layout_alignBottom="@+id/txtPrecio"
-        android:layout_toStartOf="@+id/txtPrecio" />
-
-    <TextView
-        android:id="@+id/tagAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tagFullName"
-        android:layout_below="@+id/tagFullName"
-        android:textStyle="bold"
-        tools:textColor="@android:color/background_dark"
-        android:layout_marginTop="15dp"
-        android:text="Address: " />
-
-    <TextView
-        android:id="@+id/txtAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tagAddress"
-        android:layout_toEndOf="@+id/tagFullName"
-        android:textStyle="bold"
-        tools:textColor="@android:color/background_dark"
-        android:text="TextView" />
 
 
 </RelativeLayout>
