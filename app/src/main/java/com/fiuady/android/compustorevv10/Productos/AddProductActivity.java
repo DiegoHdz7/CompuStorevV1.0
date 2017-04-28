@@ -90,12 +90,18 @@ public class AddProductActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(KEY_SPN_ADD_PRODUCT_POS, spnCat.getSelectedItemPosition());
 
 
 
 
+    }
 
-
+    public static String KEY_SPN_ADD_PRODUCT_POS= "KEY_SPN_ADD_PRODUCT_POS";
 
 
 }

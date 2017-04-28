@@ -353,14 +353,6 @@ public class Product_Activity extends AppCompatActivity implements DialogAlerta.
              SetAdapterList();//Busqueda por filtrado
 
 
-
-
-
-
-
-
-
-
             }
         });
 
