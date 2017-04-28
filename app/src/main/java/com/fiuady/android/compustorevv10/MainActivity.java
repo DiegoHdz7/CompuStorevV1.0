@@ -24,6 +24,12 @@ public class MainActivity extends AppCompatActivity {
     private  ImageButton ReportsBtn;
     private ImageButton btnProducts;
 
+
+    //Lara
+    ImageButton btn_ProductsCategories;
+    ImageButton btn_Assemblies;
+    ImageButton btn_Orders;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
 
         ReportsBtn = (ImageButton) findViewById(R.id.ibt_reports);
         btnProducts = (ImageButton) findViewById(R.id.ibt_products);
+
+        btn_ProductsCategories = (ImageButton)findViewById(R.id.ibt_productCategories);
+        btn_Assemblies = (ImageButton)findViewById(R.id.ibt_assemblies);
+        btn_Orders =(ImageButton)findViewById(R.id.ibt_orders);
 
 
         /* Petición para escribir en el almacenamiento externo -->*/
@@ -79,6 +89,29 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, Product_Activity.class);
                 startActivity(i);
+            }
+        });
+        btn_ProductsCategories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(MainActivity.this , ProductCategory_Activity.class);
+                startActivity(intent);
+            }
+        });
+        btn_Assemblies.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,Assemblies_Activity.class);
+                startActivity(intent);
+
+            }
+        });
+        btn_Orders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,Orders_Activity.class);
+                startActivity(intent);
+
             }
         });
     }

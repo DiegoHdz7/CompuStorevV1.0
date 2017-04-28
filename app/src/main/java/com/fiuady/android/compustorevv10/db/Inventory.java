@@ -4,14 +4,23 @@ package com.fiuady.android.compustorevv10.db;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
 
 
+import com.fiuady.android.compustorevv10.Assembly;
+import com.fiuady.android.compustorevv10.AssemblyProducts;
+import com.fiuady.android.compustorevv10.Customer;
 import com.fiuady.android.compustorevv10.DetailInfo;
 import com.fiuady.android.compustorevv10.MissingProductsActivity;
+import com.fiuady.android.compustorevv10.Order;
+import com.fiuady.android.compustorevv10.Order_Assembly;
+import com.fiuady.android.compustorevv10.Order_Status;
 import com.fiuady.android.compustorevv10.Product;
+import com.fiuady.android.compustorevv10.ProductLara;
+import com.fiuady.android.compustorevv10.Product_Categories;
 import com.fiuady.android.compustorevv10.ProductoFaltante;
 import com.fiuady.android.compustorevv10.Productos.Product_Activity;
 import com.fiuady.android.compustorevv10.Productos.Proudct_Category;
@@ -24,10 +33,136 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-// khhj
+//Manuel Lara
+
+class ProductCategoriesCursor extends CursorWrapper {
+    public ProductCategoriesCursor(Cursor cursor){
+        super(cursor);
+    }
+    public Product_Categories getCategory(){
+        Cursor cursor = getWrappedCursor();
+        return new Product_Categories(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductCategoriesTable.Columns.ID)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.ProductCategoriesTable.Columns.DESCRIPTION)));
+    }
+}
+class AssemblyCursor extends CursorWrapper{
+    public AssemblyCursor(Cursor cursor){
+        super(cursor);
+
+    }
+    public Assembly getAssembly(){
+        Cursor cursor = getWrappedCursor();
+        return  new Assembly(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.AssembliesTable.Columns.ID)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.AssembliesTable.Columns.DESCRIPTION)));
+
+    }
+}
+class ProductCursor extends CursorWrapper{
+    public ProductCursor(Cursor cursor){
+        super(cursor);
+    }
+    public ProductLara getProduct(){
+        Cursor cursor = getWrappedCursor();
+        return new ProductLara(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.ID)),
+                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.CATEGORY_ID)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.DESCRIPTION)),
+                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.PRICE)),
+                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.QUANTITY)));
+    }
+}
+class AssemblyProductsCursor extends CursorWrapper{
+    public AssemblyProductsCursor(Cursor cursor){
+        super(cursor);
+    }
+    public AssemblyProducts getAssemblyProducts(){//justCreateToRead
+        Cursor cursor = getWrappedCursor(); //the first param is assembly_id
+        return new AssemblyProducts(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.AssemblyProductsLaraTable.Columns.ID)),
+                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.AssemblyProductsLaraTable.Columns.PRODUCT_ID)),
+                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.AssemblyProductsLaraTable.Columns.QUANTITY)),
+                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.AssemblyProductsLaraTable.Columns.CATEGORY_ID)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.AssemblyProductsLaraTable.Columns.DESCRIPTION)),
+                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.AssemblyProductsLaraTable.Columns.PRICE)));
+    }
+}
+class CustomersCursor extends CursorWrapper{
+    public CustomersCursor(Cursor cursor){
+        super(cursor);
+    }
+    public Customer getCostumer(){
+        Cursor cursor = getWrappedCursor();
+        return new Customer(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.ID)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.FIRST_NAME)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.LAST_NAME)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.ADDRESS)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.PHONE1)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.PHONE2)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.PHONE3)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.CustomersTable.Columns.E_MAIL))
+        );
+    }
+
+}
+class OrdersCursor extends CursorWrapper{
+    public OrdersCursor(Cursor cursor){
+        super(cursor);
+    }
+    public Order getOrder(){
+        Cursor cursor = getWrappedCursor();
+        return new Order(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.ID)),
+                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.STATUS_ID)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.STATUS_DESCRIPTION)),
+                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.COSTUMER_ID)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.COSTUMER_FIRSTNAME)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.COSTUMER_LASTNAME)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.DATE)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrdersTable.Columns.CHANGE_LOG))
+        );
+    }
+
+}
+class OrderStatusCursor extends CursorWrapper{
+    public OrderStatusCursor(Cursor cursor){
+        super(cursor);
+    }
+    public Order_Status getOrderStatus(){
+        Cursor cursor = getWrappedCursor();
+        return new Order_Status(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersStatusTable.Columns.ID)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrdersStatusTable.Columns.DESCRIPTION)),
+                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersStatusTable.Columns.EDITABLE)),
+                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersStatusTable.Columns.NEXT)),
+                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrdersStatusTable.Columns.PREVIOUS)));
+    }
+
+}
+class OrderAssemblyCursor extends CursorWrapper{
+    public OrderAssemblyCursor(Cursor cursor){
+        super(cursor);
+    }
+    public Order_Assembly getOrderAssembly(){
+        Cursor cursor = getWrappedCursor();
+        return new Order_Assembly(cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrderAssembliesTable.Columns.ID)),
+                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrderAssembliesTable.Columns.ASSEMBLY_ID)),
+                cursor.getString(cursor.getColumnIndex(InventoryDbSchema.OrderAssembliesTable.Columns.ASSEMBLY_DESCRIPTION)),
+                cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.OrderAssembliesTable.Columns.QUANTITY)));
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+//End Manuel Lara
 public final class Inventory {
     private InventoryHelper inventoryHelper;
     private SQLiteDatabase db;
+    private List<Product_Categories>categories;
+    private List<Assembly>assemblies;//ManuelLara
 
     private static ClientsFiltersDbName[] cfDb_Array = {ClientsFiltersDbName.LAST_NAME,ClientsFiltersDbName.FIRST_NAME, ClientsFiltersDbName.ADDRESS,
             ClientsFiltersDbName.PHONE,ClientsFiltersDbName.E_MAIL};
@@ -786,7 +921,7 @@ public final class Inventory {
 
     ///////////////Products Section
 
-    public List<Proudct_Category> getAllCategories ()
+    public List<Proudct_Category> getAllCategories()
     {
         ArrayList<Proudct_Category> categories = new ArrayList<Proudct_Category>();
 
@@ -1090,10 +1225,693 @@ public final class Inventory {
         }
         return products;
     }
+    //Manuel Lara------------------------------------------------------------------------------
+    public List<Product_Categories>getAllCategoriesLara(){
+        ArrayList<Product_Categories>list= new ArrayList<Product_Categories>();
+        ProductCategoriesCursor cursor = new ProductCategoriesCursor(db.rawQuery("SELECT*FROM product_categories ORDER BY id",null));
+        while (cursor.moveToNext()){
+            list.add(cursor.getCategory());
+        }
+        cursor.close();
+
+        return list;
+    }
+    public List<Assembly>getAllAssemblies(){
+        ArrayList<Assembly>list = new ArrayList<Assembly>();
+        AssemblyCursor cursor = new AssemblyCursor(db.rawQuery("SELECT*FROM assemblies ORDER BY id",null));
+        while (cursor.moveToNext()){
+            list.add(cursor.getAssembly());
+        }
+        cursor.close();
+
+        return list;
+
+    }
+    public List<Assembly>getAllAssembliesOrderByName(){
+        ArrayList<Assembly>list = new ArrayList<Assembly>();
+        AssemblyCursor cursor = new AssemblyCursor(db.rawQuery("SELECT*FROM assemblies ORDER BY description ASC",null));
+        while (cursor.moveToNext()){
+            list.add(cursor.getAssembly());
+        }
+        cursor.close();
+
+        return list;
+
+    }
+    public List<Assembly>getAllAssembliesOnTextChange(String textSearch){
+        ArrayList<Assembly>list = new ArrayList<Assembly>();
+        AssemblyCursor cursor = new AssemblyCursor(db.rawQuery("SELECT * FROM assemblies WHERE description LIKE '%"+textSearch+"%' ORDER BY description ASC",null));
+        while (cursor.moveToNext()){
+            list.add(cursor.getAssembly());
+        }
+        cursor.close();
+
+        return list;
+
+    }
+    public List<ProductLara>getAllProducts(){
+        ArrayList<ProductLara>list = new ArrayList<ProductLara>();
+        ProductCursor cursor = new ProductCursor(db.rawQuery("SELECT * FROM products ORDER BY description ASC",null));
+        while (cursor.moveToNext()) {
+            list.add(cursor.getProduct());
+
+        }
+        cursor.close();
+        return list;
+
+    }
+    public List<Customer>getAllCustomers(){
+        ArrayList<Customer>list = new ArrayList<Customer>();
+        CustomersCursor cursor = new CustomersCursor(db.rawQuery("SELECT*FROM customers ORDER BY id",null));
+        while (cursor.moveToNext()){
+            list.add(cursor.getCostumer());
+        }
+        cursor.close();
+        return list;
+
+    }
+    public List<Customer>getAllCustomerSortedByName(){
+
+        ArrayList<Customer>list = new ArrayList<Customer>();
+        CustomersCursor cursor = new CustomersCursor(db.rawQuery("SELECT*FROM customers GROUP BY last_name, first_name",null));
+        while (cursor.moveToNext()){
+            list.add(cursor.getCostumer());
+        }
+        cursor.close();
+        return list;
+
+    }
+    public List<Order_Status>getAllOrderStatus(){
+        ArrayList<Order_Status>list = new ArrayList<Order_Status>();
+        OrderStatusCursor cursor = new OrderStatusCursor(db.rawQuery("SELECT*FROM order_status ORDER BY id",null));
+        while (cursor.moveToNext()){
+            list.add(cursor.getOrderStatus());
+        }
+        cursor.close();
+        return list;
+
+    }
+    public List<ProductLara>getProductsByCategory(int category){
+        ArrayList<ProductLara>list = new ArrayList<ProductLara>();
+        ProductCursor cursor = new ProductCursor(db.rawQuery("SELECT * FROM products WHERE category_id = "+ String.valueOf(category) +" ORDER BY description ASC",null));
+        while (cursor.moveToNext()){
+            list.add(cursor.getProduct());
+        }
+        cursor.close();
+        return list;
+
+    }
+    public ProductLara getProductById(int category){
+        ProductLara product;
+        ProductCursor cursor = new ProductCursor(db.rawQuery("SELECT*FROM products WHERE id = "+ String.valueOf(category),null));
+        cursor.moveToFirst();
+        product = cursor.getProduct();
+
+        cursor.close();
+        return product;
+
+    }
+    public boolean KnowIfExistsTheCategory(Product_Categories category)
+    {
+        boolean flag = true;
+        categories=getAllCategoriesLara();
+        for(Product_Categories cat:categories)
+        {
+            if(cat.getDescription().equalsIgnoreCase(category.getDescription()))
+            {
+                flag=false;
+            }
+
+        }
+        return flag;
+    }
+    public boolean KnowIfExistsTheAssembly(String newAssembly)
+    {
+        boolean flag = false;
+        assemblies = getAllAssemblies();
+        for (Assembly assembly:assemblies)
+        {
+            if(assembly.getDescription().equalsIgnoreCase(newAssembly))
+            {
+                flag=true;
+            }
+        }
+        return flag;
+    }
+    public int getLastIdCategory()
+    {
+
+        int MaxId=0;
+        Cursor cursor = db.rawQuery("SELECT MAX(id) AS qty FROM product_categories",null);
+        if(cursor.moveToFirst()){
+            do
+            {
+                MaxId = cursor.getInt(0);
+            }while(cursor.moveToNext());
+        }
+        Log.d("count",MaxId+"last id");
+        cursor.close();
+        return MaxId;
+
+    }
+    public int getLastIdAssembly()
+    {
+        int MaxId=0;
+        Cursor cursor = db.rawQuery("SELECT MAX(id) AS qty FROM assemblies",null);
+        if(cursor.moveToFirst()){
+            do
+            {
+                MaxId = cursor.getInt(0);
+            }while(cursor.moveToNext());
+        }
+        Log.d("count",MaxId+" last id");
+        cursor.close();
+        return MaxId;
+
+    }
+    public void InsertNewCategory(Product_Categories category)
+    {
+        ContentValues values = new ContentValues();
+        values.put(InventoryDbSchema.ProductCategoriesTable.Columns.DESCRIPTION,category.getDescription());
+        values.put(InventoryDbSchema.ProductCategoriesTable.Columns.ID,category.getId());
+        db.insert(InventoryDbSchema.ProductCategoriesTable.NAME,null,values);
+        db.close();
+    }
+    public void DeleteCategory(Product_Categories category){
+        db.delete(InventoryDbSchema.ProductCategoriesTable.NAME, InventoryDbSchema.ProductCategoriesTable.Columns.ID + " = ?",
+                new String[]{String.valueOf(category.getId())});
+        db.close();
+    }
+    public void UpdateCategory(Product_Categories category){
+        ContentValues values = new ContentValues();
+        values.put(InventoryDbSchema.ProductCategoriesTable.Columns.DESCRIPTION,category.getDescription());
+        db.update(InventoryDbSchema.ProductCategoriesTable.NAME,values,InventoryDbSchema.ProductCategoriesTable.Columns.ID + " = ?",
+                new String[]{Integer.toString(category.getId())});
+
+        db.close();
+    }
+    //this is for assemblies
+    public Assembly getAssemblyById(int assemblyId)
+    {
+        Assembly assembly;
+        AssemblyCursor cursor = new AssemblyCursor(db.rawQuery("SELECT*FROM assemblies WHERE id = "+ String.valueOf(assemblyId),null));
+        cursor.moveToFirst();
+        assembly = cursor.getAssembly();
+        cursor.close();
+        return assembly;
+
+    }
+    public List<AssemblyProducts>getAllProductsOfAssemblyById(int assemblyId)
+    {
+        ArrayList<AssemblyProducts>list = new ArrayList<AssemblyProducts>();//the first param is for assembly id
+        AssemblyProductsCursor cursor = new AssemblyProductsCursor(db.rawQuery("SELECT ap.id, ap.product_id,ap.qty, p.category_id,p.description,p.price\n" +
+                "FROM assembly_products ap \n" +
+                "INNER JOIN products p ON (ap.product_id = p.id)\n" +
+                "WHERE ap.id = "+ String.valueOf(assemblyId)+"\n" +
+                "ORDER BY p.description ASC",null));
+        while (cursor.moveToNext()) {
+            list.add(cursor.getAssemblyProducts());
+
+        }
+        cursor.close();
+        return list;
+    }
+    public ArrayList<AssemblyProducts>getAllProductsOfAssemblyId(int assemblyId)
+    {
+        ArrayList<AssemblyProducts>list = new ArrayList<AssemblyProducts>();//the first param is for assembly id
+        AssemblyProductsCursor cursor = new AssemblyProductsCursor(db.rawQuery("SELECT ap.id, ap.product_id,ap.qty, p.category_id,p.description,p.price\n" +
+                "FROM assembly_products ap \n" +
+                "INNER JOIN products p ON (ap.product_id = p.id)\n" +
+                "WHERE ap.id = "+ String.valueOf(assemblyId)+"\n" +
+                "ORDER BY p.description ASC",null));
+        while (cursor.moveToNext()) {
+            list.add(cursor.getAssemblyProducts());
+
+        }
+        cursor.close();
+        return list;
+
+    }
+
+    public boolean InsertNewAssembly(Assembly assembly){
+        ContentValues values = new ContentValues();
+        values.put(InventoryDbSchema.AssembliesTable.Columns.DESCRIPTION,assembly.getDescription());
+        values.put(InventoryDbSchema.AssembliesTable.Columns.ID,assembly.getId());
+        db.insert(InventoryDbSchema.AssembliesTable.NAME,null,values);
+        return true;
+
+    }
+    public void UpdateAssembly(Assembly assembly)
+    {
+        ContentValues values = new ContentValues();
+        values.put(InventoryDbSchema.AssembliesTable.Columns.DESCRIPTION, assembly.getDescription());
+        db.update(InventoryDbSchema.AssembliesTable.NAME,values,InventoryDbSchema.AssembliesTable.Columns.ID + " = ?",
+                new String[]{Integer.toString(assembly.getId())});
+
+        // db.close();
+
+    }
+    public void DeleteAssembly(Assembly assembly)
+    {
+        db.delete(InventoryDbSchema.AssembliesTable.NAME, InventoryDbSchema.AssembliesTable.Columns.ID + " = ?",
+                new String[]{String.valueOf(assembly.getId())});
+        //db.close();
+    }
+    public void InsertNewAssemblyProduct(AssemblyProducts assemblyProducts){
+        ContentValues values = new ContentValues();
+
+        values.put(InventoryDbSchema.Assembly_ProductsTable.Columns.QUANTITY,assemblyProducts.getQuantity());
+        values.put(InventoryDbSchema.Assembly_ProductsTable.Columns.PRODUCT_ID,assemblyProducts.getProductId());
+        values.put(InventoryDbSchema.Assembly_ProductsTable.Columns.ASSEMBLY_ID,assemblyProducts.getAssemblyId());
+        db.insert(InventoryDbSchema.Assembly_ProductsTable.NAME,null,values);
+
+
+    }
+    public void UpdateAssemblyProduct(AssemblyProducts assemblyProducts)
+    {
+        ContentValues values = new ContentValues();
+        values.put(InventoryDbSchema.Assembly_ProductsTable.Columns.QUANTITY, assemblyProducts.getQuantity());
+        db.update(InventoryDbSchema.Assembly_ProductsTable.NAME,values,InventoryDbSchema.Assembly_ProductsTable.Columns.ASSEMBLY_ID + " = ? AND "+InventoryDbSchema.Assembly_ProductsTable.Columns.PRODUCT_ID + " = ?",
+                new String[]{Integer.toString(assemblyProducts.getAssemblyId()),Integer.toString(assemblyProducts.getProductId())});
 
 
 
 
+    }
+    public void DeleteAssemblyProduct(AssemblyProducts assemblyProducts)
+    {
+        db.delete(InventoryDbSchema.Assembly_ProductsTable.NAME, InventoryDbSchema.Assembly_ProductsTable.Columns.ASSEMBLY_ID + " = ? AND "+InventoryDbSchema.Assembly_ProductsTable.Columns.PRODUCT_ID + " = ?",
+                new String[]{Integer.toString(assemblyProducts.getAssemblyId()),Integer.toString(assemblyProducts.getProductId())});
+        //db.close();
+    }
+    public void InsertListOfNewAssemblyProduct(ArrayList<AssemblyProducts> products){
+        ContentValues values = new ContentValues();
+        for(AssemblyProducts product:products) {
+            values.put(InventoryDbSchema.Assembly_ProductsTable.Columns.QUANTITY, product.getQuantity());
+            values.put(InventoryDbSchema.Assembly_ProductsTable.Columns.PRODUCT_ID, product.getProductId());
+            values.put(InventoryDbSchema.Assembly_ProductsTable.Columns.ASSEMBLY_ID, product.getAssemblyId());
+            db.insert(InventoryDbSchema.Assembly_ProductsTable.NAME, null, values);
+        }
+        db.close();
+
+    }
+    public void DeleteListOfNewAssemblyProduct(List<AssemblyProducts>products){
+        ContentValues values = new ContentValues();
+        for(AssemblyProducts assemblyProducts: products)
+        {
+            db.delete(InventoryDbSchema.Assembly_ProductsTable.NAME, InventoryDbSchema.Assembly_ProductsTable.Columns.ASSEMBLY_ID + " = ? AND "+InventoryDbSchema.Assembly_ProductsTable.Columns.PRODUCT_ID + " = ?",
+                    new String[]{Integer.toString(assemblyProducts.getAssemblyId()),Integer.toString(assemblyProducts.getProductId())});
+        }
+        //db.close();
+    }
+    public void DeleteListOfModifiedAssemblyProduct(ArrayList<AssemblyProducts>products)//to delete the products from temporary list
+    {
+        ContentValues values = new ContentValues();
+        for(AssemblyProducts assemblyProducts: products)
+        {
+            db.delete(InventoryDbSchema.Assembly_ProductsTable.NAME, InventoryDbSchema.Assembly_ProductsTable.Columns.ASSEMBLY_ID + " = ? AND "+InventoryDbSchema.Assembly_ProductsTable.Columns.PRODUCT_ID + " = ?",
+                    new String[]{Integer.toString(assemblyProducts.getAssemblyId()),Integer.toString(assemblyProducts.getProductId())});
+        }
+
+    }
+    public void UpdateListOfModifiedAssemblyProduct(List<AssemblyProducts>products)
+    {
+        for (AssemblyProducts assemblyProducts:products) {
+            ContentValues values = new ContentValues();
+            values.put(InventoryDbSchema.Assembly_ProductsTable.Columns.QUANTITY, assemblyProducts.getQuantity());
+            db.update(InventoryDbSchema.Assembly_ProductsTable.NAME, values, InventoryDbSchema.Assembly_ProductsTable.Columns.ASSEMBLY_ID + " = ? AND " + InventoryDbSchema.Assembly_ProductsTable.Columns.PRODUCT_ID + " = ?",
+                    new String[]{Integer.toString(assemblyProducts.getAssemblyId()), Integer.toString(assemblyProducts.getProductId())});
+        }
+    }
+    public void DeleteAllTheProductsFromAssemblyById(int AssemblyId)
+    {
+        db.delete(InventoryDbSchema.Assembly_ProductsTable.NAME, InventoryDbSchema.Assembly_ProductsTable.Columns.ASSEMBLY_ID + " = ?",
+                new String[]{Integer.toString(AssemblyId)});
+    }
+    public int GetTheNumberOfOrdersRelatedToAssembly(int AssemblyId)
+    {
+        int value = 0;
+        Cursor cursor = db.rawQuery("SELECT * FROM order_assemblies WHERE assembly_id = "+ String.valueOf(AssemblyId),null);//ToKnowIfTheAssemblyIsContainInaOrder
+        value = cursor.getCount();
+        cursor.close();
+        return value;
+
+    }
+    //Here we start Orders
+    public List<Order> getAllOrdersOrderByDate(){
+        ArrayList<Order>list = new ArrayList<Order>();//the first param is for assembly id
+        OrdersCursor cursor = new OrdersCursor(db.rawQuery("SELECT o.id, o.status_id, os.description,o.customer_id,c.first_name,c.last_name, substr(o.date,7,4)||'-'||substr(o.date,4,2)||'-'||substr(o.date,1,2) AS date ,o.change_log\n" +
+                "FROM orders o \n" +
+                "INNER JOIN order_status os ON (o.status_id = os.id)\n" +
+                "INNER JOIN customers c ON(o.customer_id = c.id)\n" +
+                "ORDER BY date DESC",null));
+        while (cursor.moveToNext()) {
+            list.add(cursor.getOrder());
+
+        }
+        cursor.close();
+        return list;
+
+    }
+    public List<Order> getAllOrdersByCustomerId(int costumerId)
+    {
+        ArrayList<Order>list = new ArrayList<Order>();//the first param is for assembly id
+        OrdersCursor cursor = new OrdersCursor(db.rawQuery("SELECT o.id, o.status_id, os.description,o.customer_id,c.first_name,c.last_name, substr(o.date,7,4)||'-'||substr(o.date,4,2)||'-'||substr(o.date,1,2) AS    date ,o.change_log\n" +
+                "FROM orders o \n" +
+                "INNER JOIN order_status os ON (o.status_id = os.id)\n" +
+                "INNER JOIN customers c ON(o.customer_id = c.id)\n" +
+                "WHERE o.customer_id = "+String.valueOf(costumerId)+"\n" +
+                "ORDER BY date DESC",null));
+        while (cursor.moveToNext()) {
+            list.add(cursor.getOrder());
+
+        }
+        cursor.close();
+        return list;
+
+    }
+    public List<Order>getAllOrdersByStatus (String status)
+    {
+
+        ArrayList<Order>list = new ArrayList<Order>();//the first param is for assembly id
+        OrdersCursor cursor = new OrdersCursor(db.rawQuery("SELECT o.id, o.status_id, os.description,o.customer_id,c.first_name,c.last_name, substr(o.date,7,4)||'-'||substr(o.date,4,2)||'-'||substr(o.date,1,2) AS    date ,o.change_log\n" +
+                "FROM orders o \n" +
+                "INNER JOIN order_status os ON (o.status_id = os.id)\n" +
+                "INNER JOIN customers c ON(o.customer_id = c.id)\n" +
+                "WHERE os.id IN ("+status+") \n" +
+                "ORDER BY date DESC",null));
+        while (cursor.moveToNext()) {
+            list.add(cursor.getOrder());
+
+        }
+        cursor.close();
+        return list;
+
+    }
+    public List<Order>getAllOrdersByStatusAndCustomer(int customer_Id,String status)
+    {
+        ArrayList<Order>list = new ArrayList<Order>();//the first param is for assembly id
+        OrdersCursor cursor = new OrdersCursor(db.rawQuery("SELECT o.id, o.status_id, os.description,o.customer_id,c.first_name,c.last_name, substr(o.date,7,4)||'-'||substr(o.date,4,2)||'-'||substr(o.date,1,2) AS    date ,o.change_log\n" +
+                "FROM orders o \n" +
+                "INNER JOIN order_status os ON (o.status_id = os.id)\n" +
+                "INNER JOIN customers c ON(o.customer_id = c.id)\n" +
+                "WHERE o.customer_id = "+String.valueOf(customer_Id)+" AND o.status_id IN ("+status+") \n" +
+                "ORDER BY date DESC",null));
+        while (cursor.moveToNext()) {
+            list.add(cursor.getOrder());
+
+        }
+        cursor.close();
+        return list;
+    }
+    public int getLastIdOfOrder()//get the last id of order
+    {
+        int MaxId=0;
+        Cursor cursor = db.rawQuery("SELECT MAX(id) AS qty FROM orders",null);
+        if(cursor.moveToFirst()){
+            do
+            {
+                MaxId = cursor.getInt(0);
+            }while(cursor.moveToNext());
+        }
+        Log.d("count",MaxId+" last id");
+        cursor.close();
+        return MaxId;
+
+    }
+    public String getLastNameOfCustomer(int customerId)//get the last id of order
+    {
+        String last_name=null;
+        Cursor cursor = db.rawQuery("SELECT last_name FROM customers WHERE id = "+String.valueOf(customerId),null);
+        if(cursor.moveToFirst()){
+            do
+            {
+                last_name = cursor.getString(0);
+            }while(cursor.moveToNext());
+        }
+        Log.d("count",last_name+" last name");
+        cursor.close();
+        return last_name;
+
+    }
+    public String getFirstNameOfCustomer(int customerId)//get the last id of order
+    {
+        String first_name=null;
+        Cursor cursor = db.rawQuery("SELECT first_name FROM customers WHERE id = "+String.valueOf(customerId),null);
+        if(cursor.moveToFirst()){
+            do
+            {
+                first_name = cursor.getString(0);
+            }while(cursor.moveToNext());
+        }
+        Log.d("count",first_name+" first name");
+        cursor.close();
+        return first_name;
+
+    }
+    public void InsertNewOrder(Order order){
+        ContentValues values = new ContentValues();
+        values.put(InventoryDbSchema.Orders_Table.Columns.ID,order.getId());
+        values.put(InventoryDbSchema.Orders_Table.Columns.STATUS_ID,order.getStatus_Id());
+        values.put(InventoryDbSchema.Orders_Table.Columns.COSTUMER_ID,order.getCostumer_Id());
+        values.put(InventoryDbSchema.Orders_Table.Columns.DATE,order.getDate());
+        values.put(InventoryDbSchema.Orders_Table.Columns.CHANGE_LOG,order.getChange_Log());
+        db.insert(InventoryDbSchema.Orders_Table.NAME,null,values);
+
+
+    }
+    public void UpdateOrder(Order order)
+    {
+        ContentValues values = new ContentValues();
+        values.put(InventoryDbSchema.Orders_Table.Columns.STATUS_ID,order.getStatus_Id());
+        values.put(InventoryDbSchema.Orders_Table.Columns.COSTUMER_ID,order.getCostumer_Id());
+        values.put(InventoryDbSchema.Orders_Table.Columns.DATE,order.getDate());
+        values.put(InventoryDbSchema.Orders_Table.Columns.CHANGE_LOG,order.getChange_Log());
+
+        db.update(InventoryDbSchema.Orders_Table.NAME,values,InventoryDbSchema.Orders_Table.Columns.ID+ " = ?",
+                new String[]{Integer.toString(order.getId())});
+
+        // db.close();
+
+    }
+    public void DeleteOrder(int OrderId)
+    {
+        db.delete(InventoryDbSchema.Orders_Table.NAME, InventoryDbSchema.Orders_Table.Columns.ID + " = ?",
+                new String[]{Integer.toString(OrderId)});
+    }
+    public Assembly assembly(int assemblyId){
+        Assembly assembly;
+        AssemblyCursor cursor = new AssemblyCursor(db.rawQuery("SELECT*FROM assemblies WHERE id = "+ String.valueOf(assemblyId),null));
+        cursor.moveToFirst();
+        assembly = cursor.getAssembly();
+
+        cursor.close();
+        return assembly;
+
+    }
+    public int VerifyTheQuantityOfAssembly(int assemblyId, int orderId)
+    {
+        int quantity=0;
+        Cursor cursor = db.rawQuery("SELECT qty FROM order_assemblies WHERE id = "+orderId+" AND assembly_id = "+assemblyId,null);
+
+        if(cursor.getCount()==0)
+        {
+            quantity = -1;
+        }
+        else{
+            if(cursor.moveToFirst()) {
+                do {
+                    quantity = cursor.getInt(0);
+                } while (cursor.moveToNext());
+            }
+        }
+
+
+        Log.d("count",quantity+" quantity");
+        cursor.close();
+        return quantity;
+    }
+    public String getAssemblyDescriptionById(int assemblyId)//get the last id of order
+    {
+        String assemblyDescription=null;
+        Cursor cursor = db.rawQuery("SELECT description FROM assemblies WHERE id = "+String.valueOf(assemblyId),null);
+        if(cursor.moveToFirst()){
+            do
+            {
+                assemblyDescription = cursor.getString(0);
+            }while(cursor.moveToNext());
+        }
+        Log.d("count",assemblyDescription+" first name");
+        cursor.close();
+        return assemblyDescription;
+
+    }
+    public void InsertNewOrderAssembly(Order_Assembly order_assembly){
+        ContentValues values = new ContentValues();
+
+        values.put(InventoryDbSchema.Order_AssembliesTable.Columns.QUANTITY,order_assembly.getQuantity());
+        values.put(InventoryDbSchema.Order_AssembliesTable.Columns.ASSEMBLY_ID,order_assembly.getAssembly_Id());
+        values.put(InventoryDbSchema.Order_AssembliesTable.Columns.ID,order_assembly.getId());
+        db.insert(InventoryDbSchema.Order_AssembliesTable.NAME,null,values);
+
+
+    }
+    public void UpdateNewOrderAssembly(Order_Assembly order_assembly)
+    {
+        ContentValues values = new ContentValues();
+        values.put(InventoryDbSchema.Order_AssembliesTable.Columns.QUANTITY, order_assembly.getQuantity());
+        db.update(InventoryDbSchema.Order_AssembliesTable.NAME,values,InventoryDbSchema.Order_AssembliesTable.Columns.ID + " = ? AND "+InventoryDbSchema.Order_AssembliesTable.Columns.ASSEMBLY_ID + " = ?",
+                new String[]{Integer.toString(order_assembly.getId()),Integer.toString(order_assembly.getAssembly_Id())});
+
+
+    }
+    public void DeleteOrderAssembly(Order_Assembly order_assembly)
+    {
+        db.delete(InventoryDbSchema.Order_AssembliesTable.NAME, InventoryDbSchema.Order_AssembliesTable.Columns.ID + " = ? AND "+InventoryDbSchema.Order_AssembliesTable.Columns.ASSEMBLY_ID + " = ?",
+                new String[]{Integer.toString(order_assembly.getId()),Integer.toString(order_assembly.getAssembly_Id())});
+        //db.close();
+    }
+    public void DeleteAllOrderAssemblyByOrderId(int orderId)
+    {
+        db.delete(InventoryDbSchema.Order_AssembliesTable.NAME, InventoryDbSchema.Order_AssembliesTable.Columns.ID + " = ?",
+                new String[]{Integer.toString(orderId)});
+        //db.close();
+    }
+    public List<Order_Assembly>getAllAssembliesOfOrdersById(int orderId)
+    {
+        ArrayList<Order_Assembly>list = new ArrayList<Order_Assembly>();//the first param is for assembly id
+        OrderAssemblyCursor cursor = new OrderAssemblyCursor(db.rawQuery("SELECT oas.id,oas.assembly_id, a.description,oas.qty \n" +
+                "FROM order_assemblies oas\n" +
+                "INNER JOIN assemblies a ON(oas.assembly_id = a.id)\n" +
+                "WHERE oas.id = "+ String.valueOf(orderId)+"\n" +
+                "ORDER BY a.description ASC",null));
+        while (cursor.moveToNext()) {
+            list.add(cursor.getOrderAssembly());
+
+        }
+        cursor.close();
+        return list;
+    }
+    public ArrayList<Order_Assembly>getAllAssembliesOfTheOrder(int orderId)
+    {
+        ArrayList<Order_Assembly>list = new ArrayList<Order_Assembly>();//the first param is for assembly id
+        OrderAssemblyCursor cursor = new OrderAssemblyCursor(db.rawQuery("SELECT oas.id,oas.assembly_id, a.description,oas.qty \n" +
+                "FROM order_assemblies oas\n" +
+                "INNER JOIN assemblies a ON(oas.assembly_id = a.id)\n" +
+                "WHERE oas.id = "+ String.valueOf(orderId)+"\n" +
+                "ORDER BY a.description ASC",null));
+        while (cursor.moveToNext()) {
+            list.add(cursor.getOrderAssembly());
+
+        }
+        cursor.close();
+        return list;
+    }
+    public void DeleteListOfModifiedOrderAssemblies(ArrayList<Order_Assembly>order_assemblies)//to delete the products from temporary list
+    {
+        ContentValues values = new ContentValues();
+        for(Order_Assembly order_assembly: order_assemblies)
+        {
+            db.delete(InventoryDbSchema.Order_AssembliesTable.NAME, InventoryDbSchema.Order_AssembliesTable.Columns.ID + " = ? AND "+InventoryDbSchema.Order_AssembliesTable.Columns.ASSEMBLY_ID + " = ?",
+                    new String[]{Integer.toString(order_assembly.getId()),Integer.toString(order_assembly.getAssembly_Id())});
+        }
+
+    }
+    public void UpdateListOfModifiedOrderAssemblies(ArrayList<Order_Assembly>order_assemblies)
+    {
+        for (Order_Assembly order_assembly: order_assemblies) {
+            ContentValues values = new ContentValues();
+            values.put(InventoryDbSchema.Order_AssembliesTable.Columns.QUANTITY, order_assembly.getQuantity());
+            db.update(InventoryDbSchema.Order_AssembliesTable.NAME, values, InventoryDbSchema.Order_AssembliesTable.Columns.ID + " = ? AND " + InventoryDbSchema.Order_AssembliesTable.Columns.ASSEMBLY_ID + " = ?",
+                    new String[]{Integer.toString(order_assembly.getId()), Integer.toString(order_assembly.getAssembly_Id())});
+        }
+    }
+    public void InsertListOfModifiedOrderAssemblies(ArrayList<Order_Assembly>order_assemblies)
+    {
+        for(Order_Assembly order_assembly:order_assemblies) {
+            ContentValues values = new ContentValues();
+
+            values.put(InventoryDbSchema.Order_AssembliesTable.Columns.QUANTITY, order_assembly.getQuantity());
+            values.put(InventoryDbSchema.Order_AssembliesTable.Columns.ASSEMBLY_ID, order_assembly.getAssembly_Id());
+            values.put(InventoryDbSchema.Order_AssembliesTable.Columns.ID, order_assembly.getId());
+            db.insert(InventoryDbSchema.Order_AssembliesTable.NAME, null, values);
+
+        }
+    }
+    public String getStatusDescriptionById(int statusId)//get the last id of order
+    {
+        String status_description=null;
+        Cursor cursor = db.rawQuery("SELECT description FROM order_status WHERE id = "+ String.valueOf(statusId),null);
+        if(cursor.moveToFirst()){
+            do
+            {
+                status_description = cursor.getString(0);
+            }while(cursor.moveToNext());
+        }
+        Log.d("count",status_description+" first name");
+        cursor.close();
+        return status_description;
+
+    }
+    public void UpdateOrderStatusByOrderId(int newStatus,String changeLog,int orderId)
+    {
+        ContentValues values = new ContentValues();
+        values.put(InventoryDbSchema.Orders_Table.Columns.STATUS_ID,newStatus);
+        values.put(InventoryDbSchema.Orders_Table.Columns.CHANGE_LOG,changeLog);
+
+        db.update(InventoryDbSchema.Orders_Table.NAME,values,InventoryDbSchema.Orders_Table.Columns.ID+ " = ?",
+                new String[]{Integer.toString(orderId)});
+
+        // db.close();
+
+    }
+
+
+
+
+    public int ReturnMaxNumberOfACategory()
+    { int value=0;
+
+        return value;
+    }
+    public int GettheNumberOfProductsinaCategory(int Id_productsCategory)
+    {
+        int value=0;
+        //int valueOfProducts = 0;
+        /*Cursor cursor = db.rawQuery("SELECT COUNT(*) AS qty FROM products WHERE category_id = " + String.valueOf(Id_productsCategory),null);
+        if(cursor.moveToFirst()){
+            do
+            {
+                valueOfProducts = cursor.getInt(0);
+            }while(cursor.moveToNext());
+        }
+        Log.d("count",valueOfProducts + "numberOfProductsInTheCategory");
+        cursor.close();*/
+        // Cursor cursor = db.rawQuery("SELECT COUNT(*) AS qty FROM products WHERE category_id = " + ,null);
+        Cursor cursor = db.rawQuery("SELECT * FROM products WHERE category_id = "+ String.valueOf(Id_productsCategory),null);
+        value = cursor.getCount();
+        cursor.close();
+        return value;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   //End ManuelLara
 
 }
 

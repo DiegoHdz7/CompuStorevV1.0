@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="6dp"
+        android:elevation="6dp"
+        >
+        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">
+            <!--style="?android:listSeparatorTextViewStyle"!-->
+            <ImageView
+                android:id="@+id/assembly_View"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/ic_assembly"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"/>
+            <TextView
+                android:id="@+id/assemblyId_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/assembly_View"
+                android:layout_marginLeft="15dp"
+                android:layout_alignTop="@id/assembly_View"
+                android:text="Assembly Id: "
+                android:textStyle="bold"
+                android:textSize="16dp"
+                />
+            <TextView
+                android:id="@+id/assemblyId_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="gravity"
+                android:text="Assembly Id"
+                android:layout_toRightOf="@id/assemblyId_text"
+                android:layout_alignTop="@id/assemblyId_text"
+                android:textStyle="normal"
+                android:textSize="16dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginLeft="6dp"
+
+                android:textAppearance="?android:textAppearanceLarge"
+                style="@style/Base.Theme.AppCompat.Light.Dialog"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textColorHighlight="@color/accent_material_light" />
+            <TextView
+                android:id="@+id/assemblyName_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/assemblyId_text"
+                android:layout_toRightOf="@id/assembly_View"
+                android:layout_alignTop="@id/assemblyId_text"
+                android:layout_alignLeft="@id/assemblyId_text"
+                android:text="Name: "
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:textSize="16dp"
+                />
+            <TextView
+                android:id="@+id/assemblyName_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="gravity"
+                android:text="Assembly"
+                android:layout_toRightOf="@id/assemblyName_text"
+                android:layout_alignBottom="@id/assemblyName_text"
+                android:layout_marginTop="20dp"
+                android:textStyle="normal"
+                android:textSize="16dp"
+
+
+                android:textAppearance="?android:textAppearanceLarge"
+                style="@style/Base.Theme.AppCompat.Light.Dialog"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textColorHighlight="@color/accent_material_light" />
+            <TextView
+                android:id="@+id/assemblyQty_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/assemblyName_text"
+                android:layout_toRightOf="@id/assembly_View"
+                android:layout_alignTop="@id/assemblyName_text"
+                android:layout_alignLeft="@id/assemblyName_text"
+                android:text="Quantity: "
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:textSize="16dp"
+                android:layout_marginBottom="20dp"
+                />
+            <TextView
+                android:id="@+id/assemblyQty_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="gravity"
+                android:text="quantity"
+                android:layout_toRightOf="@id/assemblyQty_text"
+                android:layout_alignBottom="@id/assemblyQty_text"
+                android:layout_marginTop="20dp"
+                android:textStyle="normal"
+                android:textSize="16dp"
+
+
+                android:textAppearance="?android:textAppearanceLarge"
+                style="@style/Base.Theme.AppCompat.Light.Dialog"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textColorHighlight="@color/accent_material_light" />
+
+            <ImageView
+                android:id="@+id/assemblyOrdersOption_View"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_settings"
+                android:layout_alignParentRight="true"
+                android:layout_alignBottom="@id/assemblyName_description"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="25dp"
+                android:scaleType="centerCrop"
+                android:layout_marginStart="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginRight="3dp"
+
+                />
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

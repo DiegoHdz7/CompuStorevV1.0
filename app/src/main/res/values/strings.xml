@@ -49,6 +49,15 @@
         <item>Fecha</item>
         <item>Monto de Venta</item>
     </string-array>
+    <!--ManuelLara!-->
+    <string name="add_action">Add</string>
+    <string name="settings_action">Settings</string>
+    <string name="add_category_hint">Category Name</string>
+    <string name="edit_category_hint">New Category Name</string>
+    <string name="add_order_window">Add New Order</string>
+    <string name="edit_order_window">Edit Order</string>
+    <string name="delete_assemblyFromOrderTitle">Delete Assembly</string>
+    <string name="delete_assemblyFromOrderMessage">Are you sure you want to delete the assembly?</string>
 
 
 </resources>

@@ -31,7 +31,7 @@
         tools:layout_editor_absoluteY="218dp"
         android:layout_below="@+id/btnMissing"
         android:layout_alignStart="@+id/btnMissing"
-        android:layout_marginTop="36dp" />
+        android:layout_marginTop="70dp" />
 
     <ImageButton
         android:id="@+id/btnSalesPerMounth"
@@ -42,7 +42,7 @@
         tools:layout_editor_absoluteY="393dp"
         android:layout_below="@+id/btnSimulator"
         android:layout_alignStart="@+id/btnSimulator"
-        android:layout_marginTop="91dp" />
+        android:layout_marginTop="70dp" />
 
     <TextView
         android:id="@+id/textView"
