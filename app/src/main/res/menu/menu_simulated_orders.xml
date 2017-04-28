@@ -9,5 +9,9 @@
         android:id="@+id/pum_sOr_confirm"
         android:title="Confirmar Orden"
         />
+    <item
+        android:id="@+id/upm_sOr_details"
+        android:title="Detalles de la Orden"
+        />
 
 </menu>

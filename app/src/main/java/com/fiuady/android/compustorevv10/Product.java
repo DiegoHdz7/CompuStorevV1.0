@@ -23,7 +23,7 @@ public class Product {
 
     private int qty;
 
-    Product(int id, int CatId, String descripcion, double precio, int cantidad)
+    public Product(int id, int CatId, String descripcion, double precio, int cantidad)
     {
         this.Id=id;
         this.categoryId = CatId;

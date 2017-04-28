@@ -47,7 +47,7 @@ public final class InventoryDbSchema {
     }
 
     public static final class CustomersTable{
-        public static final String NAME = "cusomers";
+        public static final String NAME = "customers";
 
         public static final class Columns{
             public static final String ID = "id";

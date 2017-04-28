@@ -15,7 +15,7 @@ import static com.fiuady.android.compustorevv10.DetailsPerOrderActivity.EXTRA_A�
 import static com.fiuady.android.compustorevv10.DetailsPerOrderActivity.EXTRA_Position_A;
 
 public class DetailSalesResumeActivity extends AppCompatActivity {
-
+/*
     public static final String EXTRA_Position = "com.fiuady.android.compustorevv10.AdapterPosition";
     public static final String EXTRA_AÑO = "com.fiuady.android.compustorevv10.Año";
     private RecyclerView rv;
@@ -71,4 +71,5 @@ public class DetailSalesResumeActivity extends AppCompatActivity {
 
 
     }
+    */
 }

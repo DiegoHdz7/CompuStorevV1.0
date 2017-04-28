@@ -21,7 +21,7 @@ INSERT INTO products (id, category_id, description, price, qty) VALUES (10, 0, '
 INSERT INTO products (id, category_id, description, price, qty) VALUES (11, 0, 'Seagate 500GB 7200 Rpm SATA 6GB/s (ST500DM002) 16 Mb', 99900, 4);
 INSERT INTO products (id, category_id, description, price, qty) VALUES (12, 0, 'Estado sólido Kingston UV400 de 480 GB, 2.5" SATA III (6GB/s)', 298899, 0);
 INSERT INTO products (id, category_id, description, price, qty) VALUES (13, 0, 'Estado sólido Kingston UV400 de 120 GB, 2.5" SATA III (6GB/s)', 109900, 1);
-INSERT INTO products (id, category_id, description, price, qty) VALUES (14, 0, 'Estado Sólido Kingston 480GB SSDNow V300 SATA III 2.5'' + Adaptador (sin kit)', 319900, 3);
+INSERT INTO products (id, category_id, description, price, qty) VALUES (14, 0, 'Estado Sólido Kingston 480GB SSDNow V300 SATA III 2.5" + Adaptador (sin kit)', 319900, 3);
 INSERT INTO products (id, category_id, description, price, qty) VALUES (15, 0, 'Unidad SSD Kingston 120GB SATA III 2.5" V300 (no incluye kit)', 99900, 6);
 INSERT INTO products (id, category_id, description, price, qty) VALUES (16, 0, 'Estado sólido Kingston UV400 de 240 GB, 2.5" SATA III (6GB/s)', 179900, 2);
 INSERT INTO products (id, category_id, description, price, qty) VALUES (17, 0, 'Estado Sólido Kingston 480GB SATA 3 Serie UV300 A/7mm', 269900, 0);
