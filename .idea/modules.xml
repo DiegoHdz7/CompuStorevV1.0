@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/CompuStoreV1.0_Macizo.iml" filepath="$PROJECT_DIR$/CompuStoreV1.0_Macizo.iml" />
       <module fileurl="file://$PROJECT_DIR$/CompuStorevV1.0.iml" filepath="$PROJECT_DIR$/CompuStorevV1.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
