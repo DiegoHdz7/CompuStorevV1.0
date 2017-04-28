@@ -7,11 +7,13 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 
 import com.fiuady.android.compustorevv10.db.Inventory;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -51,6 +53,19 @@ public class MyShowCategoriesDialogFragment extends DialogFragment{
             throw new ClassCastException(context.toString()+" must implemente OnDialogSelectorListener");
         }
     }
+    public int getCategoryId(String categoryName)
+    {   int categoryId=0;
+        Inventory inventory = new Inventory(getActivity());
+        List<Product_Categories> product_categories= inventory.getAllCategoriesLara();//get the categories
+        for(Product_Categories category:product_categories)
+        {
+            if(categoryName.trim().equalsIgnoreCase(category.getDescription().trim()))
+            {
+                categoryId = category.getId();
+            }
+        }
+        return categoryId;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -58,7 +73,7 @@ public class MyShowCategoriesDialogFragment extends DialogFragment{
         ArrayList<String> mResourceArray = getArguments().getStringArrayList("categories_list");
         final AlertDialog.Builder builder  = new AlertDialog.Builder(getActivity());
         Inventory inventory = new Inventory(getActivity());
-       ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,mResourceArray);
+       final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,mResourceArray);
         builder.setTitle("Select a category");
 
        /* Dialog dialog = builder.create();
@@ -84,9 +99,16 @@ public class MyShowCategoriesDialogFragment extends DialogFragment{
             public void onClick(DialogInterface dialog, int which) {
                 switch (which)
                 {
+                    case 0:
+                        dialogSelectorListenerCallback.onSelectedOption(-1);
+                        break;
                     default:
-                        dialogSelectorListenerCallback.onSelectedOption(which);
+                        String categoryName=arrayAdapter.getItem(which).toString();
+                        int categoryId = getCategoryId(categoryName);
+                        dialogSelectorListenerCallback.onSelectedOption(categoryId);
+                        //Toast.makeText(getActivity(),String.valueOf(categoryId),Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
+                        break;
 
                 }
 

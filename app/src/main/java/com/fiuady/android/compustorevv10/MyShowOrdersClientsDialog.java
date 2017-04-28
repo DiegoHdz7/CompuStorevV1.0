@@ -95,7 +95,7 @@ public class MyShowOrdersClientsDialog extends DialogFragment {
                         String customerName=arrayAdapter.getItem(which).toString();
                         int customerId = getTheCustomerId(customerName);
                         dialogSelectorListenerCallback.onSelectedOption(customerId);
-                        Toast.makeText(getActivity(),customerName,Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(),customerName,Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                         break;
 

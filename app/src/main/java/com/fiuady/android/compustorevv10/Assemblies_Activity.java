@@ -91,7 +91,7 @@ public class Assemblies_Activity extends AppCompatActivity implements DialogClic
         inventory = new Inventory(getApplicationContext());
         recyclerView=(RecyclerView)findViewById(R.id.Assemblies_RecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<Assembly>assemblies = inventory.getAllAssemblies();
+        List<Assembly>assemblies = inventory.getAllAssembliesOrderByName();
         adapter= new AssemblyAdapter(assemblies);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnItemTouchListener(new RecyclerItemOnClickListener(getApplicationContext(), recyclerView, new RecyclerItemOnClickListener.OnItemClickListener() {
@@ -246,7 +246,7 @@ public class Assemblies_Activity extends AppCompatActivity implements DialogClic
             {
                 if(resultCode == AppCompatActivity.RESULT_OK)
                 {
-                    List<Assembly>assemblies = inventory.getAllAssemblies();
+                    List<Assembly>assemblies = inventory.getAllAssembliesOrderByName();
                     adapter= new AssemblyAdapter(assemblies);
                     recyclerView.setAdapter(adapter);
                 }
@@ -257,7 +257,7 @@ public class Assemblies_Activity extends AppCompatActivity implements DialogClic
             {
                     if(resultCode == AppCompatActivity.RESULT_OK)
                     {
-                        List<Assembly>assemblies = inventory.getAllAssemblies();
+                        List<Assembly>assemblies = inventory.getAllAssembliesOrderByName();
                         adapter= new AssemblyAdapter(assemblies);
                         recyclerView.setAdapter(adapter);
                     }
@@ -272,7 +272,7 @@ public class Assemblies_Activity extends AppCompatActivity implements DialogClic
         inventory.DeleteAllTheProductsFromAssemblyById(assemblyId);
         inventory.DeleteAssembly(assembly);
         
-        adapter= new AssemblyAdapter(inventory.getAllAssemblies());
+        adapter= new AssemblyAdapter(inventory.getAllAssembliesOrderByName());
         recyclerView.getLayoutManager().onRestoreInstanceState(recyclerViewState);
         recyclerView.setAdapter(adapter);
     }

@@ -1321,6 +1321,26 @@ public final class Inventory {
         return list;
 
     }
+    public List<ProductLara>getProductsByCategoryIdAndTextChange(int category,String query){
+        ArrayList<ProductLara>list = new ArrayList<ProductLara>();
+        ProductCursor cursor = new ProductCursor(db.rawQuery("SELECT*FROM products WHERE "+String.valueOf(category)+" AND description LIKE '%"+query+"%' ORDER BY description ASC",null));
+        while (cursor.moveToNext()){
+            list.add(cursor.getProduct());
+        }
+        cursor.close();
+        return list;
+
+    }
+    public List<ProductLara>getProductsByTextChange(String query){
+        ArrayList<ProductLara>list = new ArrayList<ProductLara>();
+        ProductCursor cursor = new ProductCursor(db.rawQuery("SELECT*FROM products WHERE description LIKE '%"+query+"%' ORDER BY description ASC",null));
+        while (cursor.moveToNext()){
+            list.add(cursor.getProduct());
+        }
+        cursor.close();
+        return list;
+
+    }
     public ProductLara getProductById(int category){
         ProductLara product;
         ProductCursor cursor = new ProductCursor(db.rawQuery("SELECT*FROM products WHERE id = "+ String.valueOf(category),null));
