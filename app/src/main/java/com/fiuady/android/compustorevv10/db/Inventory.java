@@ -2623,10 +2623,6 @@ public final class Inventory {
         valores.put("phone3",PH3);
         valores.put("e_mail",EM);
 
-        // Log.i("eval = ",newPrice);
-
-
-//Actualizamos el registro en la base de datos
         db.update("customers", valores, "id = ?",args );
     }
 

@@ -328,7 +328,7 @@ public class ClientsActivity extends AppCompatActivity implements AdapterView.On
                                 i.putExtra(UpdateClientActivity.EXTRA_PHONE2,N2);
                                 i.putExtra(UpdateClientActivity.EXTRA_LADA3,LD3);
                                 i.putExtra(UpdateClientActivity.EXTRA_PHONE3,N3);*/
-
+                               // startActivity(i);
 
                                 startActivityForResult(i,UpdateClientActivity.CODE_UPDATE_CUSTOMER);
                                 return true;

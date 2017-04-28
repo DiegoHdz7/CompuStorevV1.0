@@ -39,6 +39,7 @@
         <activity android:name=".AddProductsToAssembly_Activity" />
         <activity android:name=".Orders_Activity"/>
         <activity android:name=".AddOrder_Activity"/>
+        <activity android:name=".UpdateClientActivity"/>
         <activity android:name=".EditOrder_Activity"/>
         <activity android:name=".AddAssemblyToOrder_Activity"/>
 
