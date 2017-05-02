@@ -102,7 +102,7 @@ public class UpdateActivity extends AppCompatActivity {
                 String NewDes= txtDescription.getText().toString();
                 String NewPrice=String.valueOf(Double.valueOf(txtPrice.getText().toString())*100);
 
-                manager.UpdateProduct(NewDes,productID,NewPrice,NewCategory);
+               // manager.UpdateProduct(NewDes,productID,NewPrice,NewCategory);
 
 
                 if (NewDes.length()>0 && NewPrice.length() >0 && !NewPrice.equals(".")) {

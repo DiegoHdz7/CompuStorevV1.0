@@ -37,7 +37,7 @@ public class SalesPerMounthActivity extends AppCompatActivity {
 
         //cardView= (CardView) findViewById(R.id.cardView);
         //txt= (TextView) findViewById(R.id.rvPrecioMes);
-       RvSales = (RecyclerView) findViewById(R.id.rv_SalesPerMounth);
+        RvSales = (RecyclerView) findViewById(R.id.rv_SalesPerMounth);
         //RvSales=(RecyclerView) findViewById(R.id.rvDetailedResume);
         spnSales = (Spinner)  findViewById(R.id.spinner_years);
 
@@ -46,7 +46,7 @@ public class SalesPerMounthActivity extends AppCompatActivity {
 
 
 
-       final  ArrayList<String> dates = new ArrayList<String>();
+        final  ArrayList<String> dates = new ArrayList<String>();
         dates.add("Enero");
         dates.add("Febrero");
         dates.add("Marzo");
@@ -81,44 +81,42 @@ public class SalesPerMounthActivity extends AppCompatActivity {
                 adapter.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                       // Intent i = new Intent(getApplicationContext(),DetailSalesResume.class);
+                        // Intent i = new Intent(getApplicationContext(),DetailSalesResume.class);
                         Toast.makeText(getApplicationContext(),"clcick",Toast.LENGTH_SHORT).show();
 
 
 
 
-                       int AdapterPosition = RvSales.getChildAdapterPosition(v);
+                        int AdapterPosition = RvSales.getChildAdapterPosition(v);
 
 
-                       if ( manager.GetTotalSalesPerMounth(RvSales.getChildAdapterPosition(v),spnSales.getSelectedItem().toString())==0)
-                       {
-                          Toast.makeText(getApplicationContext(),"Sin detalles para mostrar",Toast.LENGTH_SHORT).show();
-                       }
+                        if ( manager.GetTotalSalesPerMounth(RvSales.getChildAdapterPosition(v),spnSales.getSelectedItem().toString())==0)
+                        {
+                            Toast.makeText(getApplicationContext(),"Sin detalles para mostrar",Toast.LENGTH_SHORT).show();
+                        }
 
-                       else
-                       {
-                           //txt.setText("notE");
+                        else
+                        {
+                            //txt.setText("notE");
 
-                           manager.GetDetailInfo(AdapterPosition,spnSales.getSelectedItem().toString());
-                           //txt.setText(String.valueOf(AdapterPosition));
+                            manager.GetDetailInfo(AdapterPosition,spnSales.getSelectedItem().toString());
+                            //txt.setText(String.valueOf(AdapterPosition));
 
-                           Intent x = new Intent(SalesPerMounthActivity.this,DetailSalesResumeActivity.class);
+                            Intent x = new Intent(SalesPerMounthActivity.this,DetailSalesResumeActivity.class);
 
-                           /*
-                           x.putExtra(DetailSalesResumeActivity.EXTRA_Position,AdapterPosition);
-                           x.putExtra(DetailSalesResumeActivity.EXTRA_AÑO,spnSales.getSelectedItem().toString());
-                           */
+                            x.putExtra(DetailSalesResumeActivity.EXTRA_Position,AdapterPosition);
+                            x.putExtra(DetailSalesResumeActivity.EXTRA_AÑO,spnSales.getSelectedItem().toString());
 
-                           startActivity(x);
+                            startActivity(x);
 
-                       }
-                       // manager.GetDetailInfo(AdapterPosition,spnSales.getSelectedItem().toString());
+                        }
+                        // manager.GetDetailInfo(AdapterPosition,spnSales.getSelectedItem().toString());
 
-                       // if(manager.GetDetailInfo(AdapterPosition,spnSales.getSelectedItem().toString()).isEmpty())
+                        // if(manager.GetDetailInfo(AdapterPosition,spnSales.getSelectedItem().toString()).isEmpty())
                         //{txt.setText("Empy");}
                         //else txt.setText("NotEmpty");
 
-                       // Intent x = new Intent(getApplicationContext(),DetailSalesResumeActivity.class);
+                        // Intent x = new Intent(getApplicationContext(),DetailSalesResumeActivity.class);
                         //startActivity(x);
                         //x.putExtra(DetailSalesResumeActivity.EXTRA_Position,String.valueOf(AdapterPosition));
                         //x.putExtra(DetailSalesResumeActivity.EXTRA_AÑO,spnSales.getSelectedItem().toString());
@@ -139,7 +137,7 @@ public class SalesPerMounthActivity extends AppCompatActivity {
 
 
 
-      //txt.setText( String.valueOf(manager.GetTotalSalesPerMounth(10,spnSales.getSelectedItem().toString())));
+        //txt.setText( String.valueOf(manager.GetTotalSalesPerMounth(10,spnSales.getSelectedItem().toString())));
 
 
 

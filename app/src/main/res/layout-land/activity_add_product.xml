@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_product"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical"
+    >
+
+
+
+
+    <TextView
+        android:text="Categoria: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addCatTag"
+        android:layout_alignBottom="@+id/spinnerAdd"
+        android:layout_alignEnd="@+id/addPriceTag" />
+
+    <TextView
+        android:text="Descripcion: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:id="@+id/addDesTag"
+        android:layout_below="@+id/addCatTag"
+        android:layout_alignEnd="@+id/addCatTag" />
+
+    <TextView
+        android:text="Precio: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addPriceTag"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="18dp"
+        android:layout_below="@+id/addDesTag"
+        android:layout_toStartOf="@+id/addPriceTxt" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/addDesTxt"
+        android:hint="Escribe la descripcion"
+        android:layout_alignBaseline="@+id/addDesTag"
+        android:layout_alignBottom="@+id/addDesTag"
+        android:layout_alignStart="@+id/addPriceTxt" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/addPriceTxt"
+        android:hint="agrega el precio"
+        android:layout_marginEnd="42dp"
+        android:layout_alignTop="@+id/addPriceTag"
+        android:layout_toStartOf="@+id/cancelButton" />
+
+    <Spinner
+        android:id="@+id/spinnerAdd"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/addDesTxt"
+        android:layout_marginStart="12dp" />
+
+    <Button
+        android:text="Cancelar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/AddButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="42dp"
+        android:layout_marginEnd="42dp"
+        android:id="@+id/cancelButton" />
+
+    <Button
+        android:text="Agregar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:id="@+id/AddButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/addPriceTag"
+        android:layout_marginBottom="43dp" />
+
+
+</RelativeLayout>

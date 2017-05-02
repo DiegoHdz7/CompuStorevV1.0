@@ -134,3 +134,4 @@ public class DetailResumeAdapter extends RecyclerView.Adapter<DetailResumeAdapte
         }
     }
 }
+

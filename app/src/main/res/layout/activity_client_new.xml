@@ -131,15 +131,15 @@
 
     <EditText
         android:id="@+id/etx_clientT1_a_up"
-        android:layout_marginTop="@dimen/p_nClientTopF_padding"
-        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
-        android:layout_height="@dimen/p_nClientTopF_Size"
         android:layout_width="64dp"
-
-        android:layout_toRightOf="@id/txv_clientT1"
+        android:layout_height="@dimen/p_nClientTopF_Size"
         android:layout_below="@id/etx_clientAd_up"
+        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+        android:layout_marginTop="@dimen/p_nClientTopF_padding"
+        android:layout_toRightOf="@id/txv_clientT1"
+        android:inputType="phone"
 
-        />
+        android:maxLength="3" />
     <TextView
         android:id="@+id/etx_gap1"
         android:layout_width="wrap_content"
@@ -153,18 +153,18 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="45sp"
         />
+
     <EditText
         android:id="@+id/etx_clientT1_b"
-        android:layout_marginTop="@dimen/p_nClientTopF_padding"
-        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
-        android:layout_height="@dimen/p_nClientTopF_Size"
-
         android:layout_width="140dp"
+        android:layout_height="@dimen/p_nClientTopF_Size"
+        android:layout_below="@id/etx_clientAd_up"
+        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+        android:layout_marginTop="@dimen/p_nClientTopF_padding"
 
         android:layout_toRightOf="@id/etx_gap1"
-        android:layout_below="@id/etx_clientAd_up"
 
-        />
+        android:maxLength="7" />
 
     <TextView
         android:id="@+id/txv_clientT2"
@@ -192,30 +192,31 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="45sp"
         />
+
     <EditText
         android:id="@+id/etx_clientT2_b_up"
-        android:layout_marginTop="@dimen/p_nClientTopF_padding"
-        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
-        android:layout_height="@dimen/p_nClientTopF_Size"
         android:layout_width="140dp"
-
-        android:layout_toRightOf="@id/etx_gap1"
+        android:layout_height="@dimen/p_nClientTopF_Size"
         android:layout_below="@id/etx_clientT1_a_up"
+        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+        android:layout_marginTop="@dimen/p_nClientTopF_padding"
+        android:layout_toRightOf="@id/etx_gap1"
+        android:inputType="phone"
 
-        />
+        android:maxLength="7" />
 
 
     <EditText
         android:id="@+id/etx_clientT2_a_up"
-        android:layout_marginTop="@dimen/p_nClientTopF_padding"
-        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
-        android:layout_height="@dimen/p_nClientTopF_Size"
         android:layout_width="64dp"
-
-        android:layout_toRightOf="@id/txv_clientT2"
+        android:layout_height="@dimen/p_nClientTopF_Size"
         android:layout_below="@id/etx_clientT1_a_up"
+        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+        android:layout_marginTop="@dimen/p_nClientTopF_padding"
+        android:layout_toRightOf="@id/txv_clientT2"
+        android:inputType="phone"
 
-        />
+        android:maxLength="3" />
 
     <TextView
         android:id="@+id/txv_clientT3"
@@ -234,15 +235,15 @@
 
     <EditText
         android:id="@+id/etx_clientT3_a_up"
-        android:layout_marginTop="@dimen/p_nClientTopF_padding"
-        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
-        android:layout_height="@dimen/p_nClientTopF_Size"
         android:layout_width="64dp"
-
-        android:layout_toRightOf="@id/txv_clientT3"
+        android:layout_height="@dimen/p_nClientTopF_Size"
         android:layout_below="@id/etx_clientT2_a_up"
+        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+        android:layout_marginTop="@dimen/p_nClientTopF_padding"
+        android:layout_toRightOf="@id/txv_clientT3"
+        android:inputType="phone"
 
-        />
+        android:maxLength="3" />
 
     <TextView
         android:id="@+id/etx_gap3"
@@ -257,15 +258,17 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="45sp"
         />
+
     <EditText
         android:id="@+id/etx_clientT3_b_up"
-        android:layout_marginTop="@dimen/p_nClientTopF_padding"
-        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
         android:layout_width="140dp"
-        android:layout_toRightOf="@id/etx_gap1"
-        android:layout_below="@id/etx_clientT2_a_up"
         android:layout_height="@dimen/p_nClientTopF_Size"
-        />
+        android:layout_below="@id/etx_clientT2_a_up"
+        android:layout_marginLeft="@dimen/p_nClientSideF_padding"
+        android:layout_marginTop="@dimen/p_nClientTopF_padding"
+        android:layout_toRightOf="@id/etx_gap1"
+        android:inputType="phone"
+        android:maxLength="7" />
 
 
     <TextView
