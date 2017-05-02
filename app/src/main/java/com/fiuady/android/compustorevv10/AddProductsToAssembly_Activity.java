@@ -2,18 +2,24 @@ package com.fiuady.android.compustorevv10;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.BoolRes;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,10 +29,14 @@ import com.fiuady.android.compustorevv10.db.Inventory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddProductsToAssembly_Activity extends AppCompatActivity implements MyShowCategoriesDialogFragment.OnDialogSelectorListener {
+public class AddProductsToAssembly_Activity extends AppCompatActivity implements MyShowCategoriesDialogFragment.OnDialogSelectorListener,SearchView.OnQueryTextListener{
           private Inventory inventory;
           private static final String TAG="MyShowCategoriesDialog";
     public static final String EXTRA_PRODUCT_ID="com.fiuady.android.project1.product_id";
+    private static final String SAVE_SELECTED_CATEGORY="savecategoryId";
+    private static final String SAVE_QUERY ="save_query";
+    private static final String SAVE_BOOLEANFLAG="save_booleanFlag";
+    private int SelectedcategoryId;
 
     //public static final int CODE=1;
 
@@ -82,6 +92,14 @@ public class AddProductsToAssembly_Activity extends AppCompatActivity implements
     private PopupMenu popupMenu;
     private boolean flag= false;
 
+
+   //String
+    private SearchView searchView;
+    private MenuItem searchItem;
+    private String mSearchQuery=null;
+    private Boolean FlagSearch=false;
+
+
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,9 +111,23 @@ public class AddProductsToAssembly_Activity extends AppCompatActivity implements
         inventory = new Inventory(getApplicationContext());
         recyclerView = (RecyclerView)findViewById(R.id.ProductsToAssembly_RecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<ProductLara>products = inventory.getAllProducts();
-        adapter = new ProductAdapter(products);
-        recyclerView.setAdapter(adapter);
+        //List<ProductLara>products = inventory.getAllProducts();
+       // adapter = new ProductAdapter(products);
+       // recyclerView.setAdapter(adapter);
+        if(savedInstanceState != null)
+        {
+            SelectedcategoryId = savedInstanceState.getInt(SAVE_SELECTED_CATEGORY);
+            FlagSearch = savedInstanceState.getBoolean(SAVE_BOOLEANFLAG);
+            mSearchQuery = savedInstanceState.getString(SAVE_QUERY);
+            UpdateSearch(mSearchQuery,FlagSearch);
+        }
+        else
+        {
+            List<ProductLara>products = inventory.getAllProducts();
+            adapter = new ProductAdapter(products);
+            recyclerView.setAdapter(adapter);
+
+        }
         recyclerView.addOnItemTouchListener(new RecyclerItemOnClickListener(AddProductsToAssembly_Activity.this, recyclerView, new RecyclerItemOnClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -147,7 +179,119 @@ public class AddProductsToAssembly_Activity extends AppCompatActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_addproductstoassembly, menu);
+        searchItem = menu.findItem(R.id.item_searchAssemblies);
+        searchItem = menu.findItem(R.id.action_SearchProducts);
+
+
+        if(searchItem != null){
+            searchView =(SearchView) MenuItemCompat.getActionView(searchItem);
+            searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+                @Override
+                public boolean onClose() {
+
+                    return false;
+                }
+            });
+            searchView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+
+                }
+            });
+
+            SearchManager searchManager = (SearchManager)getSystemService(SEARCH_SERVICE);
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            if(mSearchQuery !=null)
+            {
+                searchView.setIconified(false);
+                //searchView.onActionViewExpanded();
+                searchItem.expandActionView();
+                searchView.setQuery(mSearchQuery,false);
+                searchView.setFocusable(true);
+                //List<Assembly>assemblies = inventory.getAllAssembliesOnTextChange(mSearchQuery);
+                //adapter= new AddAssemblyToOrder_Activity.AssemblyAdapter(assemblies);
+               // recyclerView.setAdapter(adapter);
+                //searchView.clearFocus();
+                UpdateSearch(mSearchQuery,FlagSearch);
+
+            }
+            EditText searchPlate =(EditText)searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+            searchPlate.setHint("Search Products");
+            View searchPlateView = searchView.findViewById(android.support.v7.appcompat.R.id.search_plate);
+            searchPlateView.setBackgroundColor(ContextCompat.getColor(this,android.R.color.transparent));
+            searchView.setOnQueryTextListener(this);
+            MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+                @Override
+                public boolean onMenuItemActionExpand(MenuItem item) {
+                    //here is nothing
+                    return true;
+                }
+
+                @Override
+                public boolean onMenuItemActionCollapse(MenuItem item) {
+                    mSearchQuery=null;
+                    return true;
+                }
+            });
+        }
+
+
         return super.onCreateOptionsMenu(menu);
+
+
+
+    }
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        //Toast.makeText(getApplicationContext(),query,Toast.LENGTH_SHORT).show();
+        mSearchQuery=query;
+         UpdateSearch(query,FlagSearch);
+
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        //Toast.makeText(getApplicationContext(),newText,Toast.LENGTH_SHORT).show();
+        mSearchQuery=newText;
+        UpdateSearch(newText,FlagSearch);
+        return false;
+    }
+    private void UpdateSearch(String searchText,boolean flagCategory)
+    {
+        mSearchQuery = searchText;
+
+        if(mSearchQuery==null && flagCategory == false)
+        {
+
+            //List<Assembly>assemblies = inventory.getAllAssembliesOnTextChange(searchText);
+            // adapter= new AddAssemblyToOrder_Activity.AssemblyAdapter(assemblies);
+            // recyclerView.setAdapter(adapter);
+            adapter = new ProductAdapter(inventory.getAllProducts());
+            recyclerView.setAdapter(adapter);
+        }
+        else if(mSearchQuery==null && flagCategory ==true)
+        {
+            //List<Assembly>assemblies = inventory.getAllAssembliesOrderByName();
+            // adapter= new AddAssemblyToOrder_Activity.AssemblyAdapter(assemblies);
+            //recyclerView.setAdapter(adapter);
+            adapter = new ProductAdapter(inventory.getProductsByCategory(SelectedcategoryId));//first is all categories but we obtain the value
+            recyclerView.setAdapter(adapter);
+        }
+        else if(searchText.length()>0 && flagCategory==false)
+        {
+            adapter = new ProductAdapter(inventory.getProductsByTextChange(searchText));//first is all categories but we obtain the value
+            recyclerView.setAdapter(adapter);
+
+        }
+        else if(searchText.length()>0 && flagCategory==true)
+        {
+            adapter = new ProductAdapter(inventory.getProductsByCategoryIdAndTextChange(SelectedcategoryId,searchText));//first is all categories but we obtain the value
+            recyclerView.setAdapter(adapter);
+
+        }
 
 
     }
@@ -172,13 +316,18 @@ public class AddProductsToAssembly_Activity extends AppCompatActivity implements
 
     public void onSelectedOption(int selectedIndex){
         switch(selectedIndex){
-            case 0:
-                adapter = new ProductAdapter(inventory.getAllProducts());
-                recyclerView.setAdapter(adapter);
+            case -1:
+                //adapter = new ProductAdapter(inventory.getAllProducts());
+               // recyclerView.setAdapter(adapter);
+                   FlagSearch =false;
+                UpdateSearch(mSearchQuery,FlagSearch);
                 break;
             default:
-                adapter = new ProductAdapter(inventory.getProductsByCategory(selectedIndex-1));//minus 1 cause the first is all categories 
-                recyclerView.setAdapter(adapter);
+                //adapter = new ProductAdapter(inventory.getProductsByCategory(selectedIndex));//first is all categories but we obtain the value
+                //recyclerView.setAdapter(adapter);
+                FlagSearch = true;
+                SelectedcategoryId = selectedIndex;
+                UpdateSearch(mSearchQuery,FlagSearch);
                 break;
 
         }
@@ -212,5 +361,13 @@ public class AddProductsToAssembly_Activity extends AppCompatActivity implements
             }
         });
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(SAVE_SELECTED_CATEGORY, SelectedcategoryId);
+        outState.putBoolean(SAVE_BOOLEANFLAG,FlagSearch);
+        outState.putString(SAVE_QUERY,mSearchQuery);
     }
 }
