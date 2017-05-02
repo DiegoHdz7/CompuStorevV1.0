@@ -180,7 +180,8 @@ public final class Inventory {
     public void SetVirtualTableOfProducts()
     {
         //En esta función se extraen todas las cantidades actuales de los productos en stock
-        //Se creará una nueva tabla en donde sólo importan los p_id, p_description, p_qty;
+        //Se creará una nueva tabla en donde sólo importan los p_id, p_description, p_qty.
+        //Aunque se guarden todos los datos un objeto Producto
 
         String query = null;
         ArrayList<Product> listOrigProducts = new ArrayList<Product>();
@@ -228,10 +229,15 @@ public final class Inventory {
 
             db.execSQL(query);
         }
+        //Se agrega una descripción cualquiera para que no produzca un problema cuando se guardan '' o "
+        //De todas maneras la descripción no importa en esta nuevatabla
     }
 
     public void SetNeededProductsInSimulation(String critreria)
     {
+        //Cargar los productos actuales en el stock
+        SetVirtualTableOfProducts();
+
         //Esta función tiene como meta el crear una tabla temporal needed_products,
         // en la cual se almacena los productos faltantes, sus cantidades faltantes
         // y las respectivas id de las órdenes
@@ -250,89 +256,145 @@ public final class Inventory {
         query = "DROP TABLE IF EXISTS [prod_needed];";
         db.execSQL(query);
 
-        query=null;
 
-
-        query = "CREATE TABLE [prod_needed](" +
-                "[ord_id] " +
-                "INTEGER," +
-                "[prod_id] INTEGER,"+
-                "[prod_qty_needed] INTEGER"+
-                ");";
+        query = " CREATE TABLE [prod_needed](" +
+                " [ord_id] INTEGER," +
+                " [prod_id] INTEGER,"+
+                " [prod_qty_needed] INTEGER"+
+                " );";
         db.execSQL(query);
 
-        for(SimulatedOrder simOrd : listSimOrders){
-            int ordIdToGetHisProducts = simOrd.getId();
+        for(SimulatedOrder simOrd : listSimOrders) {
+            if (!simOrd.getStatus().equals("Cancelado")) {
 
-            listProdPerOrder = getAllProductsOfOrder(ordIdToGetHisProducts); //Tengo los productos de cada order
-            //1.¿El producto de la orden se encuentra en la tabla "prod_needed"?
-            //¿Sí? Obtener el valor más negativo de la cantidad de ese producto y a esa cantidad
-            //restarle la cantidad de ese producto necesitado por el ensamble
 
-            for (Product pOrd: listProdPerOrder) {
-                int productOfSelectedOrder_id = pOrd.getId();   //Id del producto que se compara.
-                int productOfSelectedOrder_qty = pOrd.getQty(); //Qty del producto que se compara.
+                int ordIdToGetHisProducts = simOrd.getId();
 
-                query = null;
-                query = "SELECT *" +
-                        " FROM prod_needed pn" +
-                        " WHERE pn.prod_id = " + String.valueOf(productOfSelectedOrder_id) + ";";
-                cursor = db.rawQuery(query, null);
-                if (cursor.getCount() > 0) { //Verificar si la tabla no esta vacía
-                    query = null;
-                    //Verificar si el id del producto a buscar ya se encuentra en la tabla
+                listProdPerOrder = getAllProductsOfOrder(ordIdToGetHisProducts); //Tengo los productos de cada order
+                //1.¿El producto de la orden se encuentra en la tabla "prod_needed"?
+                //¿Sí? Obtener el valor más negativo de la cantidad de ese producto y a esa cantidad
+                //restarle la cantidad de ese producto necesitado por el ensamble
 
-                    query = "SELECT * " +
-                            " FROM prod_needed pn" +
-                            " WHERE pn.ord_id =" + String.valueOf(productOfSelectedOrder_id) + ";";
+                for (Product pOrd : listProdPerOrder) {
+
+                    int productOfSelectedOrder_id = pOrd.getId();   //Id del producto que se compara.
+                    int productOfSelectedOrder_qty = pOrd.getQty(); //Qty del producto que se compara.
+
+
+                    query = "SELECT *" +
+                            " FROM prod_needed pn;";
                     cursor = db.rawQuery(query, null);
+                    //Usar mejor para comparar
+                    if (cursor.moveToFirst()) { //Verificar si la tabla no esta vacía
 
-                    if (cursor.getCount() > 0) {
+                        cursor.close();
 
-                        query = "SELECT MIN(pn.prod_qty_needed), pn.ord_id" +
+                        //Verificar si el id del producto a buscar ya se encuentra en la tabla
+
+                        query = "SELECT * " +
                                 " FROM prod_needed pn" +
-                                " WHERE pn.prod_id = " + String.valueOf(productOfSelectedOrder_id) + ";";
+                                " WHERE pn.ord_id =" + String.valueOf(productOfSelectedOrder_id) + ";";
                         cursor = db.rawQuery(query, null);
-                        cursor.moveToFirst(); //cursor.moveToNext(); //Probar con moveToFirst
-                        int minQtyInProductsNeededcursor = cursor.getInt(0);
-                        int idOfOrderOfMinQuantity = cursor.getInt(1);  //Si es igual al Id del que se está
-                        //analizando sumar el pn.prod_qty_needed
 
-                        int newMinQty = minQtyInProductsNeededcursor - productOfSelectedOrder_qty;
+                        if (cursor.moveToFirst()) {
+                            //Hacer query para buscar en la tabla si se tiene la misma combinación de prod_id y order_id
+                            query = "SELECT pn.ord_id, pn.prod_id, pn.prod_qty_needed" +
+                                    " FROM prod_needed pn" +
+                                    " WHERE (pn.ord_id = " + String.valueOf(ordIdToGetHisProducts) +
+                                    " AND pn.prod_id = " + String.valueOf(productOfSelectedOrder_id) + ");";
+                            cursor = db.rawQuery(query, null);
 
-                        query = null;
+                            if (cursor.moveToFirst()) {  //Si ya se encuentra la combinación p_id y o_id en la tabla
+                                //cursor.moveToFirst();
+                                int actualQty = cursor.getInt(2);
+                                cursor.close();
 
-                        if (idOfOrderOfMinQuantity == ordIdToGetHisProducts) {
-                            query = "UPDATE prod_needed SET prod_qty_needed = " + String.valueOf(newMinQty) + " WHERE prod_id = " + String.valueOf(productOfSelectedOrder_id)  + ";";
-                            db.execSQL(query);
-                        }else {
+                                int newMinQty = actualQty - productOfSelectedOrder_qty;
 
-                            query = "INSERT INTO prod_needed (ord_id, prod_id, prod_qty_needed)" +
-                                    " VALUES(" + String.valueOf(ordIdToGetHisProducts) + ", " + String.valueOf(productOfSelectedOrder_id) +
-                                    ", " + String.valueOf(newMinQty) +
-                                    ");";
+                                query = "UPDATE prod_needed SET prod_qty_needed = " + String.valueOf(newMinQty) +
+                                        " WHERE (ord_id = " + String.valueOf(ordIdToGetHisProducts) +
+                                        " AND prod_id = " + String.valueOf(productOfSelectedOrder_id) + ");";
+                                db.execSQL(query);
 
-                            db.execSQL(query);
+
+                            } else {
+                                cursor.close();
+
+                                query = "SELECT MIN(pn.prod_qty_needed) " +
+                                        " FROM prod_needed pn" +
+                                        " WHERE pn.prod_id = " + String.valueOf(productOfSelectedOrder_id) + ";";
+                                cursor = db.rawQuery(query, null);
+                                cursor.moveToFirst(); //cursor.moveToNext(); //Probar con moveToFirst
+                                int minQtyInProductsNeededcursor = cursor.getInt(0);
+
+                                //analizando sumar el pn.prod_qty_needed
+                                int newMinQty = minQtyInProductsNeededcursor - productOfSelectedOrder_qty;
+
+                                query = "INSERT INTO prod_needed (ord_id, prod_id, prod_qty_needed)" +
+                                        " VALUES(" + String.valueOf(ordIdToGetHisProducts) + ", " + String.valueOf(productOfSelectedOrder_id) +
+                                        ", " + String.valueOf(newMinQty) +
+                                        ");";
+
+                                db.execSQL(query);
+                            }
+                        } else {  //Si no se encuentra en la tabla de prod_needed comparar los datos de la tabla del stock
+                            //Hacer la resta en la tabla de los productos del stock
+
+                            //Obtener el valor de la cantidad del producto que se busca
+                            query = "SELECT sp.p_qty" +
+                                    " FROM simulated_products sp" +
+                                    " WHERE sp.p_id = " + String.valueOf(productOfSelectedOrder_id)
+                                    + ";";
+
+                            cursor = db.rawQuery(query, null);
+                            cursor.moveToFirst();
+                            int stockQty = cursor.getInt(0);
+                            cursor.close();
+                            //Falta restarle el qty del producto de la orden.
+                            int newStockQty = stockQty - productOfSelectedOrder_qty;
+
+                            if (newStockQty < 0) {
+                                //Agregarlo de una vez a prod_needed
+
+
+                                query = "INSERT INTO prod_needed (ord_id, prod_id, prod_qty_needed)" +
+                                        " VALUES(" + String.valueOf(ordIdToGetHisProducts) + ", " + String.valueOf(productOfSelectedOrder_id) +
+                                        ", " + String.valueOf(newStockQty) +
+                                        ");";
+                                db.execSQL(query);
+
+                                //Modificar también el stock
+                                query = "UPDATE simulated_products SET p_qty = " + String.valueOf(newStockQty) +
+                                        " WHERE p_id = " + String.valueOf(productOfSelectedOrder_id) + ";";
+
+                                db.execSQL(query);
+                            } else {
+                                query = "UPDATE simulated_products SET p_qty = " + String.valueOf(newStockQty) +
+                                        " WHERE p_id = " + String.valueOf(productOfSelectedOrder_id) + ";";
+
+                                db.execSQL(query);
+                            }
+
                         }
-                    }
-                    else {  //Si no se encuentra en la tabla de prod_needed comparar los datos de la tabla del stock
-                        //Hacer la resta en la tabla de los productos del stock
+                    } else {
+                        cursor.close();
+                        //Si la tabla está vacía,
+                        //obtener el valor de la cantidad del producto que se busca
+                        //y restárselo al stock.
 
-                        //Obtener el valor de la cantidad del producto que se busca
-                        query = null;
                         query = "SELECT sp.p_qty" +
                                 " FROM simulated_products sp" +
                                 " WHERE sp.p_id = " + String.valueOf(productOfSelectedOrder_id)
                                 + ";";
 
-                        cursor = db.rawQuery(query,null);
+                        cursor = db.rawQuery(query, null);
                         cursor.moveToFirst();
                         int stockQty = cursor.getInt(0);
+                        cursor.close();
                         //Falta restarle el qty del producto de la orden.
                         int newStockQty = stockQty - productOfSelectedOrder_qty;
 
-                        if (newStockQty < 0)
-                        {
+                        if (newStockQty < 0) {
                             //Agregarlo de una vez a prod_needed
 
                             query = null;
@@ -345,14 +407,12 @@ public final class Inventory {
                             query = null; //Modificar también el stock
                             //UPDATE empleados SET ventas = 0 WHERE oficina = 12;
                             query = "UPDATE simulated_products SET p_qty = " + String.valueOf(newStockQty) +
-                                    " WHERE p_id = " + String.valueOf(productOfSelectedOrder_id) + ";" ;
+                                    " WHERE p_id = " + String.valueOf(productOfSelectedOrder_id) + ";";
 
                             db.execSQL(query);
-                        }
-
-                        else{
+                        } else {
                             query = "UPDATE simulated_products SET p_qty = " + String.valueOf(newStockQty) +
-                                    " WHERE p_id = " + String.valueOf(productOfSelectedOrder_id) + ";" ;
+                                    " WHERE p_id = " + String.valueOf(productOfSelectedOrder_id) + ";";
 
                             db.execSQL(query);
                         }
@@ -360,98 +420,62 @@ public final class Inventory {
                     }
                 }
 
-                else { //Si la tabla está vacía
-                    //Obtener el valor de la cantidad del producto que se busca
-                    query = null;
-                    query = "SELECT sp.p_qty" +
-                            " FROM simulated_products sp" +
-                            " WHERE sp.p_id = " + String.valueOf(productOfSelectedOrder_id)
-                            + ";";
+            }
 
-                    cursor = db.rawQuery(query,null);
+            //Reiniciar el stock
+            SetVirtualTableOfProducts();
+
+
+            //Sacar el query para determinar si la orden se encuentra en la tabla de product_needed
+            //y verificar si su número de productos = o < que los productos con el id de la orden
+            //en la tabla, para determinar el color del itemView (editar el canBeTaken)
+            if (listSimOrders.isEmpty() != true) {
+
+                for (SimulatedOrder simulatedOrder : listSimOrders) {
+                    //Contar la variedad de productos que se tiene en determinada orden
+                    query = "SELECT COUNT(p.id)\n" +
+                            "        FROM orders o \n" +
+                            "        INNER JOIN order_assemblies oa ON (o.id = oa.id)\n" +
+                            "        INNER JOIN assembly_products ap ON (oa.assembly_id = ap.id)\n" +
+                            "        INNER JOIN products p ON(ap.product_id = p.id)\n" +
+                            "        WHERE o.id=" + String.valueOf(simulatedOrder.getId()) +
+                            "        ORDER BY p.id;";
+
+                    cursor = db.rawQuery(query, null);
                     cursor.moveToFirst();
-                    int stockQty = cursor.getInt(0);
-                    //Falta restarle el qty del producto de la orden.
-                    int newStockQty = stockQty - productOfSelectedOrder_qty;
+                    int numOfProductInOrder = cursor.getInt(0); //num de  variedad de productos usados en una orden
 
-                    if (newStockQty < 0)
-                    {
-                        //Agregarlo de una vez a prod_needed
+                    query = "SELECT COUNT(pn.prod_id)" +
+                            " FROM prod_needed pn" +
+                            " WHERE pn.ord_id = " + String.valueOf(simulatedOrder.getId())
+                            + ";";
+                    cursor = db.rawQuery(query, null);
+                    cursor.moveToFirst();
+                    int numOfNeededProductsOfOrder = cursor.getInt(0);
 
-                        query = null;
-                        query = "INSERT INTO prod_needed (ord_id, prod_id, prod_qty_needed)" +
-                                " VALUES(" + String.valueOf(ordIdToGetHisProducts) + ", " + String.valueOf(productOfSelectedOrder_id) +
-                                ", " + String.valueOf(newStockQty) +
-                                ");";
+                    int difBetweenNumOfProductQty = numOfProductInOrder - numOfNeededProductsOfOrder;
+                    if (difBetweenNumOfProductQty == 0) {   //La variedad de productos para la orden no están disponibles
+                        //es decir, le faltan todos los productos
+                        query = "UPDATE simulated_orders_temporary SET ord_can_be_taken = 0 WHERE ord_id = " +
+                                String.valueOf(simulatedOrder.getId()) + ";";
                         db.execSQL(query);
-
-                        query = null; //Modificar también el stock
-                        //UPDATE empleados SET ventas = 0 WHERE oficina = 12;
-                        query = "UPDATE simulated_products SET p_qty = " + String.valueOf(newStockQty) +
-                                " WHERE p_id = " + String.valueOf(productOfSelectedOrder_id) + ";" ;
-
+                    } else if (difBetweenNumOfProductQty == numOfProductInOrder) { //No hay productos faltantes
+                        //es decir, puede Confirmarse la orden
+                        query = "UPDATE simulated_orders_temporary SET ord_can_be_taken = 2 WHERE ord_id = " +
+                                String.valueOf(simulatedOrder.getId()) + ";";
                         db.execSQL(query);
-                    }
-
-                    else{
-                        query = "UPDATE simulated_products SET p_qty = " + String.valueOf(newStockQty) +
-                                " WHERE p_id = " + String.valueOf(productOfSelectedOrder_id) + ";" ;
-
+                    } else if (difBetweenNumOfProductQty > 0) {  //Hacen falta productos para poder Confirmar esta orden
+                        //Pero no hacen falta todos los prductos
+                        query = "UPDATE simulated_orders_temporary SET ord_can_be_taken = 1 WHERE ord_id = " +
+                                String.valueOf(simulatedOrder.getId()) + ";";
                         db.execSQL(query);
                     }
-
                 }
-            }
 
+            }
 
         }
 
-        //Sacar el query para determinar si la orden se encuentra en la tabla de product_needed
-        //y verificar si su número de productos = o < que los productos con el id de la orden
-        //en la tabla, para determinar el color del itemView (editar el canBeTaken)
-        if(listSimOrders.isEmpty() != true ) {
-            query = null;
-            for (SimulatedOrder simulatedOrder : listSimOrders) {
-                //Contar la variedad de productos que se tiene en determinada orden
-                query = "SELECT COUNT(p.id)\n" +
-                        "        FROM orders o \n" +
-                        "        INNER JOIN order_assemblies oa ON (o.id = oa.id)\n" +
-                        "        INNER JOIN assembly_products ap ON (oa.assembly_id = ap.id)\n" +
-                        "        INNER JOIN products p ON(ap.product_id = p.id)\n" +
-                        "        WHERE o.id=" + String.valueOf(simulatedOrder.getId()) +
-                        "        ORDER BY p.id;";
-
-                cursor = db.rawQuery(query, null);
-                cursor.moveToFirst();
-                int numOfProductInOrder = cursor.getInt(0); //num de  variedad de productos usados en una orden
-
-                query = "SELECT COUNT(pn.prod_id)" +
-                        " FROM prod_needed pn" +
-                        " WHERE pn.ord_id = " + String.valueOf(simulatedOrder.getId())
-                        + ";";
-                cursor = db.rawQuery(query, null);
-                cursor.moveToFirst();
-                int numOfNeededProductsOfOrder = cursor.getInt(0);
-
-                int difBetweenNumOfProductQty = numOfProductInOrder - numOfNeededProductsOfOrder;
-                if (difBetweenNumOfProductQty == 0) {   //La variedad de productos para la orden no están disponibles
-                    //es decir, le faltan todos los productos
-                    query = "UPDATE simulated_orders_temporary SET ord_can_be_taken = 0 WHERE ord_id = " +
-                            String.valueOf(simulatedOrder.getId()) + ";";
-                    db.execSQL(query);
-                } else if (difBetweenNumOfProductQty > 0) {  //Hacen falta productos para poder Confirmar esta orden
-                    //Pero no hacen falta todos los prductos
-                    query = "UPDATE simulated_orders_temporary SET ord_can_be_taken = 1 WHERE ord_id = " +
-                            String.valueOf(simulatedOrder.getId()) + ";";
-                    db.execSQL(query);
-                } else if (difBetweenNumOfProductQty == numOfProductInOrder) { //No hay productos faltantes
-                    //es decir, puede Confirmarse la orden
-                    query = "UPDATE simulated_orders_temporary SET ord_can_be_taken = 2 WHERE ord_id = " +
-                            String.valueOf(simulatedOrder.getId()) + ";";
-                    db.execSQL(query);
-                }
-            }
-        }
 
     }
 
@@ -463,7 +487,7 @@ public final class Inventory {
         ArrayList<Product> list = new ArrayList<Product>();
         Cursor cursor;
 
-        query="SELECT p.id, p.category_id, p.description, p.price, p.qty\n" +
+        query="SELECT p.id, p.category_id, p.description, p.price, (oa.qty * ap.qty ) AS prod_qty\n" +
                 "        FROM orders o \n" +
                 "        INNER JOIN order_assemblies oa ON (o.id = oa.id)\n" +
                 "        INNER JOIN assembly_products ap ON (oa.assembly_id = ap.id)\n" +
@@ -478,7 +502,7 @@ public final class Inventory {
                     cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.CATEGORY_ID)),
                     cursor.getString(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.DESCRIPTION)),
                     cursor.getDouble(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.PRICE))/100,
-                    cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.ProductsTable.Columns.QUANTITY))
+                    cursor.getInt(4)
             ));
         }
         cursor.close();

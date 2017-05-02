@@ -50,7 +50,18 @@ public class ReportSimulatorNeededProductsActivity extends AppCompatActivity {
             Inventory inv = new Inventory(getApplicationContext());
 
             txvOrderId.setText(String.valueOf(spn.getProductId()));
-            String shortDesc = inv.getASpecificProductById(spn.getProductId()).getDescription().substring(0,20);
+
+            String shortDesc = "#Sin descripción#";
+            String fullDesc = inv.getASpecificProductById(spn.getProductId()).getDescription();
+            int lengthDescription = fullDesc.length();
+
+            if(lengthDescription > 20) {
+                shortDesc = fullDesc.substring(0, 20);
+            }
+            else if (lengthDescription >0 & lengthDescription<20){
+                shortDesc = fullDesc;
+            }
+
             txvProductShortDescription.setText(shortDesc);
             txvNeededQuantity.setText(String.valueOf(spn.getQtyNeeded()*(-1)));
         }

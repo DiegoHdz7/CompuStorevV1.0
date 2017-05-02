@@ -43,6 +43,8 @@ import com.fiuady.android.compustorevv10.db.Inventory;
 public class ReportSimulatorActivity extends AppCompatActivity {
     private final static int CODE_REPORTSIMULATOR = 62;
     private final String KEY_BOOLEAN_IS_STARTED = "key_isStarted";
+    private final String KEY_STRING_PREVIOUS_SPINNER_ITEM = "key_previousSpinnerItem";
+    private final String KEY_STRING_ACTUAL_SPINNER_ITEM = "key_actualSpinnerItem";
 
     private class SimulatedOrderHolder extends RecyclerView.ViewHolder{
         private TextView txvFullName;
@@ -121,6 +123,10 @@ public class ReportSimulatorActivity extends AppCompatActivity {
             {
                 holder.itemView.setBackgroundColor(Color.CYAN);
             }
+
+            if(_orders.get(position).getStatus().equals("Cancelado")) {
+                holder.itemView.setBackgroundColor(Color.LTGRAY);
+            }
         }
 
         @Override
@@ -159,6 +165,8 @@ public class ReportSimulatorActivity extends AppCompatActivity {
 
     private Boolean isStarted = false;
     private Boolean isCanceled = false;
+    private String previousSpinerItem = null;
+    private String  actualSpinnerItem = null;
 
 
     @Override
@@ -176,16 +184,20 @@ public class ReportSimulatorActivity extends AppCompatActivity {
         {
             //Extraer el booleano isStarted;
             isStarted = savedInstanceState.getBoolean(KEY_BOOLEAN_IS_STARTED);
+            previousSpinerItem = savedInstanceState.getString(KEY_STRING_PREVIOUS_SPINNER_ITEM);
+            actualSpinnerItem = savedInstanceState.getString(KEY_STRING_ACTUAL_SPINNER_ITEM);
 
         }
         if (isStarted != true)
         {
             Toast.makeText(getApplicationContext(),"Esto sólo debe de salir una vez", Toast.LENGTH_SHORT).show();
             inventory.SetVirtualTableToSimulate();
-            inventory.SetVirtualTableOfProducts();
-            inventory.SetNeededProductsInSimulation(spnProcess.getSelectedItem().toString());
+          //  inventory.SetVirtualTableOfProducts();
+            //inventory.SetNeededProductsInSimulation(spnProcess.getSelectedItem().toString());
             isStarted = true;
         }
+        //inventory.SetVirtualTableToSimulate();
+        //inventory.SetVirtualTableOfProducts();
 
 //        inventory.SetVirtualTableToSimulate(); //Al parecer siempre se tiene que crear la tabla antes de cualquier movimiento
 
@@ -194,21 +206,37 @@ public class ReportSimulatorActivity extends AppCompatActivity {
         spnProcess = (Spinner) findViewById(R.id.spn_filter_process);
         spnProcess.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,spnValues));
 
+
+
         spnProcess.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, final View view, final int position, long id) {
-                Toast.makeText(getApplicationContext(),"Prioridad por: " + spnProcess.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
+
+                actualSpinnerItem = spnProcess.getSelectedItem().toString();
+
+                if (!actualSpinnerItem.equals(previousSpinerItem)) {
+                    Toast.makeText(getApplicationContext(), "Prioridad por: " + spnProcess.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+
+                    previousSpinerItem = actualSpinnerItem;
+                }
+
                 inventory.SetNeededProductsInSimulation(spnProcess.getSelectedItem().toString());
+
                 //RecyclerView
                 recyclerView = (RecyclerView) findViewById(R.id.simulated_orders_recycler_view);
                 recyclerView.setLayoutManager(new LinearLayoutManager(ReportSimulatorActivity.this));
-                simulatedOrderAdapter = new SimulatedOrderAdapter(inventory.SearchTemporaryOrdersByCriteria(spnProcess.getSelectedItem().toString()));
+                ArrayList<SimulatedOrder> listToRecyclerView= inventory.SearchTemporaryOrdersByCriteria(spnProcess.getSelectedItem().toString());
+                simulatedOrderAdapter = new SimulatedOrderAdapter(listToRecyclerView);
                 recyclerView.setAdapter(simulatedOrderAdapter);
 
 
-                simulatedOrderAdapter.SetOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+
+
+
+
+                    simulatedOrderAdapter.SetOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
 
                         /*
@@ -222,79 +250,71 @@ public class ReportSimulatorActivity extends AppCompatActivity {
 
                         Toast.makeText(getApplicationContext(),"Cliente seleccionado:" + lName + ", " + fName,Toast.LENGTH_SHORT).show();
                         */
-                        final PopupMenu pMenu = new PopupMenu(v.getContext(), v);
-                        pMenu.inflate(R.menu.menu_simulated_orders);
-                        pMenu.setGravity(Gravity.END);
-                        //pMenu.dismiss();
-                        pMenu.show();
+                            final PopupMenu pMenu = new PopupMenu(v.getContext(), v);
+                            pMenu.inflate(R.menu.menu_simulated_orders);
+                            pMenu.setGravity(Gravity.END);
+                            //pMenu.dismiss();
+                            pMenu.show();
 
-                        final int pos = recyclerView.getChildAdapterPosition(v);
+                            final int pos = recyclerView.getChildAdapterPosition(v);
 
-                        pMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                            @Override
-                            public boolean onMenuItemClick(MenuItem item) {
-                                if (inventory.orderStatus(simulatedOrderAdapter.getItemOfList(pos).getId()).equals("Cancelado")){
-                                    isCanceled = true;
-                                }
-                                else{isCanceled = false;}
-
-                                if(item.getTitle().equals("Cancelar Orden"))
-                                {
-                                    if (isCanceled) {
-                                        Toast.makeText(getApplicationContext(), "Orden " + String.valueOf(simulatedOrderAdapter.getItemOfList(pos).getId()) +", actualemente cancelada",Toast.LENGTH_SHORT).show();
+                            pMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                @Override
+                                public boolean onMenuItemClick(MenuItem item) {
+                                    if (inventory.orderStatus(simulatedOrderAdapter.getItemOfList(pos).getId()).equals("Cancelado")) {
+                                        isCanceled = true;
+                                    } else {
+                                        isCanceled = false;
                                     }
-                                    else {
+
+                                    if (item.getTitle().equals("Cancelar Orden")) {
+                                        if (isCanceled) {
+                                            Toast.makeText(getApplicationContext(), "Orden " + String.valueOf(simulatedOrderAdapter.getItemOfList(pos).getId()) + ", actualemente cancelada", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            String ord_id = String.valueOf(simulatedOrderAdapter.getItemOfList(pos).getId());
+
+                                            inventory.CancelOrderInVirtualTableContent(simulatedOrderAdapter.getItemOfList(pos).getId());
+                                            //simulatedOrderAdapter.getItemOfList(pos).setStatus("Cancelado");
+                                            Toast.makeText(getApplicationContext(), "¡Orden " + ord_id + ", Cancelada!", Toast.LENGTH_SHORT).show();
+                                            //simulatedOrderAdapter = new SimulatedOrderAdapter(inventory.SearchTemporaryOrdersByCriteria(spnProcess.getSelectedItem().toString()));
+                                            //recyclerView.setAdapter(simulatedOrderAdapter);
+                                        }
+                                        return false;
+                                    } else if (item.getTitle().equals("Confirmar Orden")) {
+
+                                        String ord_id = String.valueOf(simulatedOrderAdapter.getItemOfList(pos).getId());
+                                        Toast.makeText(getApplicationContext(), "¡Orden " + ord_id + ", Confirmada!", Toast.LENGTH_SHORT).show();
+                                        return false;
+                                    } else if (item.getTitle().equals("Detalles de la Orden")) {
+
+                                        //Intent i = new Intent(TestActivity.this, CheatActivity.class);
+                                        //i.putExtra(CheatActivity.EXTRA_QUESTION_ID, questions[counter].getResId());
+
+
                                         String ord_id = String.valueOf(simulatedOrderAdapter.getItemOfList(pos).getId());
 
-                                        inventory.CancelOrderInVirtualTableContent(simulatedOrderAdapter.getItemOfList(pos).getId());
-                                        //simulatedOrderAdapter.getItemOfList(pos).setStatus("Cancelado");
-                                        Toast.makeText(getApplicationContext(), "¡Orden " + ord_id + ", Cancelada!", Toast.LENGTH_SHORT).show();
-                                        //simulatedOrderAdapter = new SimulatedOrderAdapter(inventory.SearchTemporaryOrdersByCriteria(spnProcess.getSelectedItem().toString()));
-                                        //recyclerView.setAdapter(simulatedOrderAdapter);
+                                        Intent i = new Intent(ReportSimulatorActivity.this, ReportSimulatorNeededProductsActivity.class);
+                                        i.putExtra("OrderIdUnicoYDetergente", simulatedOrderAdapter.getItemOfList(pos).getId());
+
+                                        startActivityForResult(i, ReportSimulatorNeededProductsActivity.CODE_NEEDED_PRODUCTS);
+
+                                        Toast.makeText(getApplicationContext(), "Detalles de la orden: " + ord_id, Toast.LENGTH_SHORT).show();
+                                        return false;
+                                    } else {
+                                        return false;
                                     }
-                                    return false;
                                 }
+                            });
+                        }
+                    });
 
-                                else if(item.getTitle().equals("Confirmar Orden"))
-                                {
-
-                                    String ord_id = String.valueOf(simulatedOrderAdapter.getItemOfList(pos).getId());
-                                    Toast.makeText(getApplicationContext(), "¡Orden " + ord_id +", Confirmada!", Toast.LENGTH_SHORT).show();
-                                    return false;
-                                }
-                                else if(item.getTitle().equals("Detalles de la Orden")){
-
-                                    //Intent i = new Intent(TestActivity.this, CheatActivity.class);
-                                    //i.putExtra(CheatActivity.EXTRA_QUESTION_ID, questions[counter].getResId());
-
-
-
-
-                                    String ord_id = String.valueOf(simulatedOrderAdapter.getItemOfList(pos).getId());
-
-                                    Intent i = new Intent(ReportSimulatorActivity.this, ReportSimulatorNeededProductsActivity.class);
-                                    i.putExtra("OrderIdUnicoYDetergente",simulatedOrderAdapter.getItemOfList(pos).getId());
-
-                                    startActivityForResult(i,ReportSimulatorNeededProductsActivity.CODE_NEEDED_PRODUCTS);
-
-                                    Toast.makeText(getApplicationContext(), "Detalles de la orden: " + ord_id, Toast.LENGTH_SHORT).show();
-                                    return false;
-                                }
-
-                                else {return false;}
-                            }
-                        });
-                    }
-                });
 
             }
+                @Override
+                public void onNothingSelected (AdapterView < ? > parent){
 
+                }
 
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
         });
 
         ////////////////////////////////////
@@ -311,6 +331,8 @@ public class ReportSimulatorActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(KEY_BOOLEAN_IS_STARTED,isStarted);
+        outState.putString(KEY_STRING_PREVIOUS_SPINNER_ITEM, previousSpinerItem);
+        outState.putString(KEY_STRING_ACTUAL_SPINNER_ITEM, actualSpinnerItem);
     }
 
     @Override
@@ -321,3 +343,4 @@ public class ReportSimulatorActivity extends AppCompatActivity {
     }
 
 }
+
