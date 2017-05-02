@@ -49,8 +49,6 @@ public class Product_Activity extends AppCompatActivity implements DialogAlerta.
     int Minqty;
     boolean isSearched = false;
 
-
-
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
        SetAdapterList();
@@ -533,7 +531,7 @@ public class Product_Activity extends AppCompatActivity implements DialogAlerta.
         Inventory manager = new Inventory(getApplicationContext());
         if (resultCode == RESULT_OK) {
 
-            if(AddProductActivity.CODE_CATEGORY == manager.GetCategoryId(spnCat.getSelectedItem().toString())) {
+            if( isSearched==true  && AddProductActivity.CODE_CATEGORY == manager.GetCategoryId(spnCat.getSelectedItem().toString())) {
                 SetAdapterList();
             }
         }

@@ -46,6 +46,7 @@ public class ClientsActivity extends AppCompatActivity implements AdapterView.On
     //Agregar Enumeración enum enFilter {fName("first_name",0), lName(lN,"last_name")};
 
 
+
     private static ClientsFilters[] filterValues = {ClientsFilters.LAST_NAME, ClientsFilters.FIRST_NAME,ClientsFilters.ADDRESS,
             ClientsFilters.PHONE,ClientsFilters.E_MAIL};
     //private String[] filterValues = {cf_lN.toString(), cf_fN.toString(), cf_ad.toString(), cf_ph.toString(),cf_em.toString()};
@@ -293,17 +294,72 @@ public class ClientsActivity extends AppCompatActivity implements AdapterView.On
                 final String LD3;
                 final String N3;
 
+                if(customerAdapter.getItemOfList(AdapterPos).getPhone1()==null || customerAdapter.getItemOfList(AdapterPos).getPhone1().equals("-"))
+                {
+                    Toast.makeText(getApplicationContext(),"null1",Toast
+                    .LENGTH_SHORT).show();
+                    LD1 = null;
+                    N1 = null;
+
+                }
+
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Notnull1",Toast
+                            .LENGTH_SHORT).show();
+
+
+                    StringTokenizer ts = new StringTokenizer(customerAdapter.getItemOfList(AdapterPos).getPhone1(),"-");
+
+                    LD1 = ts.nextToken();
+                    N1 = ts.nextToken();
+
+                }
+
+                if(customerAdapter.getItemOfList(AdapterPos).getPhone2()==null || customerAdapter.getItemOfList(AdapterPos).getPhone2().equals("-"))
+                {
+                    Toast.makeText(getApplicationContext(),"null2",Toast
+                            .LENGTH_SHORT).show();
+                    LD2 = null;
+                    N2 = null;
+
+                }
+
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Notnull2",Toast
+                            .LENGTH_SHORT).show();
 
 
 
+                    StringTokenizer ts2 = new StringTokenizer(customerAdapter.getItemOfList(AdapterPos).getPhone2(),"-");
+
+                    LD2 = ts2.nextToken();
+                    N2 = ts2.nextToken();
+
+                }
+
+                if(customerAdapter.getItemOfList(AdapterPos).getPhone3()==null || customerAdapter.getItemOfList(AdapterPos).getPhone3().equals("-"))
+                {
+                    Toast.makeText(getApplicationContext(),"null",Toast
+                            .LENGTH_SHORT).show();
+                    LD3 = null;
+                    N3 = null;
+
+                }
+
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Notnull",Toast
+                            .LENGTH_SHORT).show();
 
 
-               /* StringTokenizer ts3 = new StringTokenizer(customerAdapter.getItemOfList(AdapterPos).getPhone3(),"-");
+                    StringTokenizer ts3 = new StringTokenizer(customerAdapter.getItemOfList(AdapterPos).getPhone3(),"-");
 
-                final String LD3 = ts3.nextToken();
-                final String N3 = ts3.nextToken();*/
+                    LD3 = ts3.nextToken();
+                    N3 = ts3.nextToken();
 
-
+                }
 
 
 
@@ -321,13 +377,14 @@ public class ClientsActivity extends AppCompatActivity implements AdapterView.On
                                 i.putExtra(UpdateClientActivity.EXTRA_LAST_NAME_CLIENT,LN );
                                 i.putExtra(UpdateClientActivity.EXTRA_ADDRRES_CLIENT,AD );
                                 i.putExtra(UpdateClientActivity.EXTRA_EMAIL_CLIENT,EM );
-                               // i.putExtra(UpdateClientActivity.EXTRA_LADA1,LD1);
-                                //i.putExtra(UpdateClientActivity.EXTRA_PHONE1,N1);
 
-                               /* i.putExtra(UpdateClientActivity.EXTRA_LADA2,LD2);
+                                i.putExtra(UpdateClientActivity.EXTRA_LADA1,LD1);
+                                i.putExtra(UpdateClientActivity.EXTRA_PHONE1,N1);
+
+                                i.putExtra(UpdateClientActivity.EXTRA_LADA2,LD2);
                                 i.putExtra(UpdateClientActivity.EXTRA_PHONE2,N2);
                                 i.putExtra(UpdateClientActivity.EXTRA_LADA3,LD3);
-                                i.putExtra(UpdateClientActivity.EXTRA_PHONE3,N3);*/
+                                i.putExtra(UpdateClientActivity.EXTRA_PHONE3,N3);
                                // startActivity(i);
 
                                 startActivityForResult(i,UpdateClientActivity.CODE_UPDATE_CUSTOMER);
@@ -423,12 +480,16 @@ public class ClientsActivity extends AppCompatActivity implements AdapterView.On
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
+
             Toast.makeText(getApplicationContext(),"Se agregó el producto",Toast.LENGTH_SHORT).show();
-            customerAdapter = new CustomerAdapter(inventory.searchCustomersByFilter(
-                    getIntOfClientFilter(spnFilter.getSelectedItem().toString()),
-                    String.valueOf(edtSearch.getText().toString()))
-            );
-            recyclerView.setAdapter(customerAdapter);
+
+            if(searched==true) {
+                customerAdapter = new CustomerAdapter(inventory.searchCustomersByFilter(
+                        getIntOfClientFilter(spnFilter.getSelectedItem().toString()),
+                        String.valueOf(edtSearch.getText().toString()))
+                );
+                recyclerView.setAdapter(customerAdapter);
+            }
         }
     }
 }

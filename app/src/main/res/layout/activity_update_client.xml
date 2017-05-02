@@ -131,7 +131,7 @@
         android:layout_width="64dp"
         android:layout_height="@dimen/p_nClientTopF_Size"
         android:layout_alignBaseline="@+id/etx_clientT1_b_up"
-
+        android:maxLength="3"
         android:layout_alignBottom="@+id/etx_clientT1_b_up"
         android:layout_alignStart="@+id/etx_clientT2_a_up"
         android:layout_marginLeft="@dimen/p_nClientSideF_padding"
@@ -155,7 +155,7 @@
         android:layout_width="140dp"
         android:layout_height="@dimen/p_nClientTopF_Size"
         android:layout_below="@id/etx_clientAd_up"
-
+        android:maxLength="7"
         android:layout_marginLeft="@dimen/p_nClientSideF_padding"
 
         android:layout_marginTop="@dimen/p_nClientTopF_padding"
@@ -196,7 +196,7 @@
         android:layout_height="@dimen/p_nClientTopF_Size"
         android:layout_below="@id/etx_clientT1_a_up"
         android:layout_marginLeft="@dimen/p_nClientSideF_padding"
-
+        android:maxLength="7"
         android:layout_marginTop="@dimen/p_nClientTopF_padding"
         android:layout_toRightOf="@id/etx_gap1"
 
@@ -208,7 +208,7 @@
         android:layout_width="64dp"
         android:layout_height="@dimen/p_nClientTopF_Size"
         android:layout_alignBottom="@+id/etx_gap2"
-
+        android:maxLength="3"
         android:layout_marginLeft="@dimen/p_nClientSideF_padding"
         android:layout_toStartOf="@+id/etx_clientEm_up"
         android:inputType="phone" />
@@ -233,7 +233,7 @@
         android:layout_width="64dp"
         android:layout_height="@dimen/p_nClientTopF_Size"
         android:layout_alignBaseline="@+id/etx_clientT3_b_up"
-
+        android:maxLength="3"
         android:layout_alignBottom="@+id/etx_clientT3_b_up"
         android:layout_marginLeft="@dimen/p_nClientSideF_padding"
         android:layout_toStartOf="@+id/etx_gap3"
@@ -258,6 +258,7 @@
         android:layout_width="140dp"
         android:layout_height="@dimen/p_nClientTopF_Size"
         android:layout_below="@id/etx_clientT2_a_up"
+        android:maxLength="7"
         android:layout_marginLeft="@dimen/p_nClientSideF_padding"
         android:layout_marginTop="@dimen/p_nClientTopF_padding"
         android:layout_toRightOf="@id/etx_gap1"

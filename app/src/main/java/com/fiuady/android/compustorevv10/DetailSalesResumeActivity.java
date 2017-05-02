@@ -15,7 +15,7 @@ import static com.fiuady.android.compustorevv10.DetailsPerOrderActivity.EXTRA_A�
 import static com.fiuady.android.compustorevv10.DetailsPerOrderActivity.EXTRA_Position_A;
 
 public class DetailSalesResumeActivity extends AppCompatActivity {
-/*
+
     public static final String EXTRA_Position = "com.fiuady.android.compustorevv10.AdapterPosition";
     public static final String EXTRA_AÑO = "com.fiuady.android.compustorevv10.Año";
     private RecyclerView rv;
@@ -38,8 +38,8 @@ public class DetailSalesResumeActivity extends AppCompatActivity {
 
         final Intent i = getIntent();
 
-          Mes= i.getIntExtra(EXTRA_Position,0);
-         año= i.getStringExtra(EXTRA_AÑO);
+        Mes= i.getIntExtra(EXTRA_Position,0);
+        año= i.getStringExtra(EXTRA_AÑO);
 
 
         txtPrecio.setText(String.valueOf(Mes));
@@ -71,5 +71,4 @@ public class DetailSalesResumeActivity extends AppCompatActivity {
 
 
     }
-    */
 }

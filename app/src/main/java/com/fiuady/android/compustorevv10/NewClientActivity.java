@@ -70,7 +70,7 @@ public class NewClientActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Toast.makeText(NewClientActivity.this, "¡Acción Cancelada!", Toast.LENGTH_SHORT).show();
-                setResult(RESULT_OK);
+
                 finish();
             }
         });
